@@ -360,6 +360,33 @@
     }
     @media (max-width:520px){
       .tablewrap{max-height: 420px;}
+
+    /* Skill-Liste: klarere Kategorie-Tags (semantische Klassen) */
+    .tablewrap .tag{
+      font-weight:700;
+      letter-spacing:.2px;
+      text-transform:uppercase;
+      min-width:78px;
+      justify-content:center;
+    }
+    .tablewrap .tag.st{border-color:rgba(119,167,255,30); background: rgba(119,167,255,10); color: rgba(234,240,255,92);}
+    .tablewrap .tag.aoe{border-color:rgba(102,227,163,28); background: rgba(102,227,163,10); color: rgba(234,240,255,92);}
+    .tablewrap .tag.def{border-color:rgba(255,211,106,28); background: rgba(255,211,106,10); color: rgba(234,240,255,92);}
+    .tablewrap .tag.burst{border-color:rgba(255,211,106,28); background: rgba(255,211,106,10); color: rgba(234,240,255,92);}
+    .tablewrap .tag.heal{border-color:rgba(102,227,163,28); background: rgba(102,227,163,10); color: rgba(234,240,255,92);}
+    .tablewrap .tag.stance{border-color:rgba(102,227,163,28); background: rgba(102,227,163,10); color: rgba(234,240,255,92);}
+    .tablewrap .tag.util,
+    .tablewrap .tag.range,
+    .tablewrap .tag.gauge,
+    .tablewrap .tag.party,
+    .tablewrap .tag.ogcd,
+    .tablewrap .tag.mobility,
+    .tablewrap .tag.emerg{
+      border-color:rgba(255,255,255,16);
+      background: rgba(255,255,255,06);
+      color: rgba(234,240,255,86);
+    }
+
       .tablewrap table{min-width: 640px;}
     }
 
@@ -665,18 +692,19 @@
           <strong>So nutzt du diese Liste (Anfänger):</strong>
           Öffne nur den Block, der zu deinem Level passt. Du musst nicht alles auf einmal lesen.
           <div class="row" style="margin-top:8px;">
-            <span class="tag">ST</span>
-            <span class="tag">AoE</span>
-            <span class="tag warn">Burst</span>
-            <span class="tag warn">Def</span>
+            <span class="tag st">ST</span>
+            <span class="tag aoe">AoE</span>
+            <span class="tag warn burst">Burst</span>
+            <span class="tag warn def">Def</span>
             <span class="tag ok">Haltung/Heal</span>
-            <span class="tag">Utility</span>
+            <span class="tag util">Utility</span>
           </div>
         </div>
 
         <details open>
           <summary>Level 1–15: Start, Haltung, erste AoE</summary>
           <div class="hr"></div>
+          <p class="sub" style="margin:0 0 10px; color:var(--muted); font-size:13px;">Hier bekommst du deine Grundlagen: <b>Tank-Haltung</b>, ersten <b>Ranged Pull</b> und deine erste <b>AoE</b>. Wenn du neu bist: Das ist der wichtigste Block, weil er deine “Tank-Routine” startet.</p>
           <div class="tablewrap">
 <table aria-label="Skill Freischaltliste 1-15">
             <thead>
@@ -688,7 +716,7 @@
             </tr>
           </thead>
             <tbody>
-              <tr><td class="mono">1</td><td><b>Gewaltiger Hieb</b></td><td><span class="tag">ST</span></td><td>Kombo-Start. Dein Standard-GCD.</td></tr><tr><td class="mono">4</td><td><b>Verstümmelung</b></td><td><span class="tag">ST</span></td><td>Kombo-2. Baut Urkraft auf.</td></tr><tr><td class="mono">6</td><td><b>Tollwut</b></td><td><span class="tag warn">Burst</span></td><td>Gibt dir garantierte direkte+kritische Treffer für die nächsten Waffenfertigkeiten; später als Burst-Taste genutzt.</td></tr><tr><td class="mono">10</td><td><b>Kahlrodung</b></td><td><span class="tag">AoE</span></td><td>AoE-Start. In Trash immer wichtig.</td></tr><tr><td class="mono">10</td><td><b>Verteidiger</b></td><td><span class="tag ok">Haltung</span></td><td>Tank-Haltung (Aggro halten). Beim Tanken: anlassen.</td></tr><tr><td class="mono">10</td><td><b>Bruch des Verteidigers</b></td><td><span class="tag">Haltung</span></td><td>Schaltet Verteidiger aus (praktisch fast nie nötig).</td></tr><tr><td class="mono">15</td><td><b>Tomahawk</b></td><td><span class="tag">Range</span></td><td>Ranged Pull / wenn du nicht dran bist.</td></tr>
+              <tr><td class="mono">1</td><td><b>Gewaltiger Hieb</b></td><td><span class="tag st">ST</span></td><td>Kombo-Start. Dein Standard-GCD.</td></tr><tr><td class="mono">4</td><td><b>Verstümmelung</b></td><td><span class="tag st">ST</span></td><td>Kombo-2. Baut Urkraft auf.</td></tr><tr><td class="mono">6</td><td><b>Tollwut</b></td><td><span class="tag warn burst">Burst</span></td><td>Gibt dir garantierte direkte+kritische Treffer für die nächsten Waffenfertigkeiten; später als Burst-Taste genutzt.</td></tr><tr><td class="mono">10</td><td><b>Kahlrodung</b></td><td><span class="tag aoe">AoE</span></td><td>AoE-Start. In Trash immer wichtig.</td></tr><tr><td class="mono">10</td><td><b>Verteidiger</b></td><td><span class="tag ok stance">Haltung</span></td><td>Tank-Haltung (Aggro halten). Beim Tanken: anlassen.</td></tr><tr><td class="mono">10</td><td><b>Bruch des Verteidigers</b></td><td><span class="tag stance">Haltung</span></td><td>Schaltet Verteidiger aus (praktisch fast nie nötig).</td></tr><tr><td class="mono">15</td><td><b>Tomahawk</b></td><td><span class="tag range">Range</span></td><td>Ranged Pull / wenn du nicht dran bist.</td></tr>
             </tbody>
           </table>
 </div>
@@ -698,6 +726,7 @@
         <details>
           <summary>Level 16–30: Pull-Werkzeuge & erste Kombo-Finisher</summary>
           <div class="hr"></div>
+          <p class="sub" style="margin:0 0 10px; color:var(--muted); font-size:13px;">In diesem Bereich wird deine <b>Single-Target-Kombo</b> komplett und du bekommst Tools, um Kämpfe sauber zu eröffnen. Merke dir: <b>Boss = ST-Kombo</b>, Trash = AoE (sobald vorhanden).</p>
           <div class="tablewrap">
 <table aria-label="Skill Freischaltliste 16-30">
             <thead>
@@ -709,7 +738,7 @@
             </tr>
           </thead>
             <tbody>
-              <tr><td class="mono">26</td><td><b>Sturmkeil</b></td><td><span class="tag">ST</span></td><td>ST-Finisher mit Selbstheilung. Sehr solo-freundlich.</td></tr><tr><td class="mono">30</td><td><b>Kampfrausch</b></td><td><span class="tag ok">Def</span></td><td>Max-HP hoch + Heilbonus. Für große Pulls / Boss-Buster.</td></tr><tr><td class="mono">30</td><td><b>Job freischalten</b>: <b>Krieger</b></td><td><span class="tag ok">Quest</span></td><td>Ab hier bekommst du Krieger-Skills via Jobquests.</td></tr>
+              <tr><td class="mono">26</td><td><b>Sturmkeil</b></td><td><span class="tag st">ST</span></td><td>ST-Finisher mit Selbstheilung. Sehr solo-freundlich.</td></tr><tr><td class="mono">30</td><td><b>Kampfrausch</b></td><td><span class="tag ok def">Def</span></td><td>Max-HP hoch + Heilbonus. Für große Pulls / Boss-Buster.</td></tr><tr><td class="mono">30</td><td><b>Job freischalten</b>: <b>Krieger</b></td><td><span class="tag ok">Quest</span></td><td>Ab hier bekommst du Krieger-Skills via Jobquests.</td></tr>
             </tbody>
           </table>
 </div>
@@ -719,6 +748,7 @@
         <details>
           <summary>Level 31–50: Urkraft kommt, Krieger fühlt sich „richtig“ an</summary>
           <div class="hr"></div>
+          <p class="sub" style="margin:0 0 10px; color:var(--muted); font-size:13px;">Ab hier kommt das typische Krieger-Gefühl: <b>Urkraft</b> (Gauge) und erste echte “große Buttons”. Du lernst: Gauge aufbauen → für starke Treffer ausgeben.</p>
           <div class="tablewrap">
 <table aria-label="Skill Freischaltliste 31-50">
             <thead>
@@ -730,7 +760,7 @@
             </tr>
           </thead>
             <tbody>
-              <tr><td class="mono">35</td><td><b>Tier in dir</b></td><td><span class="tag warn">Beast</span></td><td>Erster Urkraft-Spender (50 Gauge). “Fetter Hit”.</td></tr><tr><td class="mono">38</td><td><b>Rachsucht</b></td><td><span class="tag ok">Def</span></td><td>Sehr starkes Def-CD für große Pulls / Tankbuster.</td></tr><tr><td class="mono">40</td><td><b>Mithril-Gewitter</b></td><td><span class="tag">AoE</span></td><td>AoE-Kombo 2, gibt “Tosender Sturm” (Schadensbuff).</td></tr><tr><td class="mono">42</td><td><b>Holmgang</b></td><td><span class="tag bad">Notfall</span></td><td>Du fällst nicht unter 1 HP (kurz). Notfall-Knopf.</td></tr><tr><td class="mono">45</td><td><b>Kreiselklinge</b></td><td><span class="tag">AoE</span></td><td>Beast-AoE-Spender (frühe Variante).</td></tr><tr><td class="mono">50</td><td><b>Sturmbrecher</b></td><td><span class="tag">ST</span></td><td>ST-Finisher, gibt/verlängert “Tosender Sturm” + Gauge.</td></tr><tr><td class="mono">50</td><td><b>Schlachtruf</b></td><td><span class="tag warn">Beast</span></td><td>Füllt Urkraft + gibt “Saat des Chaos” (Upgrades für Spender).</td></tr>
+              <tr><td class="mono">35</td><td><b>Tier in dir</b></td><td><span class="tag warn">Beast</span></td><td>Erster Urkraft-Spender (50 Gauge). “Fetter Hit”.</td></tr><tr><td class="mono">38</td><td><b>Rachsucht</b></td><td><span class="tag ok def">Def</span></td><td>Sehr starkes Def-CD für große Pulls / Tankbuster.</td></tr><tr><td class="mono">40</td><td><b>Mithril-Gewitter</b></td><td><span class="tag aoe">AoE</span></td><td>AoE-Kombo 2, gibt “Tosender Sturm” (Schadensbuff).</td></tr><tr><td class="mono">42</td><td><b>Holmgang</b></td><td><span class="tag bad emerg">Notfall</span></td><td>Du fällst nicht unter 1 HP (kurz). Notfall-Knopf.</td></tr><tr><td class="mono">45</td><td><b>Kreiselklinge</b></td><td><span class="tag aoe">AoE</span></td><td>Beast-AoE-Spender (frühe Variante).</td></tr><tr><td class="mono">50</td><td><b>Sturmbrecher</b></td><td><span class="tag st">ST</span></td><td>ST-Finisher, gibt/verlängert “Tosender Sturm” + Gauge.</td></tr><tr><td class="mono">50</td><td><b>Schlachtruf</b></td><td><span class="tag warn">Beast</span></td><td>Füllt Urkraft + gibt “Saat des Chaos” (Upgrades für Spender).</td></tr>
             </tbody>
           </table>
 </div>
@@ -740,6 +770,7 @@
         <details>
           <summary>Level 51–70: Spender, Kern-Burst & starke Defensivs</summary>
           <div class="hr"></div>
+          <p class="sub" style="margin:0 0 10px; color:var(--muted); font-size:13px;">Jetzt bekommst du deinen Kern-Flow: <b>Spender</b> (für Urkraft), <b>Burst-Fenster</b> und sehr starke Defensivs. Das ist der Abschnitt, in dem große Pulls deutlich leichter werden.</p>
           <div class="tablewrap">
 <table aria-label="Skill Freischaltliste 51-70">
             <thead>
@@ -751,7 +782,7 @@
             </tr>
           </thead>
             <tbody>
-              <tr><td class="mono">54</td><td><b>Niedermähen</b></td><td><span class="tag warn">Beast</span></td><td>ST-Beast-Spender (später durch Procs Upgrades).</td></tr><tr><td class="mono">56</td><td><b>Urinstinkt</b></td><td><span class="tag ok">Def/Heal</span></td><td>Mitigation + Heilung pro Waffenfertigkeit (stark in Pulls).</td></tr><tr><td class="mono">58</td><td><b>Äquilibrium</b></td><td><span class="tag ok">Heal</span></td><td>Großer Self-Heal (später mit Regen).</td></tr><tr><td class="mono">60</td><td><b>Dezimieren</b></td><td><span class="tag warn">Beast</span></td><td>AoE-Beast-Spender (wird dein Standard-AoE-Spender).</td></tr><tr><td class="mono">62</td><td><b>Sturmlauf</b></td><td><span class="tag">Mobility</span></td><td>Gap-Closer (Charges). Super im Dungeon-Tempo.</td></tr><tr><td class="mono">64</td><td><b>Umsturz</b></td><td><span class="tag">oGCD</span></td><td>Off-GCD Schaden (teilen sich Timer mit Orogenese).</td></tr><tr><td class="mono">68</td><td><b>Abschütteln</b></td><td><span class="tag ok">Party</span></td><td>Schild + später Regen. Sehr stark in großen Pulls.</td></tr><tr><td class="mono">70</td><td><b>Urbefreiung</b></td><td><span class="tag warn">Burst</span></td><td>Dein großer Burst-Button (3 “freie” Spender + Extras).</td></tr>
+              <tr><td class="mono">54</td><td><b>Niedermähen</b></td><td><span class="tag warn">Beast</span></td><td>ST-Beast-Spender (später durch Procs Upgrades).</td></tr><tr><td class="mono">56</td><td><b>Urinstinkt</b></td><td><span class="tag ok">Def/Heal</span></td><td>Mitigation + Heilung pro Waffenfertigkeit (stark in Pulls).</td></tr><tr><td class="mono">58</td><td><b>Äquilibrium</b></td><td><span class="tag ok heal">Heal</span></td><td>Großer Self-Heal (später mit Regen).</td></tr><tr><td class="mono">60</td><td><b>Dezimieren</b></td><td><span class="tag warn">Beast</span></td><td>AoE-Beast-Spender (wird dein Standard-AoE-Spender).</td></tr><tr><td class="mono">62</td><td><b>Sturmlauf</b></td><td><span class="tag mobility">Mobility</span></td><td>Gap-Closer (Charges). Super im Dungeon-Tempo.</td></tr><tr><td class="mono">64</td><td><b>Umsturz</b></td><td><span class="tag ogcd">oGCD</span></td><td>Off-GCD Schaden (teilen sich Timer mit Orogenese).</td></tr><tr><td class="mono">68</td><td><b>Abschütteln</b></td><td><span class="tag ok party">Party</span></td><td>Schild + später Regen. Sehr stark in großen Pulls.</td></tr><tr><td class="mono">70</td><td><b>Urbefreiung</b></td><td><span class="tag warn burst">Burst</span></td><td>Dein großer Burst-Button (3 “freie” Spender + Extras).</td></tr>
             </tbody>
           </table>
 </div>
@@ -761,6 +792,7 @@
         <details>
           <summary>Level 71–90: oGCDs, Sustain & Endgame-Flow baut sich auf</summary>
           <div class="hr"></div>
+          <p class="sub" style="margin:0 0 10px; color:var(--muted); font-size:13px;">Hier kommen mehr <b>oGCD-Schaden</b> und viel <b>Sustain</b> dazu. Du fühlst dich zunehmend “unkaputtbar”, wenn du Defensivs früh nutzt.</p>
           <div class="tablewrap">
 <table aria-label="Skill Freischaltliste 71-90">
             <thead>
@@ -772,7 +804,7 @@
             </tr>
           </thead>
             <tbody>
-              <tr><td class="mono">72</td><td><b>Chaosklinge</b></td><td><span class="tag warn">Beast</span></td><td>AoE-Upgrade bei “Saat des Chaos” (krit+direkt).</td></tr><tr><td class="mono">76</td><td><b>Urflackern</b></td><td><span class="tag ok">Support</span></td><td>Gibt dir/Partner Heilung pro GCD + Schadenreduktion (Partner).</td></tr><tr><td class="mono">80</td><td><b>Inneres Chaos</b></td><td><span class="tag warn">Beast</span></td><td>ST-Upgrade bei “Saat des Chaos” (krit+direkt).</td></tr><tr><td class="mono">82</td><td><b>Urimpuls</b></td><td><span class="tag ok">Def/Heal</span></td><td>Upgrade-Def (mehr Dauer/Schutz), teilt Timer mit Urflackern.</td></tr><tr><td class="mono">86</td><td><b>Orogenese</b></td><td><span class="tag">oGCD</span></td><td>AoE-oGCD Schaden (Timer mit Umsturz).</td></tr><tr><td class="mono">90</td><td><b>Brachiale Gewalt</b></td><td><span class="tag warn">Burst</span></td><td>Starker Burst-Hit, wird durch Urbefreiung “freigeschaltet”.</td></tr>
+              <tr><td class="mono">72</td><td><b>Chaosklinge</b></td><td><span class="tag warn">Beast</span></td><td>AoE-Upgrade bei “Saat des Chaos” (krit+direkt).</td></tr><tr><td class="mono">76</td><td><b>Urflackern</b></td><td><span class="tag ok">Support</span></td><td>Gibt dir/Partner Heilung pro GCD + Schadenreduktion (Partner).</td></tr><tr><td class="mono">80</td><td><b>Inneres Chaos</b></td><td><span class="tag warn">Beast</span></td><td>ST-Upgrade bei “Saat des Chaos” (krit+direkt).</td></tr><tr><td class="mono">82</td><td><b>Urimpuls</b></td><td><span class="tag ok">Def/Heal</span></td><td>Upgrade-Def (mehr Dauer/Schutz), teilt Timer mit Urflackern.</td></tr><tr><td class="mono">86</td><td><b>Orogenese</b></td><td><span class="tag ogcd">oGCD</span></td><td>AoE-oGCD Schaden (Timer mit Umsturz).</td></tr><tr><td class="mono">90</td><td><b>Brachiale Gewalt</b></td><td><span class="tag warn burst">Burst</span></td><td>Starker Burst-Hit, wird durch Urbefreiung “freigeschaltet”.</td></tr>
             </tbody>
           </table>
 </div>
@@ -782,6 +814,7 @@
         <details>
           <summary>Level 91–100: Dawntrail-Ende – Finish & Follow-Ups</summary>
           <div class="hr"></div>
+          <p class="sub" style="margin:0 0 10px; color:var(--muted); font-size:13px;">Letzter Feinschliff: starke Finish-Buttons und Follow-Ups für deinen Burst. Wenn du bis hier gekommen bist, bist du bereit für Endgame-Grundlagen.</p>
           <div class="tablewrap">
 <table aria-label="Skill Freischaltliste 91-100">
             <thead>
@@ -793,7 +826,7 @@
             </tr>
           </thead>
             <tbody>
-              <tr><td class="mono">100</td><td><b>Ruinator</b></td><td><span class="tag warn">Burst</span></td><td>Follow-Up nach Brachiale Gewalt (dein Level-100 Abschluss).</td></tr>
+              <tr><td class="mono">100</td><td><b>Ruinator</b></td><td><span class="tag warn burst">Burst</span></td><td>Follow-Up nach Brachiale Gewalt (dein Level-100 Abschluss).</td></tr>
             </tbody>
           </table>
 </div>
