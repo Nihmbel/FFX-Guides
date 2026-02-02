@@ -1,0 +1,45 @@
+:root{
+  --bg:#0b0f14; --panel:#111826; --panel2:#0f1623;
+  --text:#e8eef7; --muted:#a9b4c4; --border:rgba(255,255,255,.08);
+  --accent:#7dd3fc; --radius:16px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text);line-height:1.35}
+a{color:var(--accent);text-decoration:none}
+header{position:sticky;top:0;background:rgba(11,15,20,.85);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);z-index:50}
+.wrap{max-width:1100px;margin:0 auto;padding:14px 16px}
+.toprow{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+h1{font-size:18px;margin:0}
+.sub{color:var(--muted);font-size:12px;margin:6px 0 0}
+.version{margin-left:auto;color:var(--muted);font-size:12px}
+.lang a{padding:6px 10px;border:1px solid var(--border);border-radius:999px;color:var(--text)}
+.lang a.active{border-color:rgba(125,211,252,.35)}
+
+main{max-width:1100px;margin:0 auto;padding:16px}
+.grid{display:grid;grid-template-columns:260px 1fr;gap:14px;align-items:start}
+@media (max-width: 980px){ .grid{grid-template-columns:1fr} }
+
+nav{border:1px solid var(--border);border-radius:var(--radius);background:rgba(17,24,38,.55);overflow:hidden}
+/* Tablet/Handy: NICHT sticky, damit nichts überdeckt */
+@media (max-width: 980px){ nav{position:static!important} }
+@media (min-width: 981px){ nav{position:sticky;top:86px} }
+
+.navHead{padding:12px;border-bottom:1px solid var(--border);color:var(--muted);font-size:12px}
+.navList{display:grid;gap:6px;padding:10px}
+.navList a{padding:10px;border-radius:12px;background:rgba(15,22,35,.35);border:1px solid transparent;color:var(--text)}
+.navList a:hover{border-color:rgba(125,211,252,.25)}
+
+.card{border:1px solid var(--border);border-radius:var(--radius);background:rgba(17,24,38,.55);overflow:hidden;margin-bottom:14px}
+.cardHeader{padding:14px 16px;border-bottom:1px solid var(--border);background:rgba(15,22,35,.55)}
+.cardHeader h2{margin:0;font-size:16px}
+.cardBody{padding:14px 16px}
+
+.rot{font-family:ui-monospace, Menlo, Consolas, monospace;background:rgba(0,0,0,.25);
+  border:1px solid var(--border);padding:10px;border-radius:12px;white-space:pre-wrap}
+.skill{font-weight:700}
+.hero{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+@media (max-width: 720px){ .hero{grid-template-columns:1fr} }
+.bigbtn{display:block;padding:14px 12px;border:1px solid var(--border);border-radius:14px;background:rgba(17,24,38,.55);color:var(--text)}
+.bigbtn:hover{border-color:rgba(125,211,252,.35)}
+.note{color:var(--muted);font-size:12px;margin-top:10px}
