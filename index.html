@@ -51,13 +51,18 @@
     @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
 
     nav{
-      position:sticky; top:86px;
-      border:1px solid var(--border);
-      background:rgba(17,24,38,.55);
-      border-radius:var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
+        position:relative; /* Standard: NICHT sticky */
+        top:auto;
+      }
+      
+      /* Sticky Navigation NUR auf großen Screens */
+      @media (min-width: 1024px){
+        nav{
+          position:sticky;
+          top:86px;
+        }
+      }
+
     .navHead{padding:14px 14px 10px; border-bottom:1px solid var(--border)}
     .navHead .small{color:var(--muted); font-size:12px}
     .navList{padding:8px; display:grid; gap:6px}
