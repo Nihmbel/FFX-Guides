@@ -550,6 +550,40 @@
       color: inherit;
     }
 
+
+    /* Neue Skills Listen (Rotation-Abschnitte) */
+    .skills-new{
+      margin: 8px 0 10px;
+      padding-left: 18px;
+    }
+    .skills-new li{
+      margin: 6px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .skills-new b{color: var(--text);}
+
+
+    /* Lernpfad-Extras: Hotbar-Update & Fokus */
+    .learn-extra{
+      margin:10px 0 0;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,0.04);
+    }
+    .learn-extra h5{
+      margin:0 0 6px;
+      font-size:13px;
+      letter-spacing:.2px;
+      color:var(--text);
+    }
+    .learn-extra p{
+      margin:4px 0;
+      font-size:13px;
+      color:var(--muted);
+    }
+
 </style>
 </head>
 
@@ -576,8 +610,7 @@
         <h2>Navigation</h2>
         <a href="#start" class="jump">Start & Grundprinzipien<small>Was du wirklich brauchst (Anfänger)</small></a>
         <a href="#hotbars" class="jump">Hotbars & Tastenbelegung<small>1–4 + STRG-Mod (simpel)</small></a>
-        <a href="#skills" class="jump">Skill-Freischaltliste (DE)<small>Level 1–100, kompakt</small></a>
-        <a href="#rotations" class="jump">Rotation & Prioritäten 1–100<small>Abschnitt für Abschnitt</small></a>
+<a href="#rotations" class="jump">Rotation & Prioritäten 1–100<small>Abschnitt für Abschnitt</small></a>
         <a href="#aoe" class="jump">AoE vs. Single Target<small>Wann umschalten & warum</small></a>
         <a href="#pulls" class="jump">Dungeon-Pulls (Trust/Solo)<small>Defensiv-Rotation & Rhythmus</small></a>
         <a href="#gear" class="jump">Gear während des Levelns<small>Wann lohnt Farmen?</small></a>
@@ -628,7 +661,7 @@
           <div class="card">
             <h3>Wie du diesen Guide benutzt (ohne Überforderung)</h3>
             <p>
-              Du bekommst gleich eine <b>Skill-Freischaltliste</b> (Level→Skill) und danach die <b>Rotation in Abschnitten</b>.
+              Du bekommst gleich die <b>Rotation in Abschnitten</b> – und darin jeweils die <b>neuen Skills</b> passend zu deinem Level.
               Jeder Abschnitt sagt dir:
             </p>
             <ul>
@@ -712,166 +745,8 @@
       </section>
 
       <!-- Skills -->
-      <section class="section anchor" id="skills">
-        <h2>Skill-Freischaltliste (DE, Level 1–100)</h2>
-        <p class="sub">
-          Das ist die kompakte “Was kommt wann?”-Liste (Marodeur + Krieger). Fokus: PvE-Skills, die du im Leveln wirklich benutzt.
-          (Einige Einträge sind Jobquests/Gildenquests, wie im offiziellen Job-Guide markiert.)
-        </p>
 
-        
-        <div class="callout" style="margin-bottom:12px;">
-          <strong>So nutzt du diese Liste (Anfänger):</strong>
-          Öffne nur den Block, der zu deinem Level passt. Du musst nicht alles auf einmal lesen.
-          <div class="row" style="margin-top:8px;">
-            <span class="tag st">ST</span>
-            <span class="tag aoe">AoE</span>
-            <span class="tag warn burst">Burst</span>
-            <span class="tag warn def">Def</span>
-            <span class="tag ok">Haltung/Heal</span>
-            <span class="tag util">Utility</span>
-          </div>
-        </div>
-
-        <details open>
-          <summary>Level 1–15: Start, Haltung, erste AoE</summary>
-          <div class="hr"></div>
-          <p class="sub" style="margin:0 0 10px; color:var(--muted); font-size:13px;">Hier bekommst du deine Grundlagen: <b>Tank-Haltung</b>, ersten <b>Ranged Pull</b> und deine erste <b>AoE</b>. Wenn du neu bist: Das ist der wichtigste Block, weil er deine “Tank-Routine” startet.</p>
-          <div class="tablewrap">
-<table aria-label="Skill Freischaltliste 1-15">
-            <thead>
-            <tr>
-              <th style="width:80px;">Level</th>
-              <th>Skill (DE)</th>
-              <th style="width:170px;">Kategorie</th>
-              <th>Wofür ist das?</th>
-            </tr>
-          </thead>
-            <tbody>
-              <tr><td class="mono">1</td><td><b>Gewaltiger Hieb</b></td><td><span class="tag st">ST</span></td><td>Kombo-Start. Dein Standard-GCD.</td></tr><tr><td class="mono">4</td><td><b>Verstümmelung</b></td><td><span class="tag st">ST</span></td><td>Kombo-2. Baut Urkraft auf.</td></tr><tr><td class="mono">6</td><td><b>Tollwut</b></td><td><span class="tag warn burst">Burst</span></td><td>Gibt dir garantierte direkte+kritische Treffer für die nächsten Waffenfertigkeiten; später als Burst-Taste genutzt.</td></tr><tr><td class="mono">10</td><td><b>Kahlrodung</b></td><td><span class="tag aoe">AoE</span></td><td>AoE-Start. In Trash immer wichtig.</td></tr><tr><td class="mono">10</td><td><b>Verteidiger</b></td><td><span class="tag ok stance">Haltung</span></td><td>Tank-Haltung (Aggro halten). Beim Tanken: anlassen.</td></tr><tr><td class="mono">10</td><td><b>Bruch des Verteidigers</b></td><td><span class="tag stance">Haltung</span></td><td>Schaltet Verteidiger aus (praktisch fast nie nötig).</td></tr><tr><td class="mono">15</td><td><b>Tomahawk</b></td><td><span class="tag range">Range</span></td><td>Ranged Pull / wenn du nicht dran bist.</td></tr>
-            </tbody>
-          </table>
-</div>
-        </details>
-    
-
-        <details>
-          <summary>Level 16–30: Pull-Werkzeuge & erste Kombo-Finisher</summary>
-          <div class="hr"></div>
-          <p class="sub" style="margin:0 0 10px; color:var(--muted); font-size:13px;">In diesem Bereich wird deine <b>Single-Target-Kombo</b> komplett und du bekommst Tools, um Kämpfe sauber zu eröffnen. Merke dir: <b>Boss = ST-Kombo</b>, Trash = AoE (sobald vorhanden).</p>
-          <div class="tablewrap">
-<table aria-label="Skill Freischaltliste 16-30">
-            <thead>
-            <tr>
-              <th style="width:80px;">Level</th>
-              <th>Skill (DE)</th>
-              <th style="width:170px;">Kategorie</th>
-              <th>Wofür ist das?</th>
-            </tr>
-          </thead>
-            <tbody>
-              <tr><td class="mono">26</td><td><b>Sturmkeil</b></td><td><span class="tag st">ST</span></td><td>ST-Finisher mit Selbstheilung. Sehr solo-freundlich.</td></tr><tr><td class="mono">30</td><td><b>Kampfrausch</b></td><td><span class="tag ok def">Def</span></td><td>Max-HP hoch + Heilbonus. Für große Pulls / Boss-Buster.</td></tr><tr><td class="mono">30</td><td><b>Job freischalten</b>: <b>Krieger</b></td><td><span class="tag ok">Quest</span></td><td>Ab hier bekommst du Krieger-Skills via Jobquests.</td></tr>
-            </tbody>
-          </table>
-</div>
-        </details>
-    
-
-        <details>
-          <summary>Level 31–50: Urkraft kommt, Krieger fühlt sich „richtig“ an</summary>
-          <div class="hr"></div>
-          <p class="sub" style="margin:0 0 10px; color:var(--muted); font-size:13px;">Ab hier kommt das typische Krieger-Gefühl: <b>Urkraft</b> (Gauge) und erste echte “große Buttons”. Du lernst: Gauge aufbauen → für starke Treffer ausgeben.</p>
-          <div class="tablewrap">
-<table aria-label="Skill Freischaltliste 31-50">
-            <thead>
-            <tr>
-              <th style="width:80px;">Level</th>
-              <th>Skill (DE)</th>
-              <th style="width:170px;">Kategorie</th>
-              <th>Wofür ist das?</th>
-            </tr>
-          </thead>
-            <tbody>
-              <tr><td class="mono">35</td><td><b>Tier in dir</b></td><td><span class="tag warn">Beast</span></td><td>Erster Urkraft-Spender (50 Gauge). “Fetter Hit”.</td></tr><tr><td class="mono">38</td><td><b>Rachsucht</b></td><td><span class="tag ok def">Def</span></td><td>Sehr starkes Def-CD für große Pulls / Tankbuster.</td></tr><tr><td class="mono">40</td><td><b>Mithril-Gewitter</b></td><td><span class="tag aoe">AoE</span></td><td>AoE-Kombo 2, gibt “Tosender Sturm” (Schadensbuff).</td></tr><tr><td class="mono">42</td><td><b>Holmgang</b></td><td><span class="tag bad emerg">Notfall</span></td><td>Du fällst nicht unter 1 HP (kurz). Notfall-Knopf.</td></tr><tr><td class="mono">45</td><td><b>Kreiselklinge</b></td><td><span class="tag aoe">AoE</span></td><td>Beast-AoE-Spender (frühe Variante).</td></tr><tr><td class="mono">50</td><td><b>Sturmbrecher</b></td><td><span class="tag st">ST</span></td><td>ST-Finisher, gibt/verlängert “Tosender Sturm” + Gauge.</td></tr><tr><td class="mono">50</td><td><b>Schlachtruf</b></td><td><span class="tag warn">Beast</span></td><td>Füllt Urkraft + gibt “Saat des Chaos” (Upgrades für Spender).</td></tr>
-            </tbody>
-          </table>
-</div>
-        </details>
-    
-
-        <details>
-          <summary>Level 51–70: Spender, Kern-Burst & starke Defensivs</summary>
-          <div class="hr"></div>
-          <p class="sub" style="margin:0 0 10px; color:var(--muted); font-size:13px;">Jetzt bekommst du deinen Kern-Flow: <b>Spender</b> (für Urkraft), <b>Burst-Fenster</b> und sehr starke Defensivs. Das ist der Abschnitt, in dem große Pulls deutlich leichter werden.</p>
-          <div class="tablewrap">
-<table aria-label="Skill Freischaltliste 51-70">
-            <thead>
-            <tr>
-              <th style="width:80px;">Level</th>
-              <th>Skill (DE)</th>
-              <th style="width:170px;">Kategorie</th>
-              <th>Wofür ist das?</th>
-            </tr>
-          </thead>
-            <tbody>
-              <tr><td class="mono">54</td><td><b>Niedermähen</b></td><td><span class="tag warn">Beast</span></td><td>ST-Beast-Spender (später durch Procs Upgrades).</td></tr><tr><td class="mono">56</td><td><b>Urinstinkt</b></td><td><span class="tag ok">Def/Heal</span></td><td>Mitigation + Heilung pro Waffenfertigkeit (stark in Pulls).</td></tr><tr><td class="mono">58</td><td><b>Äquilibrium</b></td><td><span class="tag ok heal">Heal</span></td><td>Großer Self-Heal (später mit Regen).</td></tr><tr><td class="mono">60</td><td><b>Dezimieren</b></td><td><span class="tag warn">Beast</span></td><td>AoE-Beast-Spender (wird dein Standard-AoE-Spender).</td></tr><tr><td class="mono">62</td><td><b>Sturmlauf</b></td><td><span class="tag mobility">Mobility</span></td><td>Gap-Closer (Charges). Super im Dungeon-Tempo.</td></tr><tr><td class="mono">64</td><td><b>Umsturz</b></td><td><span class="tag ogcd">oGCD</span></td><td>Off-GCD Schaden (teilen sich Timer mit Orogenese).</td></tr><tr><td class="mono">68</td><td><b>Abschütteln</b></td><td><span class="tag ok party">Party</span></td><td>Schild + später Regen. Sehr stark in großen Pulls.</td></tr><tr><td class="mono">70</td><td><b>Urbefreiung</b></td><td><span class="tag warn burst">Burst</span></td><td>Dein großer Burst-Button (3 “freie” Spender + Extras).</td></tr>
-            </tbody>
-          </table>
-</div>
-        </details>
-    
-
-        <details>
-          <summary>Level 71–90: oGCDs, Sustain & Endgame-Flow baut sich auf</summary>
-          <div class="hr"></div>
-          <p class="sub" style="margin:0 0 10px; color:var(--muted); font-size:13px;">Hier kommen mehr <b>oGCD-Schaden</b> und viel <b>Sustain</b> dazu. Du fühlst dich zunehmend “unkaputtbar”, wenn du Defensivs früh nutzt.</p>
-          <div class="tablewrap">
-<table aria-label="Skill Freischaltliste 71-90">
-            <thead>
-            <tr>
-              <th style="width:80px;">Level</th>
-              <th>Skill (DE)</th>
-              <th style="width:170px;">Kategorie</th>
-              <th>Wofür ist das?</th>
-            </tr>
-          </thead>
-            <tbody>
-              <tr><td class="mono">72</td><td><b>Chaosklinge</b></td><td><span class="tag warn">Beast</span></td><td>AoE-Upgrade bei “Saat des Chaos” (krit+direkt).</td></tr><tr><td class="mono">76</td><td><b>Urflackern</b></td><td><span class="tag ok">Support</span></td><td>Gibt dir/Partner Heilung pro GCD + Schadenreduktion (Partner).</td></tr><tr><td class="mono">80</td><td><b>Inneres Chaos</b></td><td><span class="tag warn">Beast</span></td><td>ST-Upgrade bei “Saat des Chaos” (krit+direkt).</td></tr><tr><td class="mono">82</td><td><b>Urimpuls</b></td><td><span class="tag ok">Def/Heal</span></td><td>Upgrade-Def (mehr Dauer/Schutz), teilt Timer mit Urflackern.</td></tr><tr><td class="mono">86</td><td><b>Orogenese</b></td><td><span class="tag ogcd">oGCD</span></td><td>AoE-oGCD Schaden (Timer mit Umsturz).</td></tr><tr><td class="mono">90</td><td><b>Brachiale Gewalt</b></td><td><span class="tag warn burst">Burst</span></td><td>Starker Burst-Hit, wird durch Urbefreiung “freigeschaltet”.</td></tr>
-            </tbody>
-          </table>
-</div>
-        </details>
-    
-
-        <details>
-          <summary>Level 91–100: Dawntrail-Ende – Finish & Follow-Ups</summary>
-          <div class="hr"></div>
-          <p class="sub" style="margin:0 0 10px; color:var(--muted); font-size:13px;">Letzter Feinschliff: starke Finish-Buttons und Follow-Ups für deinen Burst. Wenn du bis hier gekommen bist, bist du bereit für Endgame-Grundlagen.</p>
-          <div class="tablewrap">
-<table aria-label="Skill Freischaltliste 91-100">
-            <thead>
-            <tr>
-              <th style="width:80px;">Level</th>
-              <th>Skill (DE)</th>
-              <th style="width:170px;">Kategorie</th>
-              <th>Wofür ist das?</th>
-            </tr>
-          </thead>
-            <tbody>
-              <tr><td class="mono">100</td><td><b>Ruinator</b></td><td><span class="tag warn burst">Burst</span></td><td>Follow-Up nach Brachiale Gewalt (dein Level-100 Abschluss).</td></tr>
-            </tbody>
-          </table>
-</div>
-        </details>
-    
-
-        <p class="note">
-          Hinweis: Rollenkommandos (z.B. <b>Schutzwall</b>, <b>Provokation</b>, <b>Zwischenruf</b>) kommen zusätzlich über die Tank-Rolle.
-          Die bleiben wichtig, aber die Kernrotation oben ist das Rückgrat.
-        </p>
-      </section>
-
-      <!-- Rotations -->
+<!-- Rotations -->
       <section class="section anchor" id="rotations">
         <h2>Rotation & Prioritäten 1–100 (vereinfacht, aber “richtig”)</h2>
         <p class="sub">
@@ -897,7 +772,17 @@
 
         <details open>
           <summary>Level 10–25: Du wirst “echter Tank” (AoE + Haltung + Pull)</summary>
-          <p><b>Neu:</b> Kahlrodung (10), Verteidiger (10), Tomahawk (15).</p>
+          <p><b>Neue Skills in diesem Abschnitt:</b></p>
+<ul class="skills-new">
+  <li><b>Kahlrodung</b> <span class="mono">(10)</span> – AoE-Start. Bei 2+ Gegnern dein Standard.</li>
+  <li><b>Verteidiger</b> <span class="mono">(10)</span> – Tank-Haltung. Beim Tanken praktisch immer anlassen.</li>
+  <li><b>Tomahawk</b> <span class="mono">(15)</span> – Ranged Pull / wenn du nicht dran kommst.</li>
+</ul>
+<p class="note" style="margin-top:8px;">Wenn du einen Skill noch nicht hast: kein Problem – spiel einfach mit dem, was du schon besitzt, und komm später hierher zurück.</p>
+          <div class="hotbar-update"><strong>Hotbar-Update:</strong> Lege <b>Verteidiger</b> so, dass du ihn vor jedem Dungeon sofort findest. <b>Kahlrodung</b> sollte auf einer gut erreichbaren Taste liegen (z.B. <b>4</b>), weil du es im Trash sehr oft drückst. <b>Tomahawk</b> griffbereit für Pulls.</div>
+          <div class="practice"><strong>Was du jetzt übst:</strong> Übe deinen Pull-Ablauf: <b>Tomahawk → reinlaufen → Gegner sammeln → AoE</b>. Wichtig: <b>Gegner drehen weg von der Gruppe</b> (du schaust zu den Mobs, die Gruppe steht hinter dir).</div>
+          <div class="hotbar-update"><strong>Hotbar-Update:</strong> Lege <b>Gewaltiger Hieb</b> auf <b>1</b> und <b>Verstümmelung</b> (sobald verfügbar) auf <b>2</b>. Ziel: ST fühlt sich wie <b>1 → 2 → 3</b> an, sobald du den Finisher bekommst.</div>
+          <div class="practice"><strong>Was du jetzt übst:</strong> Übe ruhig und sauber: <b>GCD drücken, dann kurz warten</b> (kein Button-Spam). Dein Fokus ist: <b>immer etwas drücken</b> (Uptime), aber ohne hektisch zu werden.</div>
           <div class="hr"></div>
           <p><b>Dungeon Trash (2+ Gegner):</b></p>
           <ul>
@@ -914,7 +799,13 @@
 
         <details open>
           <summary>Level 26–29: Erste echte Selbstheilung im ST</summary>
-          <p><b>Neu:</b> Sturmkeil (26) als ST-Finisher + Heilung.</p>
+          <p><b>Neue Skills in diesem Abschnitt:</b></p>
+<ul class="skills-new">
+  <li><b>Sturmkeil</b> <span class="mono">(26)</span> – Kombo-Finisher (ST) – sehr sicher beim Leveln.</li>
+</ul>
+<p class="note" style="margin-top:8px;">Wenn du einen Skill noch nicht hast: kein Problem – spiel einfach mit dem, was du schon besitzt, und komm später hierher zurück.</p>
+          <div class="hotbar-update"><strong>Hotbar-Update:</strong> Wenn du <b>Sturmkeil</b> bekommst: setze ihn auf deine <b>3</b> (ST-Finisher). So bleibt die Kombo logisch: <b>1–2–3</b>.</div>
+          <div class="practice"><strong>Was du jetzt übst:</strong> Übe am Boss: <b>Kombo komplett durchlaufen</b> und den Finisher bewusst treffen. Merke dir: <b>Sturmkeil</b> gibt dir Sicherheit durch Selbstheilung – perfekt für Anfänger.</div>
           <div class="hr"></div>
           <p><b>Single Target:</b></p>
           <ul>
@@ -929,7 +820,13 @@
 
         <details open>
           <summary>Level 30–34: Vorbereitung auf den Job – Defensiv-Rhythmus lernen</summary>
-          <p><b>Neu:</b> Kampfrausch (30). Außerdem: Krieger-Job freischalten (Jobquest ab 30).</p>
+          <p><b>Neue Skills in diesem Abschnitt:</b></p>
+<ul class="skills-new">
+  <li><b>Kampfrausch</b> <span class="mono">(30)</span> – Mehr Max-HP + Heilbonus. Sehr stark früh im Pull.</li>
+</ul>
+<p class="note" style="margin-top:8px;">Wenn du einen Skill noch nicht hast: kein Problem – spiel einfach mit dem, was du schon besitzt, und komm später hierher zurück.</p>
+          <div class="hotbar-update"><strong>Hotbar-Update:</strong> Lege dein wichtigstes Defensiv (z.B. <b>Schutzwall</b>, sobald vorhanden) auf eine Taste, die du im Stress triffst. Ziel: Defensivs sind <b>kein Notfall</b>, sondern Teil deiner Routine.</div>
+          <div class="practice"><strong>Was du jetzt übst:</strong> Übe: <b>Defensiv früh drücken</b>. In Pulls: lieber 5 Sekunden zu früh als 5 Sekunden zu spät. So entlastest du Heiler/Trust extrem.</div>
           <div class="hr"></div>
           <p><b>So nutzt du Kampfrausch (sehr simpel):</b></p>
           <ul>
@@ -945,7 +842,17 @@
 
         <details open>
           <summary>Level 35–49: Urkraft (Beast Gauge) – ab hier macht Krieger “Krieger-Sachen”</summary>
-          <p><b>Neu:</b> Tier in dir (35), Rachsucht (38), Mithril-Gewitter (40), Holmgang (42), Kreiselklinge (45).</p>
+          <p><b>Neue Skills in diesem Abschnitt:</b></p>
+<ul class="skills-new">
+  <li><b>Tier in dir</b> <span class="mono">(35)</span> – Schaltet Urkraft frei: du baust Gauge auf und gibst sie für starke Treffer aus.</li>
+  <li><b>Rachsucht</b> <span class="mono">(38)</span> – Starker Defensiv-Cooldown für große Pulls.</li>
+  <li><b>Mithril-Gewitter</b> <span class="mono">(40)</span> – AoE-2. Zusammen mit Kahlrodung deine Trash-Kombo.</li>
+  <li><b>Holmgang</b> <span class="mono">(42)</span> – Notfall: du kannst kurz nicht sterben. Nur wenn es sonst vorbei ist.</li>
+  <li><b>Kreiselklinge</b> <span class="mono">(45)</span> – AoE-Spender, wenn du genug Urkraft hast.</li>
+</ul>
+<p class="note" style="margin-top:8px;">Wenn du einen Skill noch nicht hast: kein Problem – spiel einfach mit dem, was du schon besitzt, und komm später hierher zurück.</p>
+          <div class="hotbar-update"><strong>Hotbar-Update:</strong> Halte deine AoE-Tasten als Paar: <b>Kahlrodung</b> direkt neben <b>Mithril-Gewitter</b>. Lege <b>Rachsucht</b> auf eine Taste, die du im Stress zuverlässig triffst.</div>
+          <div class="practice"><strong>Was du jetzt übst:</strong> Übe den neuen Rhythmus: <b>Kombo baut Urkraft → Urkraft gibst du für starke Treffer aus</b>. In großen Pulls: <b>Defensivs früh</b> drücken, nicht erst bei 20% HP.</div>
           <div class="hr"></div>
 
           <p><b>Wichtiges Konzept:</b> Du baust <b>Urkraft</b> über deine Kombo auf und gibst sie für “fette Hits” aus.</p>
@@ -972,13 +879,34 @@
           <p><b>Gear:</b> Ab hier merkt man Gear deutlicher. Faustregel:
             Wenn du im Dungeon <b>2–3 Level</b> unter dem Dungeon-Level bist (Rüstung), hol ein Upgrade.
             Dungeon-Drops reichen völlig.</p>
-        </details>
+        
+          <div class="learn-extra">
+            <h5>Hotbar-Update</h5>
+            <p><b>Mithril-Gewitter</b> direkt neben <b>Kahlrodung</b> legen (z.B. 4–5). Defensivs gruppieren, damit du sie im Stress findest.</p>
+            <h5>Was übst du jetzt?</h5>
+            <p>Urkraft bewusst aufbauen und ausgeben. Erste große Pulls kontrolliert spielen.</p>
+          </div>
+</details>
 
         <div class="hr"></div>
 
         <details open>
           <summary>Level 50–69: “Tosender Sturm” halten + Urkraft smart ausgeben</summary>
-          <p><b>Neu:</b> Sturmbrecher (50), Schlachtruf (50), Niedermähen (54), Urinstinkt (56), Äquilibrium (58), Dezimieren (60), Sturmlauf (62), Umsturz (64), Abschütteln (68).</p>
+          <p><b>Neue Skills in diesem Abschnitt:</b></p>
+<ul class="skills-new">
+  <li><b>Sturmbrecher</b> <span class="mono">(50)</span> – Alternative Kombo-3 je nach Bedarf. Für Anfänger erst später relevant.</li>
+  <li><b>Schlachtruf</b> <span class="mono">(50)</span> – Neu in diesem Abschnitt. Wenn du ihn hast: kurz testen und in deine Rotation übernehmen.</li>
+  <li><b>Niedermähen</b> <span class="mono">(54)</span> – ST-Urkraftspender. Du gibst Gauge für starken Schaden aus.</li>
+  <li><b>Urinstinkt</b> <span class="mono">(56)</span> – Neu in diesem Abschnitt. Wenn du ihn hast: kurz testen und in deine Rotation übernehmen.</li>
+  <li><b>Äquilibrium</b> <span class="mono">(58)</span> – Starke Selbstheilung. Rettet dich oft im Solo/Trust.</li>
+  <li><b>Dezimieren</b> <span class="mono">(60)</span> – AoE-Urkraftspender. Sehr gut in großen Pulls.</li>
+  <li><b>Sturmlauf</b> <span class="mono">(62)</span> – Gapcloser: schnell rein/ran. Komfort + Tempo.</li>
+  <li><b>Umsturz</b> <span class="mono">(64)</span> – oGCD-Schaden: zwischen GCDs drücken (vor allem im Burst).</li>
+  <li><b>Abschütteln</b> <span class="mono">(68)</span> – Party-Tool: Schild/Schutz. Gut vor großen Treffern oder in Pulls.</li>
+</ul>
+<p class="note" style="margin-top:8px;">Wenn du einen Skill noch nicht hast: kein Problem – spiel einfach mit dem, was du schon besitzt, und komm später hierher zurück.</p>
+          <div class="hotbar-update"><strong>Hotbar-Update:</strong> Lege <b>Niedermähen</b> (ST-Spender) auf <b>STRG+1</b> und <b>Dezimieren</b> (AoE-Spender) auf <b>STRG+2</b>. So hast du eine klare Trennung: Hotbar 1 = GCD-Kombo, Hotbar 2 = „Gauge ausgeben“.</div>
+          <div class="practice"><strong>Was du jetzt übst:</strong> Übe zwei Dinge: 1) Deinen wichtigen Buff/Flow (z.B. <b>Sturmbrecher/Tosender Sturm</b>) <b>nicht verlieren</b>, 2) Urkraft <b>nicht überlaufen lassen</b> (lieber ausgeben als verschwenden).</div>
           <div class="hr"></div>
 
           <p><b>Kernziel ab 50:</b> Den Buff <b>Tosender Sturm</b> möglichst <b>durchgehend</b> aktiv halten.
@@ -1015,7 +943,15 @@
 
         <details open>
           <summary>Level 70–79: Urbefreiung – jetzt wird Krieger “unfair” stark</summary>
-          <p><b>Neu:</b> Urbefreiung (70), Chaosklinge (72), Urflackern (76).</p>
+          <p><b>Neue Skills in diesem Abschnitt:</b></p>
+<ul class="skills-new">
+  <li><b>Urbefreiung</b> <span class="mono">(70)</span> – Kern-Burst: macht deine Spender besonders stark/leicht nutzbar.</li>
+  <li><b>Chaosklinge</b> <span class="mono">(72)</span> – Neu in diesem Abschnitt. Wenn du ihn hast: kurz testen und in deine Rotation übernehmen.</li>
+  <li><b>Urflackern</b> <span class="mono">(76)</span> – Flex/Utility (je nach Patch/Kit). Nutze es, wenn du den Effekt verstanden hast.</li>
+</ul>
+<p class="note" style="margin-top:8px;">Wenn du einen Skill noch nicht hast: kein Problem – spiel einfach mit dem, was du schon besitzt, und komm später hierher zurück.</p>
+          <div class="hotbar-update"><strong>Hotbar-Update:</strong> Lege <b>Urbefreiung</b> auf eine sehr bequeme Taste (z.B. <b>-</b> oder <b>STRG+3</b>), weil das dein Kern-Burst ist. <b>Äquilibrium</b> sollte ebenfalls schnell erreichbar sein (Notfall-Heal ohne Panik).</div>
+          <div class="practice"><strong>Was du jetzt übst:</strong> Übe Burst-Fenster: Wenn du <b>Urbefreiung</b> drückst, willst du direkt danach deine starken Treffer „reinschieben“. Ziel ist nicht Perfektion – nur: <b>Urbefreiung nicht vergessen</b> und dann aktiv Schaden machen.</div>
           <div class="hr"></div>
 
           <p><b>Urbefreiung (70) – so denkst du darüber:</b> Das ist dein “Burst-Fenster”.
@@ -1040,7 +976,15 @@
 
         <details open>
           <summary>Level 80–89: Inneres Chaos / Urimpuls – deine Spender bekommen Upgrades</summary>
-          <p><b>Neu:</b> Inneres Chaos (80), Urimpuls (82), Orogenese (86).</p>
+          <p><b>Neue Skills in diesem Abschnitt:</b></p>
+<ul class="skills-new">
+  <li><b>Inneres Chaos</b> <span class="mono">(80)</span> – Neu in diesem Abschnitt. Wenn du ihn hast: kurz testen und in deine Rotation übernehmen.</li>
+  <li><b>Urimpuls</b> <span class="mono">(82)</span> – Flex/Utility (je nach Patch/Kit). Gut für Team/Schutz, je nach Effekt.</li>
+  <li><b>Orogenese</b> <span class="mono">(86)</span> – Upgrade/Variante von Umsturz. Gleiche Idee: oGCD-Schaden im Burst.</li>
+</ul>
+<p class="note" style="margin-top:8px;">Wenn du einen Skill noch nicht hast: kein Problem – spiel einfach mit dem, was du schon besitzt, und komm später hierher zurück.</p>
+          <div class="hotbar-update"><strong>Hotbar-Update:</strong> Ersetze/überschreibe Upgrades auf denselben Tasten (z.B. <b>Umsturz → Orogenese</b>) statt neue Tasten zu erfinden. So bleibt deine Hotbar stabil, auch wenn Skills upgraden.</div>
+          <div class="practice"><strong>Was du jetzt übst:</strong> Übe „zwischen den GCDs“: oGCDs (wie Umsturz/Orogenese) drückst du <b>zwischen</b> zwei GCDs. Faustregel: <b>max. 1 oGCD</b> zwischen zwei GCDs, damit du nicht langsam wirst.</div>
           <div class="hr"></div>
 
           <p><b>Wichtig:</b> Schlachtruf gibt dir “Saat des Chaos”. Dann werden deine Spender besser:</p>
@@ -1068,7 +1012,14 @@
 
         <details open>
           <summary>Level 90–100: Brachiale Gewalt → Ruinator (Endgame-Form, aber weiterhin simpel)</summary>
-          <p><b>Neu:</b> Brachiale Gewalt (90), Ruinator (100).</p>
+          <p><b>Neue Skills in diesem Abschnitt:</b></p>
+<ul class="skills-new">
+  <li><b>Brachiale Gewalt</b> <span class="mono">(90)</span> – Späterer starker Burst-Hit – in Burst-Fenstern nutzen.</li>
+  <li><b>Ruinator</b> <span class="mono">(100)</span> – Follow-up/Finisher im späteren Kit – meist im Burst-Fenster.</li>
+</ul>
+<p class="note" style="margin-top:8px;">Wenn du einen Skill noch nicht hast: kein Problem – spiel einfach mit dem, was du schon besitzt, und komm später hierher zurück.</p>
+          <div class="hotbar-update"><strong>Hotbar-Update:</strong> Lege neue Follow-Ups (z.B. <b>Ruinator</b>) direkt in die Nähe deines Burst (Hotbar 2). Wichtig: <b>kein neues Chaos</b> – lieber ein Feld „Flex/Burst-Follow-Up“ reservieren.</div>
+          <div class="practice"><strong>Was du jetzt übst:</strong> Übe den Endgame-Grundsatz: <b>ST am Boss, AoE im Trash</b>, Defensivs früh. Dein Damage kommt automatisch besser, wenn deine <b>Uptime</b> stabil ist und du Burst nicht vergisst.</div>
           <div class="hr"></div>
 
           <p><b>Wie du’s spielst (ohne kompliziert zu werden):</b></p>
