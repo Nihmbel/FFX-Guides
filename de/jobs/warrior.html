@@ -356,13 +356,10 @@
     .hotbar h4{margin:0 0 10px; font-size:14px}
     .keys{
       display:grid;
-      grid-template-columns: repeat(12, minmax(44px, 1fr));
+      grid-template-columns: repeat(6, minmax(44px, 1fr));
       gap:8px;
     }
-    @media (max-width:640px){
-      .keys{grid-template-columns: repeat(6, minmax(44px, 1fr));}
-    }
-    .key{
+.key{
       border:1px solid var(--line);
       border-radius: 14px;
       padding:8px 8px;
@@ -496,8 +493,7 @@
         <div class="topbar-inner">
           <div class="langbox">
             <button class="btn primary" type="button" aria-label="Sprache Deutsch aktiv">DE</button>
-            <a class="btn" href="../en/jobs/warrior.html" style="text-decoration:none; display:inline-block;">EN</a>
-            <span class="pill"><span class="dot"></span>Guide-Seite pro Job</span>
+<span class="pill"><span class="dot"></span>Guide-Seite pro Job</span>
           </div>
           <div class="search">
             <input id="search" type="search" placeholder="Suchen… (Skillname, Level, AoE, Trust, Gear …)" aria-label="Guide durchsuchen" />
