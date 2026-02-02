@@ -3,48 +3,153 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Krieger Guide (DE) – Level 1–100</title>
+  <title>Krieger Guide (DE) – Hotbar-Slots sichtbar</title>
+
   <link rel="stylesheet" href="../../assets/css/site.css" />
   <script defer src="../../assets/js/site.js"></script>
 
   <style>
-    .keybox{
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:14px;
-      background:rgba(17,24,38,.55);
-      margin-top:12px;
-      overflow:hidden;
+    /* Vollständige Zusatzstyles nur für diese Datei */
+    .topActions{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:8px;
     }
-    .keyboxHead{
-      padding:10px 14px;
+    .topActions a{
+      padding:8px 10px; border:1px solid rgba(255,255,255,.08); border-radius:12px;
+      background:rgba(17,24,38,.55); color:var(--text);
+    }
+    .topActions a:hover{ border-color: rgba(125,211,252,.35); }
+
+    .sectionMeta{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;
+      color:var(--muted); font-size:12px;
+    }
+    .kpi{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(15,22,35,.35);
+    }
+    .kpi b{ color:var(--text); font-weight:600; }
+
+    .infobox{
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      background:rgba(17,24,38,.55);
+      overflow:hidden;
+      margin-top:12px;
+    }
+    .infoboxHead{
+      padding:12px 14px;
       border-bottom:1px solid rgba(255,255,255,.08);
       background:rgba(15,22,35,.55);
-      font-size:13px;
-      font-weight:600;
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
     }
-    .keygrid{
+    .infoboxHead strong{ font-size:14px; }
+    .infoboxBody{ padding:12px 14px; color:var(--text); font-size:13px; }
+
+    .miniList{ margin:0; padding-left:18px; }
+    .miniList li{ margin:6px 0; }
+
+    /* Hotbar Raster */
+    .barWrap{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:10px;
-      padding:12px 14px;
+      gap:12px;
+      margin-top:12px;
     }
-    @media (max-width: 720px){
-      .keygrid{ grid-template-columns:1fr; }
+    @media (max-width: 980px){
+      .barWrap{ grid-template-columns: 1fr; }
     }
-    .keylist{
-      margin:0;
-      padding-left:18px;
+
+    .bar{
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;
+      overflow:hidden;
+      background:rgba(17,24,38,.45);
+    }
+    .barHead{
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:rgba(15,22,35,.55);
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .barHead b{ font-size:13px; }
+    .barHead span{ color:var(--muted); font-size:12px; }
+
+    .slots{
+      display:grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap:8px;
+      padding:12px;
+    }
+    @media (max-width: 420px){
+      .slots{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    .slot{
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      background:rgba(0,0,0,.18);
+      padding:8px 8px 10px;
+      min-height:62px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .slotTop{
+      display:flex; align-items:center; justify-content:space-between; gap:8px;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .slotKey{
+      padding:2px 6px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:8px;
+      background:rgba(0,0,0,.25);
+      color:var(--text);
+      font-weight:600;
+    }
+    .slotName{
+      font-size:12px;
+      line-height:1.15;
+      color:var(--text);
+      word-break: break-word;
+    }
+    .slotNote{
+      font-size:11px;
+      color:var(--muted);
+      line-height:1.15;
+    }
+    .empty .slotName{ color: rgba(232,238,247,.45); }
+    .empty .slotNote{ color: rgba(169,180,196,.45); }
+
+    .rot{
+      font-family:ui-monospace, Menlo, Consolas, monospace;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.18);
+      border-radius:14px;
+      padding:10px 12px;
+      white-space:pre-wrap;
+      margin-top:10px;
+    }
+    .skill{ font-weight:700; }
+
+    .callout{
+      border:1px solid rgba(125,211,252,.25);
+      background:rgba(125,211,252,.08);
+      border-radius:14px;
+      padding:12px;
+      margin-top:12px;
+      color:var(--text);
       font-size:13px;
     }
-    .keylist li{ margin:6px 0; }
-    .kbd{
-      display:inline-block;
-      padding:2px 6px;
-      border-radius:6px;
-      border:1px solid rgba(255,255,255,.15);
-      background:rgba(0,0,0,.35);
-      font-family:ui-monospace, Menlo, Consolas, monospace;
+    .callout strong{ color: var(--accent); }
+
+    .hint{
+      color:var(--muted);
       font-size:12px;
+      margin-top:10px;
     }
   </style>
 </head>
@@ -55,9 +160,10 @@
     <div class="toprow">
       <div>
         <h1>Krieger (Marodeur → Krieger) – Levelguide 1–100 (DE)</h1>
-        <div class="sub">Neulingsfreundlich • mit empfohlener Tastenbelegung</div>
-        <div class="sub">
+        <div class="sub">Jetzt mit „Hotbar Slot“-Ansicht: du siehst exakt, was auf 1–12 und STRG+1–12 liegt.</div>
+        <div class="topActions">
           <a href="../index.html">← Zur Jobliste (DE)</a>
+          <a href="../../index.html">🏠 Sprachwahl</a>
         </div>
       </div>
 
@@ -75,6 +181,8 @@
   <nav>
     <div class="navHead">Kapitel</div>
     <div class="navList">
+      <a href="#rules">Grundregeln</a>
+      <a href="#milestones">Gear-Meilensteine</a>
       <a href="#l10-30">Level 10–30</a>
       <a href="#l30-50">Level 30–50</a>
       <a href="#l50-60">Level 50–60</a>
@@ -87,178 +195,449 @@
 
   <section>
 
-    <!-- LEVEL 10–30 -->
-    <div class="card" id="l10-30">
-      <div class="cardHeader"><h2>Level 10–30 – Einstieg (Marodeur)</h2></div>
+    <!-- Grundregeln -->
+    <div class="card" id="rules">
+      <div class="cardHeader"><h2>Grundregeln (damit die Hotbars Sinn ergeben)</h2></div>
       <div class="cardBody">
+        <ul class="miniList">
+          <li><b translate="no">Verteidiger</b> ist im PvE praktisch immer an.</li>
+          <li><b>3+ Gegner</b> → AoE-Buttons (STRG-Leiste). <b>1–2 Gegner</b> → Single-Combo (1–4).</li>
+          <li><b>Keine Doppelbelegung:</b> Jeder wichtige Skill bekommt einen festen Slot.</li>
+          <li>Wenn ein Skill später „upgrade/ersetzen“ soll: du ersetzt nur den Namen im gleichen Slot.</li>
+        </ul>
+        <div class="hint">Hinweis: Deine STRG-Leiste ist „Hotbar 2“. Die Slots 1–12 sind hier als STRG+1 … STRG+12 dargestellt (du kannst das auf deiner Maus auf Numpad umlegen).</div>
+      </div>
+    </div>
+
+    <!-- Gear -->
+    <div class="card" id="milestones">
+      <div class="cardHeader"><h2>Gear-Meilensteine</h2></div>
+      <div class="cardBody">
+        <div class="infobox">
+          <div class="infoboxHead"><strong>Poetik kaufen: Set + Waffe</strong></div>
+          <div class="infoboxBody">
+            <ul class="miniList">
+              <li><b>50:</b> Mor Dhona</li>
+              <li><b>60:</b> Idyllshire</li>
+              <li><b>70:</b> Rhalgrs Wacht</li>
+              <li><b>80:</b> Eulmore</li>
+              <li><b>90:</b> Radz-at-Han</li>
+            </ul>
+            <div class="hint"><b>Axt ist Slot #1:</b> Wenn deine Axt 10+ Level hinterher ist, zuerst die Waffe updaten.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10–30 -->
+    <div class="card" id="l10-30">
+      <div class="cardHeader"><h2>Level 10–30</h2></div>
+      <div class="cardBody">
+
+        <div class="sectionMeta">
+          <span class="kpi"><b>Single:</b> 1–2</span>
+          <span class="kpi"><b>AoE:</b> STRG+1</span>
+          <span class="kpi"><b>Def:</b> STRG+10</span>
+        </div>
 
         <div class="rot">
 Single:
-Gewaltiger Hieb → Verstümmelung
+<span class="skill" translate="no">Gewaltiger Hieb</span> → <span class="skill" translate="no">Verstümmelung</span>
 
 AoE (3+):
-Tollwut
+<span class="skill" translate="no">Tollwut</span>
+
+Defensiv:
+<span class="skill" translate="no">Schutzwall</span>
         </div>
 
-        <div class="keybox">
-          <div class="keyboxHead">Empfohlene Tastenbelegung (Level 10–30)</div>
-          <div class="keygrid">
-            <ul class="keylist">
-              <li><span class="kbd">1</span> → Gewaltiger Hieb</li>
-              <li><span class="kbd">2</span> → Verstümmelung</li>
-              <li><span class="kbd">STRG+1</span> → Tollwut</li>
-            </ul>
-            <ul class="keylist">
-              <li><span class="kbd">STRG+9</span> → Schutzwall</li>
-              <li><span class="kbd">–</span> → Verteidiger (immer an)</li>
-            </ul>
+        <div class="barWrap">
+
+          <!-- Hotbar 1 -->
+          <div class="bar">
+            <div class="barHead">
+              <b>Hotbar 1 (Tastatur)</b>
+              <span>Slots 1–12</span>
+            </div>
+            <div class="slots">
+              <div class="slot"><div class="slotTop"><span class="slotKey">1</span><span>Single</span></div><div class="slotName" translate="no">Gewaltiger Hieb</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">2</span><span>Single</span></div><div class="slotName" translate="no">Verstümmelung</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">3</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">ab 30: 3. Combo</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">4</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">ab 50: Spender</div></div>
+
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">5</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">6</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">7</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">8</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">9</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">10</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">11</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">12</span><span></span></div><div class="slotName">frei</div></div>
+            </div>
           </div>
+
+          <!-- Hotbar 2 -->
+          <div class="bar">
+            <div class="barHead">
+              <b>Hotbar 2 (STRG + Maus)</b>
+              <span>STRG+1–12</span>
+            </div>
+            <div class="slots">
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+1</span><span>AoE</span></div><div class="slotName" translate="no">Tollwut</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+2</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">ab 10/12+: AoE-Follow</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+3</span><span>später</span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+4</span><span>später</span></div><div class="slotName">frei</div></div>
+
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+5</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">ab 60: Burst</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+6</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">OGCD</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+7</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">Gapcloser</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+8</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">Sustain</div></div>
+
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+9</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">Heal</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+10</span><span>Def</span></div><div class="slotName" translate="no">Schutzwall</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+11</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">Def CD</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+12</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">Def/Notfall</div></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout">
+          <strong>Wichtig für Level 30:</strong> Klassenquests bis 30 machen → Jobquest → Jobstein anlegen.
         </div>
 
       </div>
     </div>
 
-    <!-- LEVEL 30–50 -->
+    <!-- 30–50 -->
     <div class="card" id="l30-50">
-      <div class="cardHeader"><h2>Level 30–50 – Krieger-Kern</h2></div>
+      <div class="cardHeader"><h2>Level 30–50</h2></div>
       <div class="cardBody">
+
+        <div class="sectionMeta">
+          <span class="kpi"><b>Single:</b> 1–2–3</span>
+          <span class="kpi"><b>AoE:</b> STRG+1–3</span>
+          <span class="kpi"><b>Def:</b> STRG+10/11</span>
+        </div>
+
+        <div class="rot">
+Single (Default):
+<span class="skill" translate="no">Gewaltiger Hieb</span> → <span class="skill" translate="no">Verstümmelung</span> → <span class="skill" translate="no">Sturmbrecher</span>
+
+Sustain-Alternative (wenn HP fällt):
+… → <span class="skill" translate="no">Sturmkeil</span> (eigener Slot, kein Doppel)
+
+AoE (3+):
+<span class="skill" translate="no">Tollwut</span> → <span class="skill" translate="no">Kahlrodung</span> → <span class="skill" translate="no">Mithril-Gewitter</span>
+        </div>
+
+        <div class="barWrap">
+
+          <div class="bar">
+            <div class="barHead"><b>Hotbar 1</b><span>Slots 1–12</span></div>
+            <div class="slots">
+              <div class="slot"><div class="slotTop"><span class="slotKey">1</span><span>Combo</span></div><div class="slotName" translate="no">Gewaltiger Hieb</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">2</span><span>Combo</span></div><div class="slotName" translate="no">Verstümmelung</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">3</span><span>Combo</span></div><div class="slotName" translate="no">Sturmbrecher</div><div class="slotNote">Default-Finisher</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">4</span><span>Sustain</span></div><div class="slotName" translate="no">Sturmkeil</div><div class="slotNote">wenn HP fällt</div></div>
+
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">5</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">6</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">7</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">8</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">9</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">10</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">11</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">12</span><span></span></div><div class="slotName">frei</div></div>
+            </div>
+          </div>
+
+          <div class="bar">
+            <div class="barHead"><b>Hotbar 2 (STRG)</b><span>STRG+1–12</span></div>
+            <div class="slots">
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+1</span><span>AoE</span></div><div class="slotName" translate="no">Tollwut</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+2</span><span>AoE</span></div><div class="slotName" translate="no">Kahlrodung</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+3</span><span>AoE</span></div><div class="slotName" translate="no">Mithril-Gewitter</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+4</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">ab 50: AoE-Spender</div></div>
+
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+5</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">ab 60: Burst</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+6</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">OGCD</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+7</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">Gapcloser</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+8</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">Sustain</div></div>
+
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+9</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">Heal</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+10</span><span>Def</span></div><div class="slotName" translate="no">Schutzwall</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+11</span><span>Def</span></div><div class="slotName" translate="no">Rachsucht</div><div class="slotNote">wenn verfügbar</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+12</span><span>später</span></div><div class="slotName">frei</div></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout"><strong>Level 50:</strong> Poetik-Set + Axt holen (großer Sprung).</div>
+
+      </div>
+    </div>
+
+    <!-- 50–60 -->
+    <div class="card" id="l50-60">
+      <div class="cardHeader"><h2>Level 50–60</h2></div>
+      <div class="cardBody">
+
+        <div class="sectionMeta">
+          <span class="kpi"><b>Single-Spender:</b> 4</span>
+          <span class="kpi"><b>AoE-Spender:</b> STRG+4</span>
+          <span class="kpi"><b>Sustain:</b> STRG+8/9</span>
+        </div>
 
         <div class="rot">
 Single:
-1–2–3 → Sturmbrecher
+1–2–3 → (<span class="skill" translate="no">Himmelszorn</span> wenn Urkraft)
+
+AoE:
+STRG+1–3 → (<span class="skill" translate="no">Dezimieren</span> wenn Urkraft)
 
 Sustain:
-… → Sturmkeil
-
-AoE:
-Tollwut → Kahlrodung → Mithril-Gewitter
+<span class="skill" translate="no">Urinstinkt</span> / <span class="skill" translate="no">Gleichgewicht</span>
         </div>
 
-        <div class="keybox">
-          <div class="keyboxHead">Empfohlene Tastenbelegung (Level 30–50)</div>
-          <div class="keygrid">
-            <ul class="keylist">
-              <li><span class="kbd">1</span> → Gewaltiger Hieb</li>
-              <li><span class="kbd">2</span> → Verstümmelung</li>
-              <li><span class="kbd">3</span> → Sturmbrecher / Sturmkeil</li>
-            </ul>
-            <ul class="keylist">
-              <li><span class="kbd">STRG+1</span> → Tollwut</li>
-              <li><span class="kbd">STRG+2</span> → Kahlrodung</li>
-              <li><span class="kbd">STRG+3</span> → Mithril-Gewitter</li>
-            </ul>
+        <div class="barWrap">
+
+          <div class="bar">
+            <div class="barHead"><b>Hotbar 1</b><span>Slots 1–12</span></div>
+            <div class="slots">
+              <div class="slot"><div class="slotTop"><span class="slotKey">1</span><span>Combo</span></div><div class="slotName" translate="no">Gewaltiger Hieb</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">2</span><span>Combo</span></div><div class="slotName" translate="no">Verstümmelung</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">3</span><span>Combo</span></div><div class="slotName" translate="no">Sturmbrecher</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">4</span><span>Spender</span></div><div class="slotName" translate="no">Himmelszorn</div></div>
+
+              <div class="slot"><div class="slotTop"><span class="slotKey">5</span><span>Sustain</span></div><div class="slotName" translate="no">Sturmkeil</div><div class="slotNote">optional, wenn du ihn weiter nutzen willst</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">6</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">7</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">8</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">9</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">10</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">11</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">12</span><span></span></div><div class="slotName">frei</div></div>
+            </div>
           </div>
+
+          <div class="bar">
+            <div class="barHead"><b>Hotbar 2 (STRG)</b><span>STRG+1–12</span></div>
+            <div class="slots">
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+1</span><span>AoE</span></div><div class="slotName" translate="no">Tollwut</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+2</span><span>AoE</span></div><div class="slotName" translate="no">Kahlrodung</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+3</span><span>AoE</span></div><div class="slotName" translate="no">Mithril-Gewitter</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+4</span><span>AoE</span></div><div class="slotName" translate="no">Dezimieren</div><div class="slotNote">ab 72 ersetzen</div></div>
+
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+5</span><span>später</span></div><div class="slotName">frei</div><div class="slotNote">ab 60: Burst</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+6</span><span>später</span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+7</span><span>später</span></div><div class="slotName">frei</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+8</span><span>Sustain</span></div><div class="slotName" translate="no">Urinstinkt</div><div class="slotNote">später: Blutaura</div></div>
+
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+9</span><span>Heal</span></div><div class="slotName" translate="no">Gleichgewicht</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+10</span><span>Def</span></div><div class="slotName" translate="no">Schutzwall</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+11</span><span>Def</span></div><div class="slotName" translate="no">Rachsucht</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+12</span><span>später</span></div><div class="slotName">frei</div></div>
+            </div>
+          </div>
+
         </div>
+
+        <div class="callout"><strong>Level 60:</strong> Poetik-Set + Axt holen (Idyllshire).</div>
 
       </div>
     </div>
 
-    <!-- LEVEL 50–60 -->
-    <div class="card" id="l50-60">
-      <div class="cardHeader"><h2>Level 50–60 – Urkraft & Spender</h2></div>
+    <!-- 60–70 -->
+    <div class="card" id="l60-70">
+      <div class="cardHeader"><h2>Level 60–70</h2></div>
       <div class="cardBody">
+
+        <div class="sectionMeta">
+          <span class="kpi"><b>Burst:</b> STRG+5</span>
+          <span class="kpi"><b>OGCD:</b> STRG+6</span>
+          <span class="kpi"><b>Gap:</b> STRG+7</span>
+        </div>
+
+        <div class="rot">
+Boss:
+1–2–3 → STRG+5 (<span class="skill" translate="no">Innerer Impuls</span>)
+→ 4 (<span class="skill" translate="no">Himmelszorn</span>) spammen
+→ STRG+6/7 dazwischen
+
+Trash:
+STRG+1–3 → STRG+5 → STRG+4
+        </div>
+
+        <div class="barWrap">
+
+          <div class="bar">
+            <div class="barHead"><b>Hotbar 1</b><span>Slots 1–12</span></div>
+            <div class="slots">
+              <div class="slot"><div class="slotTop"><span class="slotKey">1</span><span>Combo</span></div><div class="slotName" translate="no">Gewaltiger Hieb</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">2</span><span>Combo</span></div><div class="slotName" translate="no">Verstümmelung</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">3</span><span>Combo</span></div><div class="slotName" translate="no">Sturmbrecher</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">4</span><span>Spender</span></div><div class="slotName" translate="no">Himmelszorn</div></div>
+
+              <div class="slot"><div class="slotTop"><span class="slotKey">5</span><span>Sustain</span></div><div class="slotName" translate="no">Sturmkeil</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">6</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">7</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">8</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">9</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">10</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">11</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">12</span><span></span></div><div class="slotName">frei</div></div>
+            </div>
+          </div>
+
+          <div class="bar">
+            <div class="barHead"><b>Hotbar 2 (STRG)</b><span>STRG+1–12</span></div>
+            <div class="slots">
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+1</span><span>AoE</span></div><div class="slotName" translate="no">Tollwut</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+2</span><span>AoE</span></div><div class="slotName" translate="no">Kahlrodung</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+3</span><span>AoE</span></div><div class="slotName" translate="no">Mithril-Gewitter</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+4</span><span>AoE</span></div><div class="slotName" translate="no">Dezimieren</div><div class="slotNote">ab 72 ersetzen</div></div>
+
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+5</span><span>Burst</span></div><div class="slotName" translate="no">Innerer Impuls</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+6</span><span>OGCD</span></div><div class="slotName" translate="no">Aufruhr</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+7</span><span>Gap</span></div><div class="slotName" translate="no">Ansturm</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+8</span><span>Sustain</span></div><div class="slotName" translate="no">Urinstinkt</div><div class="slotNote">später: Blutaura</div></div>
+
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+9</span><span>Heal</span></div><div class="slotName" translate="no">Gleichgewicht</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+10</span><span>Def</span></div><div class="slotName" translate="no">Schutzwall</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+11</span><span>Def</span></div><div class="slotName" translate="no">Rachsucht</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">STRG+12</span><span>Def</span></div><div class="slotName">frei</div><div class="slotNote">z.B. Vergeltung/Totengeleit</div></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout"><strong>Level 70:</strong> Poetik-Set + Axt holen (Rhalgrs Wacht).</div>
+
+      </div>
+    </div>
+
+    <!-- 70–80 -->
+    <div class="card" id="l70-80">
+      <div class="cardHeader"><h2>Level 70–80</h2></div>
+      <div class="cardBody">
+
+        <div class="sectionMeta">
+          <span class="kpi"><b>Sustain:</b> STRG+8 (Upgrade)</span>
+          <span class="kpi"><b>AoE Burst:</b> STRG+4 (Upgrade ab 72)</span>
+          <span class="kpi"><b>Burst:</b> STRG+5</span>
+        </div>
+
+        <div class="rot">
+Wichtigste Änderungen:
+- Ab ~72 ersetzt du auf STRG+4: <span class="skill" translate="no">Dezimieren</span> → <span class="skill" translate="no">Chaotische Zyklen</span>
+- Ab ~76 ersetzt du auf STRG+8: <span class="skill" translate="no">Urinstinkt</span> → <span class="skill" translate="no">Blutaura</span>
+
+Dungeon:
+STRG+8 (<span class="skill" translate="no">Blutaura</span>) → AoE → STRG+5 → STRG+4
+        </div>
+
+        <div class="barWrap">
+
+          <div class="bar">
+            <div class="barHead"><b>Hotbar 1</b><span>Slots 1–12</span></div>
+            <div class="slots">
+              <div class="slot"><div class="slotTop"><span class="slotKey">1</span><span>Combo</span></div><div class="slotName" translate="no">Gewaltiger Hieb</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">2</span><span>Combo</span></div><div class="slotName" translate="no">Verstümmelung</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">3</span><span>Combo</span></div><div class="slotName" translate="no">Sturmbrecher</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">4</span><span>Spender</span></div><div class="slotName" translate="no">Himmelszorn</div></div>
+
+              <div class="slot"><div class="slotTop"><span class="slotKey">5</span><span>Sustain</span></div><div class="slotName" translate="no">Sturmkeil</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">6</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">7</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">8</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">9</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">10</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">11</span><span></span></div><div class="slotName">frei</div></div>
+              <div class="slot empty"><div class="slotTop"><span class="slotKey">12</span><span></span></div><div class="slotName">frei</div></div>
+            </div>
+          </div>
+
+          <div class="bar">
+            <div class="barHead"><b>Hotbar 2 (STRG)</b><span>STRG+1–12</span></div>
+            <div class="slots">
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+1</span><span>AoE</span></div><div class="slotName" translate="no">Tollwut</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+2</span><span>AoE</span></div><div class="slotName" translate="no">Kahlrodung</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+3</span><span>AoE</span></div><div class="slotName" translate="no">Mithril-Gewitter</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+4</span><span>AoE</span></div><div class="slotName" translate="no">Chaotische Zyklen</div><div class="slotNote">ersetzen: Dezimieren</div></div>
+
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+5</span><span>Burst</span></div><div class="slotName" translate="no">Innerer Impuls</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+6</span><span>OGCD</span></div><div class="slotName" translate="no">Aufruhr</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+7</span><span>Gap</span></div><div class="slotName" translate="no">Ansturm</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+8</span><span>Sustain</span></div><div class="slotName" translate="no">Blutaura</div><div class="slotNote">ersetzen: Urinstinkt</div></div>
+
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+9</span><span>Heal</span></div><div class="slotName" translate="no">Gleichgewicht</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+10</span><span>Def</span></div><div class="slotName" translate="no">Schutzwall</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+11</span><span>Def</span></div><div class="slotName" translate="no">Rachsucht</div></div>
+              <div class="slot"><div class="slotTop"><span class="slotKey">STRG+12</span><span>Def</span></div><div class="slotName" translate="no">Vergeltung</div><div class="slotNote">oder Totengeleit</div></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="callout"><strong>Level 80:</strong> Poetik-Set + Axt holen (Eulmore).</div>
+
+      </div>
+    </div>
+
+    <!-- 80–90 -->
+    <div class="card" id="l80-90">
+      <div class="cardHeader"><h2>Level 80–90</h2></div>
+      <div class="cardBody">
+
+        <div class="sectionMeta">
+          <span class="kpi"><b>Default:</b> gleiche Slots</span>
+          <span class="kpi"><b>Pull:</b> STRG+8 zuerst</span>
+          <span class="kpi"><b>Gear:</b> Poetik 90</span>
+        </div>
 
         <div class="rot">
 Single:
-Combo → Himmelszorn
+1–2–3 → STRG+5 → 4
 
 AoE:
-AoE-Combo → Dezimieren
+STRG+1–3 → STRG+5 → STRG+4
+
+Def:
+STRG+8 zuerst, dann STRG+10/11 nach Bedarf.
         </div>
 
-        <div class="keybox">
-          <div class="keyboxHead">Empfohlene Tastenbelegung (Level 50–60)</div>
-          <div class="keygrid">
-            <ul class="keylist">
-              <li><span class="kbd">4</span> → Himmelszorn</li>
-              <li><span class="kbd">STRG+4</span> → Dezimieren</li>
-            </ul>
-            <ul class="keylist">
-              <li><span class="kbd">STRG+7</span> → Urinstinkt</li>
-              <li><span class="kbd">STRG+8</span> → Gleichgewicht</li>
-            </ul>
-          </div>
+        <div class="callout">
+          <strong>Keine neue Hotbar nötig:</strong> Du spielst 80–90 mit exakt denselben Slots wie 70–80.
         </div>
+
+        <div class="callout"><strong>Level 90:</strong> Poetik-Set + Axt holen (Radz-at-Han).</div>
 
       </div>
     </div>
 
-    <!-- LEVEL 60–70 -->
-    <div class="card" id="l60-70">
-      <div class="cardHeader"><h2>Level 60–70 – Burst-Fenster</h2></div>
+    <!-- 90–100 -->
+    <div class="card" id="l90-100">
+      <div class="cardHeader"><h2>Level 90–100</h2></div>
       <div class="cardBody">
 
-        <div class="rot">
-Burst:
-Innerer Impuls → Himmelszorn / Dezimieren
+        <div class="sectionMeta">
+          <span class="kpi"><b>Poetik 90:</b> bis ~95</span>
+          <span class="kpi"><b>Waffe:</b> weiterhin #1</span>
+          <span class="kpi"><b>Slots:</b> bleiben stabil</span>
         </div>
-
-        <div class="keybox">
-          <div class="keyboxHead">Empfohlene Tastenbelegung (Level 60–70)</div>
-          <div class="keygrid">
-            <ul class="keylist">
-              <li><span class="kbd">STRG+5</span> → Innerer Impuls</li>
-              <li><span class="kbd">STRG+6</span> → Aufruhr</li>
-            </ul>
-            <ul class="keylist">
-              <li><span class="kbd">STRG+0</span> → Rachsucht</li>
-              <li><span class="kbd">STRG+-</span> → Vergeltung</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- LEVEL 70–80 -->
-    <div class="card" id="l70-80">
-      <div class="cardHeader"><h2>Level 70–80 – Unkaputtbar</h2></div>
-      <div class="cardBody">
 
         <div class="rot">
-Dungeon-Pulls:
-Blutaura → AoE → Burst
+Du musst nichts neu belegen.
+Updates sind meist Potency/Traits.
+
+Wenn du etwas verbessern willst:
+→ zuerst Axt prüfen.
         </div>
 
-        <div class="keybox">
-          <div class="keyboxHead">Empfohlene Tastenbelegung (Level 70–80)</div>
-          <div class="keygrid">
-            <ul class="keylist">
-              <li><span class="kbd">STRG+7</span> → Blutaura</li>
-              <li><span class="kbd">STRG+8</span> → Gleichgewicht</li>
-            </ul>
-            <ul class="keylist">
-              <li><span class="kbd">STRG+9</span> → Schutzwall</li>
-              <li><span class="kbd">STRG+0</span> → Rachsucht</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- LEVEL 80–100 -->
-    <div class="card" id="l80-90">
-      <div class="cardHeader"><h2>Level 80–100 – Routine & Endgame</h2></div>
-      <div class="cardBody">
-
-        <div class="rot">
-Alles bleibt gleich.
-Rotation automatisiert sich.
-        </div>
-
-        <div class="keybox">
-          <div class="keyboxHead">Empfohlene Tastenbelegung (Endgame)</div>
-          <div class="keygrid">
-            <ul class="keylist">
-              <li><span class="kbd">1–4</span> → komplette Single-Rotation</li>
-              <li><span class="kbd">STRG+1–4</span> → komplette AoE-Rotation</li>
-            </ul>
-            <ul class="keylist">
-              <li><span class="kbd">STRG+5–9</span> → Burst & Defensives</li>
-              <li><span class="kbd">STRG+=</span> → Totengeleit (Notfall)</li>
-            </ul>
-          </div>
+        <div class="callout">
+          <strong>Hotbar bleibt gleich:</strong> Die Slot-Logik ist jetzt „fertig“ – du ersetzt höchstens einzelne Skills durch Upgrades im selben Slot.
         </div>
 
       </div>
