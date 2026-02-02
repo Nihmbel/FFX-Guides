@@ -346,12 +346,8 @@
       background: rgba(15,22,34,96);
       backdrop-filter: blur(6px);
     }
-    .tablewrap tbody tr:nth-child(even){
-      background: rgba(255,255,255,03);
-    }
-    .tablewrap tbody tr:hover{
-      background: rgba(119,167,255,08);
-    }
+    .tablewrap tbody tr:nth-child(even){background: rgba(255,255,255,02);}
+    .tablewrap tbody tr:hover{background: rgba(119,167,255,14);}
     .tablewrap td{
       padding: 12px 10px;
     }
@@ -360,6 +356,21 @@
     }
     @media (max-width:520px){
       .tablewrap{max-height: 420px;}
+
+    
+    /* Skill-Liste: Level-Spalte visuell verankern */
+    .tablewrap td:first-child,
+    .tablewrap th:first-child{
+      font-family: var(--mono);
+      font-weight: 700;
+      width: 84px;
+      min-width: 84px;
+      text-align: center;
+      background: rgba(0,0,0,22);
+    }
+    .tablewrap th:first-child{
+      background: rgba(0,0,0,38);
+    }
 
     /* Skill-Liste: klarere Kategorie-Tags (semantische Klassen) */
     .tablewrap .tag{
