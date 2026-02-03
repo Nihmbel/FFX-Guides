@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FFX Guides Website</title>
+  <meta name="description" content="FFXIV Einsteiger-Guides (DE). Weiterleitung zur deutschen Startseite." />
+
+  <!-- Global assets (root-level) -->
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <script defer src="assets/js/site.js"></script>
+
+  <!-- Sofortige Weiterleitung (statisch, GitHub Pages-freundlich) -->
+  <meta http-equiv="refresh" content="0; url=de/" />
+
+  <style>
+    /* Minimaler Fallback, falls CSS noch nicht lädt */
+    .wrap{max-width:980px;margin:0 auto;padding:24px}
+    .langgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    @media (max-width:720px){.langgrid{grid-template-columns:1fr}}
+    .langcard{display:block;text-decoration:none}
+    .badge{
+      display:inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.75);
+      white-space:nowrap;
+    }
+    .badge.ok{border-color: rgba(90,200,120,0.35); background: rgba(90,200,120,0.10); color: rgba(180,240,200,0.95);}
+    .badge.soon{border-color: rgba(255,200,80,0.35); background: rgba(255,200,80,0.10); color: rgba(255,235,200,0.95);}
+  </style>
+
+  <script>
+    // JS-Redirect als Backup (meta refresh reicht meist; das hier ist nur zusätzlicher Schutz).
+    (function () {
+      try {
+        // Verhindert "Back" auf die Redirect-Seite.
+        window.location.replace("de/");
+      } catch (e) {
+        // Wenn etwas blockiert: Fallback-Link unten.
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="callout" style="margin:12px 0 16px;">
+      <strong>Weiterleitung…</strong><br />
+      Du wirst zur deutschen Startseite weitergeleitet. Falls das nicht klappt, nutze den Link unten.
+    </div>
+
+    <section class="section anchor" id="language">
+      <h2>Sprache wählen</h2>
+
+      <div class="langgrid">
+        <a class="card langcard" href="de/">
+          <h3 style="margin:0 0 6px;">Deutsch (DE)</h3>
+          <p class="muted" style="margin:0 0 10px;">Aktuell verfügbar. Sehr detaillierte Einsteiger-Guides.</p>
+          <span class="badge ok">Starten</span>
+        </a>
+
+        <div class="card" aria-disabled="true" style="opacity:0.75;">
+          <h3 style="margin:0 0 6px;">English (EN)</h3>
+          <p class="muted" style="margin:0 0 10px;">Vorbereitet, aber aktuell nicht aktiv.</p>
+          <span class="badge soon">Coming soon</span>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:12px;">
+        <b>Tipp:</b> Wenn du komplett neu in FFXIV bist, starte im DE-Bereich beim ersten fertigen Job-Guide (aktuell Krieger).
+      </div>
+    </section>
+
+    <div class="footer" style="margin-top:18px;">
+      Wenn du nicht weitergeleitet wirst: <a href="de/">Zur deutschen Startseite</a>
+    </div>
+  </div>
+</body>
+</html>

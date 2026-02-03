@@ -1,0 +1,1803 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>FFX-Guides – Paladin (Gladiator → Paladin) 1–100 (DE)</title>
+  <meta name="description" content="Extrem detaillierter Einsteiger-Guide für Gladiator → Paladin (FFXIV) von Level 1 bis 100: Skills (DE), Rotation, Hotbars, Gear, Dungeons, Trust-Pulls, Solo-Tipps." />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#101826;
+      --panel2:#0e1520;
+      --text:#eaf0ff;
+      --muted:#a9b4d0;
+      --line:rgba(255,255,255,.10);
+      --accent:#77a7ff;
+      --ok:#66e3a3;
+      --warn:#ffd36a;
+      --bad:#ff7a7a;
+      --chip:#16243a;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background: radial-gradient(1200px 900px at 20% -10%, rgba(119,167,255,.20), transparent 55%),
+                  radial-gradient(900px 700px at 90% 10%, rgba(102,227,163,.12), transparent 60%),
+                  var(--bg);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-position: center top;
+
+      color:var(--text);
+      line-height:1.45;
+    }
+
+    /* Layout */
+    .app{
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      min-height:100vh;
+    }
+    @media (max-width: 1024px){
+      .app{grid-template-columns: 1fr}
+    }
+
+    /* Sidebar */
+    .sidebar{
+      position:sticky;
+      top:0;
+      height:100vh;
+      overflow:auto;
+      padding:18px 16px 22px;
+      border-right:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(16,24,38,.92), rgba(14,21,32,.92));
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width:1024px){
+      .sidebar{
+        position:relative;
+        height:auto;
+        border-right:none;
+        border-bottom:1px solid var(--line);
+      }
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: rgba(10,14,20,.55);
+    }
+    .logo{
+      width:40px;height:40px;
+      border-radius:14px;
+      background: radial-gradient(circle at 35% 25%, rgba(119,167,255,.9), rgba(119,167,255,.15) 55%, transparent 70%),
+                  radial-gradient(circle at 70% 65%, rgba(102,227,163,.8), rgba(102,227,163,.10) 55%, transparent 70%),
+                  rgba(255,255,255,.06);
+      border:1px solid var(--line);
+    }
+    .brand h1{
+      font-size:16px;
+      margin:0;
+      letter-spacing:.2px;
+    }
+    .brand p{
+      margin:2px 0 0;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .meta{
+      margin-top:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      font-size:12px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(119,167,255,.15);
+    }
+    .dot.ok{background:var(--ok); box-shadow:0 0 0 4px rgba(102,227,163,.15)}
+    .dot.warn{background:var(--warn); box-shadow:0 0 0 4px rgba(255,211,106,.15)}
+    .dot.bad{background:var(--bad); box-shadow:0 0 0 4px rgba(255,122,122,.15)}
+
+    .nav{
+      margin-top:14px;
+      padding:12px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .nav h2{
+      margin:0 0 8px;
+      font-size:13px;
+      letter-spacing:.2px;
+      color:var(--muted);
+      font-weight:600;
+    }
+    .nav a{
+      display:block;
+      text-decoration:none;
+      color:var(--text);
+      padding:10px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+      margin-bottom:6px;
+      background: transparent;
+    }
+    .nav a:hover{
+      border-color: var(--line);
+      background: rgba(255,255,255,.05);
+    }
+    .nav a small{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:2px;
+    }
+
+    /* Main */
+    .main{
+      padding:18px 18px 40px;
+    }
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      padding:10px 12px;
+      margin:-18px -18px 18px;
+      border-bottom:1px solid var(--line);
+      background: rgba(11,15,20,.72);
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width:1024px){
+      .topbar{
+        position:relative;
+        top:auto;
+        margin:0 0 18px;
+        border:1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(11,15,20,.55);
+      }
+    }
+    .topbar-inner{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .langbox{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-size:13px;
+    }
+    .btn:hover{background: rgba(255,255,255,.08)}
+    .btn.primary{
+      border-color: rgba(119,167,255,.35);
+      background: rgba(119,167,255,.12);
+    }
+    .search{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      min-width:260px;
+      flex:1 1 320px;
+    }
+    .search input{
+      width:100%;
+      padding:10px 12px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      outline:none;
+      font-size:13px;
+    }
+    .search input::placeholder{color: rgba(169,180,208,.65)}
+
+    .hero{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(119,167,255,.10), rgba(255,255,255,.03));
+      padding:16px 16px 14px;
+      box-shadow: var(--shadow);
+    }
+    .hero h2{
+      margin:0 0 6px;
+      font-size:20px;
+      letter-spacing:.2px;
+    }
+    .hero p{margin:0; color:var(--muted)}
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width:1100px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      padding:14px;
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+    .card p{margin:8px 0; color:var(--muted)}
+    .kvs{
+      display:grid;
+      grid-template-columns: 160px 1fr;
+      gap:8px 10px;
+      margin-top:10px;
+    }
+    @media (max-width:520px){ .kvs{grid-template-columns: 1fr} }
+    .kvs div{
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(0,0,0,.18);
+    }
+    .kvs b{display:block; font-size:12px; color:var(--muted); font-weight:600}
+    .kvs span{display:block; margin-top:2px; font-size:13px; color:var(--text)}
+
+    .section{
+      margin-top:16px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      padding:14px;
+    }
+    .section h2{
+      margin:0 0 8px;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+    .section .sub{
+      color:var(--muted);
+      font-size:13px;
+      margin:0 0 12px;
+    }
+
+    /* Tables */
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+    }
+    th,td{
+      padding:10px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      font-size:13px;
+    }
+    th{
+      text-align:left;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+      letter-spacing:.2px;
+      background: rgba(255,255,255,.04);
+    }
+    tr:last-child td{border-bottom:none}
+
+    
+    /* Skills table UX improvements (scoped via .tablewrap) */
+    .tablewrap{
+      overflow:auto;
+      max-height:520px;
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,0.18);
+    }
+    .tablewrap table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      min-width: 720px; /* keeps columns readable on narrow screens; wrapper scrolls */
+      border:none;       /* wrapper already has border */
+      background: transparent;
+    }
+    .tablewrap thead th{
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: rgba(255,255,255,0.06); /* glass header */
+      backdrop-filter: blur(6px);
+    }
+    .tablewrap tbody tr{
+      background: rgba(0,0,0,0.10);
+    }
+    .tablewrap tbody tr:nth-child(even){
+      background: rgba(255,255,255,0.03);
+    }
+    .tablewrap tbody tr:hover{
+      background: rgba(119,167,255,0.08);
+    }
+    .tablewrap td, .tablewrap th{
+      padding:12px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      font-size:13px;
+      background: transparent;
+    }
+    .tablewrap tbody tr:last-child td{border-bottom:none}
+    @media (max-width:520px){
+      .tablewrap{max-height: 420px;}
+      .tablewrap table{min-width: 640px;}
+    }
+/* Skill-Liste: Level-Spalte visuell verankern */
+    .tablewrap td:first-child,
+    .tablewrap th:first-child{
+      font-family: var(--mono);
+      font-weight: 700;
+      width: 84px;
+      min-width: 84px;
+      text-align: center;
+      background: rgba(0,0,0,0.22);
+    }
+    .tablewrap th:first-child{
+      background: rgba(0,0,0,0.38);
+    }
+
+    /* Skill-Liste: klarere Kategorie-Tags (semantische Klassen) */
+    .tablewrap .tag{
+      font-weight:700;
+      letter-spacing:.2px;
+      text-transform:uppercase;
+      min-width:78px;
+      justify-content:center;
+    }
+    .tablewrap .tag.st{border-color:rgba(119,167,255,0.30); background: rgba(119,167,255,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.aoe{border-color:rgba(102,227,163,0.28); background: rgba(102,227,163,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.def{border-color:rgba(255,211,106,0.28); background: rgba(255,211,106,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.burst{border-color:rgba(255,211,106,0.28); background: rgba(255,211,106,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.heal{border-color:rgba(102,227,163,0.28); background: rgba(102,227,163,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.stance{border-color:rgba(102,227,163,0.28); background: rgba(102,227,163,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.util,
+    .tablewrap .tag.range,
+    .tablewrap .tag.gauge,
+    .tablewrap .tag.party,
+    .tablewrap .tag.ogcd,
+    .tablewrap .tag.mobility,
+    .tablewrap .tag.emerg{
+      border-color:rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+      color: rgba(234,240,255,0.86);
+    }
+
+      .tablewrap table{min-width: 640px;}
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .tag.ok{color:rgba(102,227,163,.95); border-color:rgba(102,227,163,.25); background: rgba(102,227,163,.08)}
+    .tag.warn{color:rgba(255,211,106,.95); border-color:rgba(255,211,106,.25); background: rgba(255,211,106,.08)}
+    .tag.bad{color:rgba(255,122,122,.95); border-color:rgba(255,122,122,.25); background: rgba(255,122,122,.08)}
+    .mono{font-family:var(--mono)}
+    .hr{height:1px; background: var(--line); margin:12px 0}
+
+    /* Hotbar mapping blocks */
+    .hotbars{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      align-items:start;
+    }
+    @media (max-width:1100px){ .hotbars{grid-template-columns: 1fr} }
+
+    .hotbar{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:12px;
+      background: rgba(0,0,0,.20);
+    }
+    .hotbar h4{margin:0 0 10px; font-size:14px}
+    .keys{
+      display:grid;
+      grid-template-columns: repeat(6, minmax(44px, 1fr));
+      gap:8px;
+    }
+.key{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding:8px 8px;
+      background: rgba(255,255,255,.04);
+      min-height:58px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      justify-content:space-between;
+    }
+    .key .k{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+    }
+    .kbd{
+      font-family: var(--mono);
+      font-size:12px;
+      color: var(--text);
+      padding:2px 6px;
+      border-radius: 8px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      white-space:nowrap;
+    }
+    .prio{
+      font-size:11px;
+      color: var(--muted);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 999px;
+      padding:2px 6px;
+      white-space:nowrap;
+    }
+    .skill{
+      font-size:12px;
+      color: var(--muted);
+      min-height:30px;
+    }
+    .skill b{color:var(--text); font-weight:700}
+    .note{
+      margin-top:10px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* Collapsible */
+    details{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:10px 12px;
+      background: rgba(255,255,255,.03);
+    }
+    details summary{
+      cursor:pointer;
+      font-weight:700;
+      color:var(--text);
+    }
+    details p, details li{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* Anchors */
+    .anchor{scroll-margin-top: 86px;}
+    @media (max-width:1024px){ .anchor{scroll-margin-top: 12px;} }
+
+    /* Footer */
+    .footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:12px;
+      padding:10px 2px;
+    }
+    .callout{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      padding:12px;
+    }
+    .callout strong{color:var(--text)}
+    .callout .row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:8px;
+    }
+.tablewrap tbody tr:nth-child(even){background: rgba(0,0,0,0.26) !important;}
+.tablewrap tbody tr:nth-child(even){
+      box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.30) !important;
+    }
+    .tablewrap tbody tr td{
+      background: transparent !important;
+      color: inherit;
+    }
+
+
+    /* Neue Skills Listen (Rotation-Abschnitte) */
+    .skills-new{
+      margin: 8px 0 10px;
+      padding-left: 18px;
+    }
+    .skills-new li{
+      margin: 6px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .skills-new b{color: var(--text);}
+
+
+    /* Lernpfad-Extras: Hotbar-Update & Fokus */
+    .learn-extra{
+      margin:10px 0 0;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,0.04);
+    }
+    .learn-extra h5{
+      margin:0 0 6px;
+      font-size:13px;
+      letter-spacing:.2px;
+      color:var(--text);
+    }
+    .learn-extra p{
+      margin:4px 0;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+
+    /* Rotation: Hotbar-Zuordnung pro Abschnitt */
+    .hotbar-map{
+      margin: 10px 0 0;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,0.14);
+    }
+    .hotbar-map h4{margin:0 0 8px;}
+    .hotbar-map .cols{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .hotbar-map ul{margin:0; padding-left:18px;}
+    .hotbar-map li{margin:4px 0; color:var(--muted); font-size:13px;}
+    .hotbar-map b{color:var(--text);}
+    .hotbar-changes{
+      margin-top:10px;
+      padding-top:8px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:13px;
+    }
+    @media (max-width:640px){
+      .hotbar-map .cols{grid-template-columns:1fr;}
+    }
+
+
+    /* Hotbar Visual (2×6) + kurze Labels */
+    .hb-visual-wrap{margin:12px 0 10px;}
+    .hb-visual-title{font-weight:800;margin:0 0 8px;}
+    .hb-visual{
+      display:grid;
+      grid-template-columns:repeat(6,minmax(0,1fr));
+      gap:8px;
+    }
+    .hb-slot{
+      border:1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      padding:10px 8px;
+      min-height:46px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+      overflow:hidden;
+    }
+    .hb-key{
+      font-family: var(--mono);
+      font-weight:900;
+      font-size:12px;
+      color: var(--text);
+      line-height:1.1;
+    }
+    .hb-label{
+      margin-top:4px;
+      font-size:11px;
+      color: var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width:100%;
+    }
+    .hb-legend{
+      margin:10px 0 0;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,0.12);
+      color: var(--muted);
+      font-size:13px;
+    }
+    .kbdtag{
+      display:inline-block;
+      padding:2px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      font-size:11px;
+      font-weight:800;
+      color: var(--text);
+      margin-right:8px;
+      vertical-align:middle;
+      white-space:nowrap;
+    }
+
+
+    /* Sidebar: Job-Navigation (identisch auf allen Job-Seiten) */
+    .jobnav{
+      margin-top: 12px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,0.10);
+    }
+    .jobnav h3{
+      margin: 0 0 8px;
+      font-size: 13px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .jobnav a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: var(--text);
+      text-decoration:none;
+      background: rgba(255,255,255,0.03);
+      margin-bottom: 6px;
+    }
+    .jobnav a:last-child{margin-bottom:0}
+    .jobnav a:hover{
+      border-color: rgba(119,167,255,0.35);
+      background: rgba(119,167,255,0.08);
+    }
+    .jobnav .jobname{font-weight:800}
+    .badge{
+      display:inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .badge.ok{
+      border-color: rgba(90,200,120,0.35);
+      background: rgba(90,200,120,0.10);
+      color: rgba(180,240,200,0.95);
+    }
+    .badge.soon{
+      border-color: rgba(255,200,80,0.35);
+      background: rgba(255,200,80,0.10);
+      color: rgba(255,235,200,0.95);
+    }
+
+
+    .badge.wip{
+      border-color: rgba(119,167,255,0.40);
+      background: rgba(119,167,255,0.12);
+      color: rgba(210,230,255,0.95);
+    }
+</style>
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>FFX-Guides</h1>
+          <p>Job-Guide • DE • Paladin 1–100</p>
+        </div>
+      </div>
+
+      <div class="meta">
+        <span class="pill"><span class="dot ok"></span>Stand: <b>Dawntrail 7.x</b></span>
+        <span class="pill"><span class="dot"></span>Job: <b>Paladin</b></span>
+        <span class="pill"><span class="dot warn"></span>Fokus: <b>Solo / Trust</b></span>
+      </div>
+
+<div class="jobnav" aria-label="Job-Navigation">
+        <h3>Jobs (DE)</h3>
+        <a href="warrior.html"><span class="jobname">Krieger</span><span class="badge ok">Fertig</span></a>
+        <a href="paladin.html" aria-current="page"><span class="jobname">Paladin</span><span class="badge ok">Fertig</span></a>
+        <a href="summoner.html"><span class="jobname">Beschwörer</span><span class="badge ok">Fertig</span></a>
+        <a href="gunbreaker.html"><span class="jobname">Revolverklinge</span><span class="badge ok">Fertig</span></a>
+      </div>
+
+      <div class="nav" aria-label="Inhaltsverzeichnis">
+        <h2>Navigation</h2>
+        <a href="#start" class="jump">Start & Grundprinzipien<small>Gladiator → Paladin (Anfänger)</small></a>
+        <a href="#hotbars" class="jump">Hotbars & Tastenbelegung<small>1–6 + STRG 1–6 (simpel)</small></a>
+<a href="#rotations" class="jump">Rotation & Prioritäten 1–100<small>Abschnitt für Abschnitt</small></a>
+        <a href="#aoe" class="jump">AoE vs. Single Target<small>Wann umschalten & warum</small></a>
+        <a href="#pulls" class="jump">Dungeon-Pulls (Trust/Solo)<small>Defensiv-Rotation & Rhythmus</small></a>
+        <a href="#gear" class="jump">Gear während des Levelns<small>Wann lohnt Farmen?</small></a>
+        <a href="#macros" class="jump">Makros & “1-Button?”<small>Was geht, was nicht</small></a>
+        <a href="#faq" class="jump">FAQ<small>Häufige Fragen</small></a>
+</div>
+
+      <div class="footer">
+        Tipp: Nutze oben die Suche (z.B. „Tomahawk“, „Urbefreiung“, „AoE“), um schnell Stellen zu finden.
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      
+<div class="callout" style="margin:12px 0 16px;">
+  <strong>BUILD: local-hotbars-rotations-v1</strong><br>
+  Hinweis: Eine separate Skill-Freischaltliste existiert in dieser Version <b>nicht</b>. Neue Skills stehen direkt in den Level-Abschnitten.
+</div>
+<div class="topbar">
+        <div class="topbar-inner">
+          <div class="langbox">
+            <button class="btn primary" type="button" aria-label="Sprache Deutsch aktiv">DE</button>
+<span class="pill"><span class="dot"></span>Guide-Seite pro Job</span>
+          </div>
+          <div class="search">
+            <input id="search" type="search" placeholder="Suchen… (Skillname, Level, AoE, Trust, Gear …)" aria-label="Guide durchsuchen" />
+            <button class="btn" id="clear" type="button">Leeren</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="hero anchor" id="start">
+        <h2>Gladiator → Paladin (1–100) • Solo/Trust • extrem simpel & sicher</h2>
+        <p>
+          Ziel dieses Guides: Du kannst <b>von Level 1 bis 100</b> entspannt leveln — mit einer klaren,
+          anfängerfreundlichen Rotation, soliden Pull-Gewohnheiten und einer Hotbar, die zu <b>1–6 + STRG 1–6</b> passt.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Was du als Tank wirklich “richtig” machen musst</h3>
+            <div class="kvs">
+              <div><b>1) Haltung</b><span><b>Schild-Eid</b> an (wenn du tankst).</span></div>
+              <div><b>2) AoE im Trash</b><span>Mehrere Gegner = <b>Eklipse</b> (später: <b>Eklipse → Protuberanz</b>).</span></div>
+              <div><b>3) Defensivs früh</b><span>Nicht “erst wenn’s brennt”.</span></div>
+              <div><b>4) Boss = ST</b><span>Single-Target-Kombo + deine “Burst”-Buttons.</span></div>
+            </div>
+            <p class="note">
+              Der Paladin ist sehr anfängerfreundlich, weil er früh <b>stabile Defensivs</b> bekommt und später
+              zusätzlich <b>Magie-Burst</b> sowie <b>Gruppen-Utility</b> (Schilde/Schadensreduktion) mitbringt.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Wie du diesen Guide benutzt (ohne Überforderung)</h3>
+            <ul class="check">
+              <li>Du bekommst gleich die <b>Rotation in Abschnitten</b> – passend zu deinem Level.</li>
+              <li>Jeder Abschnitt sagt dir: <b>Welche Skills neu</b> sind, <b>welche Taste</b> du dafür nutzt, und <b>was du übst</b>.</li>
+              <li>Wenn du nur 10 Minuten hast: Lies nur den Abschnitt, der zu deinem Level passt.</li>
+              <li>Wichtiges Mindset: Beim Leveln ist “sauber gespielt” wichtiger als “perfekt gespielt”.</li>
+            </ul>
+            <div class="chips">
+              <span class="chip"><b>Einfach</b> • Maus+Tastatur</span>
+              <span class="chip"><b>Solo/Trust</b> Fokus</span>
+              <span class="chip">Endgame-ready Basics</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <b>Super-kurz erklärt:</b> Du bist ein Tank. Deine Aufgabe ist nicht “DPS-Maximum”, sondern
+          <b>Kontrolle + Sicherheit</b>: Gegner an dich binden, AoE halten, Defensivs rechtzeitig drücken.
+          Schaden kommt automatisch, wenn du deine Kombos sauber spielst.
+        </div>
+      </section>
+
+      <!-- Hotbars -->
+      
+<section class="section anchor" id="hotbars">
+  <h2>Hotbars &amp; Tastenbelegung (simpel &amp; einsteigerfreundlich)</h2>
+
+  <p>
+    Dieser Guide geht davon aus, dass du mit <b>Maus + Tastatur</b> spielst.
+    Wir nutzen <b>2 Hotbars</b> – und jede Hotbar hat <b>12 Slots</b>, dargestellt als <b>2×6</b> (zwei Reihen mit je 6 Slots).
+  </p>
+
+  <h3>Grundidee (wichtig)</h3>
+  <ul>
+    <li><b>Hotbar 1 (1–12)</b> = deine Haupttasten (wir nutzen davon bewusst nur die wichtigsten)</li>
+    <li><b>Hotbar 2 (STRG + 1–12)</b> = starke / defensive / situative Tasten</li>
+    <li><b>Die Taste bleibt immer gleich.</b> Wenn ein Skill später ersetzt wird, bleibt er auf derselben Taste.</li>
+  </ul>
+  
+  <div class="note" style="margin-top:8px;">
+    Paladin bekommt später Zauber (z.B. Heiliger Geist). Für dich bleibt es trotzdem simpel: ST bleibt ST, AoE bleibt AoE – und der Burst ist ein eigener Button.
+  </div>
+
+  <h3>Hotbar-Übersicht (2×6 je Hotbar)</h3>
+  <div class="hb-visual-wrap">
+    <p class="hb-visual-title">Hotbar 1 (ohne STRG) – 12 Slots als 2×6</p>
+    <div class="hb-visual">
+      <div class="hb-slot"><div class="hb-key">1</div><div class="hb-label">ST</div></div>
+      <div class="hb-slot"><div class="hb-key">2</div><div class="hb-label">ST</div></div>
+      <div class="hb-slot"><div class="hb-key">3</div><div class="hb-label">ST</div></div>
+      <div class="hb-slot"><div class="hb-key">4</div><div class="hb-label">AoE</div></div>
+      <div class="hb-slot"><div class="hb-key">5</div><div class="hb-label">AoE</div></div>
+      <div class="hb-slot"><div class="hb-key">6</div><div class="hb-label">ST</div></div>
+
+      <div class="hb-slot"><div class="hb-key">7</div><div class="hb-label">Def</div></div>
+      <div class="hb-slot"><div class="hb-key">8</div><div class="hb-label">Def</div></div>
+      <div class="hb-slot"><div class="hb-key">9</div><div class="hb-label">Def</div></div>
+      <div class="hb-slot"><div class="hb-key">10</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">11</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">12</div><div class="hb-label">(frei)</div></div>
+    </div>
+  </div>
+
+  <div class="hb-visual-wrap">
+    <p class="hb-visual-title">Hotbar 2 (STRG + 1–12) – 12 Slots als 2×6</p>
+    <div class="hb-visual">
+      <div class="hb-slot"><div class="hb-key">STRG+1</div><div class="hb-label">ST</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+2</div><div class="hb-label">AoE</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+3</div><div class="hb-label">ST</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+4</div><div class="hb-label">Def</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+5</div><div class="hb-label">Def</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+6</div><div class="hb-label">(frei)</div></div>
+
+      <div class="hb-slot"><div class="hb-key">STRG+7</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+8</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+9</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+10</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+11</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+12</div><div class="hb-label">(frei)</div></div>
+    </div>
+  </div>
+
+  <div class="hb-legend">
+    <b>Legende:</b> <b>ST</b> = 1 Ziel/Boss · <b>AoE</b> = mehrere Gegner · <b>Def</b> = defensiv (weniger Schaden / Notfall)<br>
+    <b>Wichtig:</b> Wir belegen in diesem Guide nur die <b>wichtigsten</b> Tasten fest (meist 1–6 und STRG+1–5).
+    Die restlichen Slots (7–12 / STRG+6–12) bleiben <b>frei</b> oder sind für später/Optional.
+  </div>
+</section>
+
+
+      <!-- Skills -->
+
+<!-- Rotations -->
+      <section class="section anchor" id="rotations">
+  <h2>Rotation &amp; Prioritäten 1–100 (wie beim Krieger: Abschnitt für Abschnitt)</h2>
+  <p class="sub">
+    Pro Abschnitt bekommst du <b>Neue Skills</b> → <b>Hotbar-Update</b> (Taste bleibt) → <b>Hotbar-Zuordnung</b> → <b>Prioritäten</b> (ST/AoE) → <b>Was du jetzt übst</b>.
+    Wenn dir etwas zu viel ist: Halte dich an die Hotbar-Tasten in <b>Fett</b> – das reicht für Story &amp; Dungeons vollkommen.
+  </p>
+
+  <details open>
+    <summary>Level 1–9: Du lernst das ST-Grundgerüst</summary>
+
+    <p><b>Du hast:</b> Vortexschnitt (1), Verwegenheit (2), Donnerklinge (4), Eklipse (6).</p>
+
+    <div class="hr"></div>
+
+    <p><b>Neue Skills in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Vortexschnitt</b> <span class="mono">(1)</span> – ST-Kombo-Start.</li>
+      <li><b>Verwegenheit</b> <span class="mono">(2)</span> – starker Offensiv-Button (wenn bereit, drücken).</li>
+      <li><b>Donnerklinge</b> <span class="mono">(4)</span> – 2. ST-Kommandoteil.</li>
+      <li><b>Eklipse</b> <span class="mono">(6)</span> – dein erstes AoE (ab 2 Gegnern nutzen).</li>
+    </ul>
+    <p class="note" style="margin-top:8px;">Wenn du einen Skill noch nicht hast: kein Problem – spiel einfach mit dem, was du schon besitzt, und komm später hierher zurück.</p>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong> Lege die ST-Kombo auf <b>1</b> und <b>2</b>. Lege das erste AoE auf <b>4</b> (wir wechseln später: AoE bleibt immer „4/5“). Lege <b>Verwegenheit</b> auf <b>STRG+1</b>.</div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (dieser Abschnitt)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Vortexschnitt</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Donnerklinge</li>
+            <li><b>3:</b> <span class="kbdtag">ST</span> –</li>
+            <li><b>4:</b> <span class="kbdtag">AoE</span> Eklipse</li>
+            <li><b>5:</b> <span class="kbdtag">AoE</span> –</li>
+            <li><b>6:</b> <span class="kbdtag">ST</span> –</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Verwegenheit</li>
+            <li><b>STRG+2:</b> <span class="kbdtag">AoE</span> –</li>
+            <li><b>STRG+3:</b> <span class="kbdtag">ST</span> –</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> –</li>
+            <li><b>STRG+5:</b> <span class="kbdtag">Def</span> –</li>
+            <li><b>STRG+6:</b> Repressalie (Rolle)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Basis: <b>1–2</b> = ST-Kombo (Vortexschnitt → Donnerklinge).</li>
+          <li>Basis: <b>4</b> = AoE (Eklipse).</li>
+          <li>Basis: <b>STRG+1</b> = Verwegenheit (DPS/Burst).</li>
+        </ul>
+      </div>
+      <div class="note" style="margin-top:10px;">
+        <b>Hinweis:</b> Slots <b>7–12</b> / <b>STRG+6–12</b> bleiben bewusst frei/optional.
+      </div>
+    </div>
+
+    <p><b>Single Target (Boss / 1 Gegner):</b></p>
+    <ul>
+      <li><b>Verwegenheit</b>, wenn bereit (am besten direkt, sobald du am Ziel stehst).</li>
+      <li><b>Kombo:</b> <span class="mono">1 → 2</span> wiederholen.</li>
+    </ul>
+
+    <p><b>AoE (2+ Gegner):</b></p>
+    <ul>
+      <li><b>4</b> (Eklipse) wiederholen. Das ist hier komplett okay.</li>
+    </ul>
+
+    <p><b>Dungeon-Gedanke:</b> In den ersten Dungeons ist alles ruhig. Nutze die Zeit, um <b>Target wechseln</b> zu üben (Tab oder anklicken) und dich an „ST vs AoE“ zu gewöhnen.</p>
+
+    <div class="note"><b>Was du jetzt übst:</b> Nur 2 Regeln: <b>1 Ziel = 1→2</b> · <b>2+ Ziele = 4</b>. Wenn das sitzt, wird alles später leicht.</div>
+  </details>
+
+  <details open>
+    <summary>Level 10–25: Du wirst “echter Tank” (AoE + Haltung + Pull)</summary>
+
+    <p><b>Neu:</b> Schild-Eid (10), Schildwurf (15), Halones Groll (26 kommt knapp danach – aber du bereitest dich vor).</p>
+
+    <div class="hr"></div>
+
+    <p><b>Neue Skills in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Schild-Eid</b> <span class="mono">(10)</span> – Tank-Haltung. Wenn du tankst: praktisch immer an.</li>
+      <li><b>Schildwurf</b> <span class="mono">(15)</span> – Ranged Pull / Gegner zurückholen.</li>
+      <li><b>Rollenaktionen</b> (Provozieren, Repressalie, Interjekt) – wir legen die wichtigsten gleich fest.</li>
+    </ul>
+    <p class="note" style="margin-top:8px;">Wenn du als Anfänger überfordert bist: konzentriere dich zuerst nur auf <b>Haltung an</b> + <b>AoE</b>. Der Rest kommt automatisch.</p>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong> Lege <b>Schild-Eid</b> auf <b>STRG+4</b> (du schaust dort immer hin). Lege <b>Schildwurf</b> auf <b>6</b> (Pull). Lege <b>Provozieren</b> auf <b>STRG+6</b> (Notfall).</div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (dieser Abschnitt)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Vortexschnitt</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Donnerklinge</li>
+            <li><b>4:</b> <span class="kbdtag">AoE</span> Eklipse</li>
+            <li><b>6:</b> <span class="kbdtag">ST</span> Schildwurf (Pull)</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Verwegenheit</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schild-Eid (Haltung)</li>
+            <li><b>STRG+6:</b> Provozieren (Rolle)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Neu: <b>STRG+4</b> = Schild-Eid (Haltung).</li>
+          <li>Neu: <b>6</b> = Schildwurf (Pull/Notfall).</li>
+          <li>Neu: <b>STRG+6</b> = Provozieren (Aggro zurückholen).</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>Dungeon-Pull in 3 Schritten (sehr simpel):</b></p>
+    <ol style="margin:0; padding-left:18px;">
+      <li><b>Schild-Eid an</b>.</li>
+      <li>Mit <b>Schildwurf</b> anziehen.</li>
+      <li>Wenn mehrere Gegner da sind: sofort <b>Eklipse</b> (AoE) – so hältst du Aggro am leichtesten.</li>
+    </ol>
+
+    <p><b>Single Target (Boss):</b> Verwegenheit → <span class="mono">1 → 2</span> wiederholen.</p>
+    <p><b>AoE (Trash):</b> <b>4</b> wiederholen, bis nur noch 1 Gegner steht, dann zurück zu ST.</p>
+
+    <div class="note"><b>Was du jetzt übst:</b> Vor jedem Pull kurz checken: „Haltung an?“ Das ist der #1-Anfängerfehler bei Tanks.</div>
+  </details>
+
+  <details>
+    <summary>Level 26–29: Erste echte Selbstheilung im ST</summary>
+
+    <p><b>Neu:</b> Halones Groll (26) – ST-Finisher. Ab jetzt: <b>1 → 2 → 3</b>.</p>
+
+    <p><b>Neue Skills in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Halones Groll</b> <span class="mono">(26)</span> – ST-Finisher (macht deine Kombo komplett).</li>
+    </ul>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong> Lege <b>Halones Groll</b> auf <b>3</b>. Ab jetzt ist ST immer „<b>1–2–3</b>“.</div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (Update)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Vortexschnitt</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Donnerklinge</li>
+            <li><b>3:</b> <span class="kbdtag">ST</span> Halones Groll</li>
+            <li><b>4:</b> <span class="kbdtag">AoE</span> Eklipse</li>
+            <li><b>6:</b> <span class="kbdtag">ST</span> Schildwurf</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Verwegenheit</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schild-Eid</li>
+            <li><b>STRG+6:</b> Provozieren</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Neu: <b>3</b> = Halones Groll (ST-Finisher).</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>Single Target:</b> Verwegenheit → <span class="mono">1 → 2 → 3</span> wiederholen.</p>
+    <p><b>AoE:</b> weiterhin <b>4</b> (Eklipse). AoE-Folge kommt später.</p>
+
+    <div class="note"><b>Was du jetzt übst:</b> Der „1–2–3“-Rhythmus. Wenn du dich verhaspelst: einfach wieder bei <b>1</b> anfangen. Kein Stress.</div>
+  </details>
+
+  <details>
+    <summary>Level 30–34: Vorbereitung auf den Job – Defensiv-Rhythmus lernen</summary>
+
+    <p><b>Neu:</b> Selbsterhaltungstrieb (30) – dein erster starker ST-Angriff/Tool. Du bist jetzt offiziell „Paladin“ (Jobkristall!).</p>
+
+    <p><b>Neue Skills in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Selbsterhaltungstrieb</b> <span class="mono">(30)</span> – starker ST-Button (mit MP-Regeneration). Hilft dir, Rhythmus und Ressourcen zu stabilisieren.</li>
+    </ul>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong> Lege <b>Selbsterhaltungstrieb</b> auf <b>STRG+2</b> (ST-Extra). Du nutzt ihn, wenn er bereit ist – aber nur, wenn du dich dabei nicht stressen lässt.</div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (Update)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Vortexschnitt</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Donnerklinge</li>
+            <li><b>3:</b> <span class="kbdtag">ST</span> Halones Groll</li>
+            <li><b>4:</b> <span class="kbdtag">AoE</span> Eklipse</li>
+            <li><b>6:</b> <span class="kbdtag">ST</span> Schildwurf</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Verwegenheit</li>
+            <li><b>STRG+2:</b> <span class="kbdtag">ST</span> Selbsterhaltungstrieb</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schild-Eid</li>
+            <li><b>STRG+6:</b> Provozieren</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Neu: <b>STRG+2</b> = Selbsterhaltungstrieb (ST-Extra).</li>
+          <li>Erinnerung: <b>Jobkristall</b> ausrüsten – sonst fehlen dir Skills.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>Single Target (simpel):</b></p>
+    <ul>
+      <li>Verwegenheit, wenn bereit.</li>
+      <li><span class="mono">1 → 2 → 3</span> wiederholen.</li>
+      <li>Wenn du Platz im Kopf hast: <b>STRG+2</b> (Selbsterhaltungstrieb) drücken, wenn bereit.</li>
+    </ul>
+
+    <div class="note"><b>Was du jetzt übst:</b> „Defensiv-Rhythmus“ beginnt: In Dungeons nicht warten, bis du fast tot bist – starte Defensivs früh (kommt ab 35 richtig).</div>
+  </details>
+
+  <details>
+    <summary>Level 35–49: Eidbalken – ab hier macht Paladin “Paladin-Sachen”</summary>
+
+    <p><b>Neue Skills in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Schiltron</b> <span class="mono">(35)</span> – kleines Defensiv (sehr oft benutzen).</li>
+      <li><b>Sentinel</b> <span class="mono">(38)</span> – großes Defensiv (große Pulls / Tankbuster).</li>
+      <li><b>Protuberanz</b> <span class="mono">(40)</span> – AoE-Folge zu Eklipse: ab jetzt AoE = <b>4 → 5</b>.</li>
+      <li><b>Deckung</b> <span class="mono">(45)</span> – situativ (für Einsteiger optional).</li>
+    </ul>
+    <p class="note" style="margin-top:8px;">Ab jetzt gilt: In großen Pulls <b>früh</b> Defensivs starten. Das ist „Tank spielen“.</p>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong> Lege <b>Protuberanz</b> auf <b>5</b> (AoE-Paar zu 4). Lege <b>Schiltron</b> auf <b>STRG+4</b> und <b>Sentinel</b> auf <b>STRG+5</b>.</div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (dieser Abschnitt)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Vortexschnitt</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Donnerklinge</li>
+            <li><b>3:</b> <span class="kbdtag">ST</span> Halones Groll</li>
+            <li><b>4:</b> <span class="kbdtag">AoE</span> Eklipse</li>
+            <li><b>5:</b> <span class="kbdtag">AoE</span> Protuberanz</li>
+            <li><b>6:</b> <span class="kbdtag">ST</span> Schildwurf</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Verwegenheit</li>
+            <li><b>STRG+2:</b> <span class="kbdtag">ST</span> Selbsterhaltungstrieb</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schiltron</li>
+            <li><b>STRG+5:</b> <span class="kbdtag">Def</span> Sentinel</li>
+            <li><b>STRG+6:</b> Repressalie / Provozieren</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Neu: <b>5</b> = AoE-Folge (<b>Protuberanz</b>).</li>
+          <li>Neu: <b>STRG+4</b>/<b>STRG+5</b> = Defensivs (<b>Schiltron</b>/<b>Sentinel</b>).</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>AoE (Trash-Pulls):</b></p>
+    <ul>
+      <li><b>Kombo:</b> <span class="mono">4 → 5</span> wiederholen.</li>
+      <li>Defensivs früh: zuerst <b>Schiltron</b>, dann (wenn nötig) <b>Sentinel</b>.</li>
+    </ul>
+
+    <p><b>ST (Boss):</b> Verwegenheit → <span class="mono">1 → 2 → 3</span> und Selbsterhaltungstrieb, wenn bereit.</p>
+
+    <div class="note"><b>Was du jetzt übst:</b> Große Pulls fühlen sich jetzt „tankig“ an. Starte Defensivs <b>am Anfang</b> des Pulls – nicht erst bei 10% HP.</div>
+  </details>
+
+  <details>
+    <summary>Level 50–69: “Göttliche Gunst” halten + Paladin smart ausspielen</summary>
+
+    <p><b>Neue Skills in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Kreis der Verachtung</b> <span class="mono">(50)</span> – AoE-Extra (sehr gut in Pulls).</li>
+      <li><b>Heiliger Boden</b> <span class="mono">(50)</span> – Notfall: unverwundbar (rette Pulls).</li>
+      <li><b>Bollwerk</b> <span class="mono">(52)</span> – blockt alles (Defensiv).</li>
+      <li><b>Ausweiden</b> <span class="mono">(54)</span> – starker ST-Angriff (wenn Bedingung erfüllt).</li>
+      <li><b>Heiliger Quell</b> <span class="mono">(56)</span> – Gruppenschild (Support/Defensiv).</li>
+      <li><b>Klemenz</b> <span class="mono">(58)</span> – Notfall-Heilung (nur wenn es wirklich nötig ist).</li>
+      <li><b>Königsklinge</b> <span class="mono">(60)</span> – ersetzt deinen alten Finisher (Taste bleibt <b>3</b>).</li>
+      <li><b>Intervention</b> <span class="mono">(62)</span> – Defensiv auf Mitspieler (optional, aber sehr stark).</li>
+      <li><b>Heiliger Geist</b> <span class="mono">(64)</span> – ST-Zauber (kommt später in Burst).</li>
+      <li><b>Einschreiten</b> <span class="mono">(66)</span> – Gapcloser (Mobilität).</li>
+      <li><b>Requiescat</b> <span class="mono">(68)</span> – Magie-Burst-Start (sehr wichtig).</li>
+    </ul>
+    <p class="note" style="margin-top:8px;">Dieser Abschnitt ist groß – das ist normal. Du musst nicht alles sofort perfekt spielen. Wir setzen klare „Must-Haves“ auf wenige Tasten.</p>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong>
+      <ul style="margin-top:6px;">
+        <li>Austausch: <b>3</b> = <b>Halones Groll → Königsklinge</b>.</li>
+        <li>Neu: <b>6</b> = <b>Kreis der Verachtung</b> (AoE Extra) und/oder <b>Einschreiten</b> (wenn du lieber Mobilität dort willst).</li>
+        <li>Neu: <b>STRG+3</b> = <b>Requiescat</b> (Burst).</li>
+        <li>Neu (optional): <b>STRG+6</b> = <b>Heiliger Boden</b> (Notfall), <b>STRG+2</b>/<b>STRG+7</b> = Bollwerk/Intervention nach Geschmack.</li>
+      </ul>
+    </div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (Fokus-Tasten)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Vortexschnitt</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Donnerklinge</li>
+            <li><b>3:</b> <span class="kbdtag">ST</span> Königsklinge</li>
+            <li><b>4:</b> <span class="kbdtag">AoE</span> Eklipse</li>
+            <li><b>5:</b> <span class="kbdtag">AoE</span> Protuberanz</li>
+            <li><b>6:</b> <span class="kbdtag">AoE</span> Kreis der Verachtung</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Verwegenheit</li>
+            <li><b>STRG+3:</b> <span class="kbdtag">ST</span> Requiescat</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schiltron</li>
+            <li><b>STRG+5:</b> <span class="kbdtag">Def</span> Sentinel</li>
+            <li><b>STRG+6:</b> <span class="kbdtag">Def</span> Heiliger Boden (Notfall)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Austausch: <b>3</b> wird zu <b>Königsklinge</b>.</li>
+          <li>Neu: <b>STRG+3</b> = <b>Requiescat</b> (Magie-Burst-Start).</li>
+          <li>Neu: <b>6</b> = <b>Kreis der Verachtung</b> (AoE Extra).</li>
+          <li>Neu: <b>STRG+6</b> = <b>Heiliger Boden</b> (Notfall).</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>Single Target (Boss):</b></p>
+    <ul>
+      <li>Verwegenheit, wenn bereit.</li>
+      <li><span class="mono">1 → 2 → 3</span> (mit Königsklinge).</li>
+      <li>Wenn <b>Requiescat</b> bereit ist: drücken. Dann <b>Heiliger Geist</b> nutzen (wenn du ihn hast), danach zurück zur Kombo.</li>
+    </ul>
+
+    <p><b>AoE (Trash):</b></p>
+    <ul>
+      <li><span class="mono">4 → 5</span> wiederholen.</li>
+      <li><b>Kreis der Verachtung</b>, wenn bereit.</li>
+      <li>Wenn Requiescat bereit und du <b>Heiliger Kreis</b> später hast: in der Phase AoE-Zauber nutzen.</li>
+    </ul>
+
+    <div class="note"><b>Was du jetzt übst:</b> Du wirst nicht „perfekt“, sondern <b>zuverlässig</b>: AoE richtig, Haltung an, Defensivs früh, Burst nicht vergessen.</div>
+  </details>
+
+  <details>
+    <summary>Level 70–79: Waffengang &amp; heilige Kette – jetzt wird Paladin „Support-Tank“</summary>
+
+    <p><b>Neue Skills in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Waffengang</b> <span class="mono">(70)</span> – Gruppenschutz hinter dir. Sehr stark, aber nur in passenden Situationen (du musst still stehen).</li>
+      <li><b>Heiliger Kreis</b> <span class="mono">(72)</span> – AoE-Zauber. Im Burst extrem effizient.</li>
+      <li><b>Absolution</b> <span class="mono">(76)</span> – Start deiner heiligen ST-Kette. Einige Folge-Kommandos ersetzen sich später automatisch (Taste bleibt gleich).</li>
+    </ul>
+    <p class="note" style="margin-top:8px;">Das klingt nach viel, ist aber simpel: <b>STRG+3 Burst</b> drücken → dann die „heiligen“ Skills in der Phase nutzen → zurück zu ST/AoE-Grundrotation.</p>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong>
+      <ul style="margin-top:6px;">
+        <li><b>STRG+2</b> = <b>Heiliger Kreis</b> (AoE in Burst).</li>
+        <li><b>STRG+2</b> oder <b>STRG+7</b> (optional) = <b>Absolution</b> (heilige ST-Kette). Wichtig: <b>eine Taste wählen und dabei bleiben</b>.</li>
+        <li><b>STRG+7</b> (optional) = <b>Waffengang</b> (nur wenn du ihn bewusst nutzen möchtest).</li>
+      </ul>
+    </div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (Fokus-Tasten)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Vortexschnitt</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Donnerklinge</li>
+            <li><b>3:</b> <span class="kbdtag">ST</span> Königsklinge</li>
+            <li><b>4:</b> <span class="kbdtag">AoE</span> Eklipse</li>
+            <li><b>5:</b> <span class="kbdtag">AoE</span> Protuberanz</li>
+            <li><b>6:</b> <span class="kbdtag">AoE</span> Kreis der Verachtung</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Verwegenheit</li>
+            <li><b>STRG+2:</b> <span class="kbdtag">AoE</span> Heiliger Kreis</li>
+            <li><b>STRG+3:</b> <span class="kbdtag">ST</span> Requiescat</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schiltron</li>
+            <li><b>STRG+5:</b> <span class="kbdtag">Def</span> Sentinel</li>
+            <li><b>STRG+6:</b> <span class="kbdtag">Def</span> Heiliger Boden (Notfall)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Neu: <b>STRG+2</b> = <b>Heiliger Kreis</b> (AoE-Zauber im Burst).</li>
+          <li>Neu (optional): <b>Absolution</b> auf freie Taste – bleibt dort dauerhaft.</li>
+          <li>Optional: <b>Waffengang</b> auf einen freien Slot (nur wenn du ihn aktiv nutzen willst).</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>Single Target (Boss):</b></p>
+    <ul>
+      <li>Grundrotation: <span class="mono">1 → 2 → 3</span>.</li>
+      <li>Wenn <b>STRG+3</b> (Requiescat) bereit: drücken → dann <b>Heiliger Geist</b> nutzen (falls verfügbar) → zurück zur Kombo.</li>
+      <li><b>Absolution</b> (wenn du sie auf eine Taste gelegt hast): drücken, wenn sie in deinem Flow auftaucht/ersetzt wird (Taste bleibt gleich).</li>
+    </ul>
+
+    <p><b>AoE (Trash):</b></p>
+    <ul>
+      <li><span class="mono">4 → 5</span> wiederholen + <b>Kreis der Verachtung</b> wenn bereit.</li>
+      <li>Burst-Pull: <b>STRG+3</b> → in der Phase <b>STRG+2</b> (Heiliger Kreis) nutzen.</li>
+    </ul>
+
+    <div class="note">
+      <b>Was du jetzt übst:</b> „Burst = STRG+3“ bleibt deine wichtigste Regel. Alles andere ist Bonus.
+      Wenn du Waffengang nutzt: bleib stehen und dreh dich nicht, sonst bricht er ab.
+    </div>
+  </details>
+
+  <details>
+    <summary>Level 80–89: Confiteor &amp; Upgrades – deine Burst-Phase wird klar</summary>
+
+    <p><b>Neue Skills/Upgrades in diesem Abschnitt (Auswahl):</b></p>
+    <ul class="skills-new">
+      <li><b>Confiteor</b> <span class="mono">(80)</span> – starker Burst-Zauber (wird durch Requiescat/Imperator ermöglicht).</li>
+      <li><b>Confiteor-Kombo-Kommandos</b> – nach Confiteor wechseln Folge-Kommandos automatisch auf derselben Taste (du musst nichts neu belegen).</li>
+      <li><b>Meister der Göttlichen Magie II</b> <span class="mono">(84)</span> – Upgrades/Heil-Effekte auf deine heiligen Zauber.</li>
+      <li><b>Meister des Selbsterhaltungstriebs</b> <span class="mono">(86)</span> – Potency-Upgrades.</li>
+    </ul>
+
+    <p class="note" style="margin-top:8px;">Wichtig: Einige Kommandos <b>ändern sich auf derselben Taste</b> und können nicht separat ins Menü gelegt werden. Genau darum ist unser Hotbar-Konzept so stark.</p>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong>
+      <ul style="margin-top:6px;">
+        <li><b>STRG+1</b> = <b>Confiteor</b> (und später seine Ketten-Kommandos auf derselben Taste).</li>
+        <li><b>STRG+3</b> bleibt Burst-Start (Requiescat/Upgrades).</li>
+        <li><b>STRG+2</b> bleibt AoE-Zauber (Heiliger Kreis) im Burst.</li>
+      </ul>
+    </div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (Burst-Fokus)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1–3:</b> <span class="kbdtag">ST</span> Kombo (Vortexschnitt → Donnerklinge → Königsklinge)</li>
+            <li><b>4–5:</b> <span class="kbdtag">AoE</span> Kombo (Eklipse → Protuberanz)</li>
+            <li><b>6:</b> <span class="kbdtag">AoE</span> Kreis der Verachtung</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Confiteor (→ Ketten-Kommandos)</li>
+            <li><b>STRG+2:</b> <span class="kbdtag">AoE</span> Heiliger Kreis</li>
+            <li><b>STRG+3:</b> <span class="kbdtag">ST</span> Requiescat</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schiltron</li>
+            <li><b>STRG+5:</b> <span class="kbdtag">Def</span> Sentinel</li>
+            <li><b>STRG+6:</b> <span class="kbdtag">Def</span> Heiliger Boden</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Neu: <b>STRG+1</b> = <b>Confiteor</b> (und später automatisch seine Folge-Kommandos).</li>
+          <li>Regel bleibt: <b>STRG+3</b> drücken, wenn bereit → dann Burst-Tasten nutzen → zurück zur Grundrotation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>Single Target (Boss) – Einsteiger-Version:</b></p>
+    <ul>
+      <li>Grundrotation: <span class="mono">1 → 2 → 3</span>.</li>
+      <li>Wenn Burst bereit: <b>STRG+3</b> drücken → dann <b>STRG+1</b> (Confiteor/Kette) nutzen → danach zurück zur Kombo.</li>
+    </ul>
+
+    <p><b>AoE (Trash):</b></p>
+    <ul>
+      <li><span class="mono">4 → 5</span> wiederholen + <b>6</b> (Kreis der Verachtung) wenn bereit.</li>
+      <li>Burst-Pull: <b>STRG+3</b> → in der Phase <b>STRG+2</b> (Heiliger Kreis) und/oder <b>STRG+1</b> (Confiteor, wenn sinnvoll) nutzen.</li>
+    </ul>
+
+    <div class="note">
+      <b>Was du jetzt übst:</b> Lass dich nicht von neuen Namen verwirren. Du drückst weiterhin deine bekannten Tasten.
+      Wenn sich ein Skill verwandelt, ist das ein Upgrade – du musst nichts „neu“ lernen.
+    </div>
+  </details>
+
+  <details>
+    <summary>Level 90–100: Heilige Wacht → Imperator → Klinge der Ehre (Endgame-Form, aber weiterhin simpel)</summary>
+
+    <p><b>Neue Skills in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Klinge der Tapferkeit</b> <span class="mono">(90)</span> – Teil der Confiteor-Kette (Taste bleibt gleich, Skills wechseln automatisch).</li>
+      <li><b>Klinge der Frömmigkeit</b> – Folge-Kommando in der Kette (wechselt automatisch).</li>
+      <li><b>Klinge der Redlichkeit</b> – Folge-Kommando in der Kette (wechselt automatisch).</li>
+<li><b>Heilige Wacht</b> <span class="mono">(92)</span> – sehr starkes Defensiv (große Pulls / harte Tankbuster).</li>
+      <li><b>Imperator</b> <span class="mono">(96)</span> – Upgrade von Requiescat (Taste bleibt <b>STRG+3</b>).</li>
+      <li><b>Klinge der Ehre</b> <span class="mono">(100)</span> – Capstone (ersetzt Imperator bei Bedingung, Taste bleibt).</li>
+    </ul>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong>
+      <ul style="margin-top:6px;">
+        <li><b>STRG+5</b> bleibt „großes Defensiv“ (Sentinel). Lege <b>Heilige Wacht</b> auf einen freien Defensiv-Slot (z.B. <b>STRG+7</b> oder <b>STRG+8</b>).</li>
+        <li><b>STRG+3</b> bleibt Burst-Start: Requiescat → <b>Imperator</b> → (Bedingung) <b>Klinge der Ehre</b> auf derselben Taste.</li>
+      </ul>
+    </div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (Endgame-Fokus)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1–3:</b> <span class="kbdtag">ST</span> Kombo</li>
+            <li><b>4–5:</b> <span class="kbdtag">AoE</span> Kombo</li>
+            <li><b>6:</b> <span class="kbdtag">AoE</span> Kreis der Verachtung</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Confiteor (→ Kette)</li>
+            <li><b>STRG+2:</b> <span class="kbdtag">AoE</span> Heiliger Kreis</li>
+            <li><b>STRG+3:</b> <span class="kbdtag">ST</span> Imperator (→ Klinge der Ehre)</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schiltron</li>
+            <li><b>STRG+5:</b> <span class="kbdtag">Def</span> Sentinel</li>
+            <li><b>STRG+7:</b> <span class="kbdtag">Def</span> Heilige Wacht</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Neu: <b>STRG+7</b> = Heilige Wacht (starkes Defensiv).</li>
+          <li>Austausch: <b>STRG+3</b> wird zu <b>Imperator</b> (und später <b>Klinge der Ehre</b> auf derselben Taste).</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>Einsteiger-Endgame-Plan (damit du immer sicher bist):</b></p>
+    <ul>
+      <li><b>Trash:</b> <span class="mono">4 → 5</span> + Kreis der Verachtung. Defensivs früh: Schiltron → Sentinel → Heilige Wacht (wenn nötig) → Notfall Heiliger Boden.</li>
+      <li><b>Boss:</b> ST-Kombo + Burst (STRG+3) wenn bereit. Bei harten Treffern: Sentinel/Heilige Wacht rechtzeitig.</li>
+    </ul>
+
+    <div class="note">
+      <b>Was du jetzt übst:</b> Du spielst jetzt „voll“ Paladin, aber immer noch mit denselben Kernregeln.
+      Wenn du nur ST/AoE + Defensivs + Burst kannst, bist du bereits besser als die meisten Anfänger-Tanks.
+    </div>
+  </details>
+
+</section>
+
+      <!-- AoE -->
+      <section class="section anchor" id="aoe">
+  <h2>AoE vs. Single Target – Wann wechselst du?</h2>
+  <p class="sub">
+    Die häufigste Anfängerfalle: “Ich mache im Dungeon Single Target und wundere mich, warum alles ewig dauert.”
+  </p>
+
+  <div class="card">
+    <h3>Super einfache Umschalt-Regel</h3>
+    <div class="kvs">
+      <div><b>1 Gegner (Boss)</b><span><b>Single Target</b> (ST-Kombo + Burst-Buttons)</span></div>
+      <div><b>2+ Gegner</b><span>Fast immer <b>AoE</b> (Eklipse-Kette)</span></div>
+      <div><b>3+ Gegner</b><span>AoE ist praktisch immer besser (und hält Aggro leichter).</span></div>
+    </div>
+    <p class="note">
+      Als Tank ist AoE nicht nur “mehr Schaden”, sondern auch <b>mehr Kontrolle</b>: Du triffst alle Ziele regelmäßig und behältst Aggro.
+    </p>
+  </div>
+
+  <div class="card" style="margin-top:12px;">
+    <h3>Konkrete Buttons (zum Merken)</h3>
+    <ul>
+      <li><b>AoE-GCD:</b> <span class="mono">Eklipse</span> (ab 40: <span class="mono">Eklipse → Protuberanz</span>)</li>
+      <li><b>ST-GCD:</b> <span class="mono">Vortexschnitt → Donnerklinge → (Halones Groll / Königsklinge)</span></li>
+      <li><b>“Extra-Damage”:</b> <b>Kreis der Verachtung</b>, <b>Expiacion</b> (wenn bereit – drück’s einfach)</li>
+      <li><b>Magie in AoE:</b> Unter <b>Requiescat</b> lieber <b>Heiliger Kreis</b> statt Heiliger Geist (ab 72).</li>
+    </ul>
+  </div>
+
+  <div class="callout" style="margin-top:12px;">
+    <b>Wichtig:</b> Wenn du zwischen AoE und ST wechselst, ist das normal.
+    Entscheidend ist nur, dass du bei <b>2+ Gegnern</b> nicht “aus Gewohnheit” ST spammst.
+  </div>
+</section>
+
+      <!-- Pulls -->
+      <section class="section anchor" id="pulls">
+  <h2>Dungeon-Pull-Strategie (Solo/Trust) – “sicher, simpel, schnell”</h2>
+  <p class="sub">
+    Trusts sind solide, aber langsamer. Der Trick ist: <b>große Pulls kontrolliert</b> statt “entweder winzig oder Wipe”.
+    Paladin kann das sehr gut, weil du früh viele Defensivs bekommst.
+  </p>
+
+  <details open>
+    <summary>Standard-Pull (klein bis mittel) – ab Level 10 sofort nutzbar</summary>
+    <ul>
+      <li><b>Schild-Eid</b> an.</li>
+      <li>Pull: <b>Schildwurf</b> → reinlaufen → <b>Eklipse</b> (ab 40: <b>Eklipse → Protuberanz</b>).</li>
+      <li>Bleib bei AoE, solange <b>2+ Gegner</b> leben. Wechsel erst für den letzten Mob auf ST.</li>
+      <li><b>Defensiv:</b> <b>Schutzwall</b> früh (nicht erst bei 20% HP).</li>
+    </ul>
+  </details>
+
+  <div class="hr"></div>
+
+  <details open>
+    <summary>Großer Pull (2–3 Gruppen) – ab ca. 35+ angenehm</summary>
+    <ul>
+      <li>Zieh die Gruppen zusammen: Lauf weiter, bis die Mobs <b>hinter dir kleben</b>, dann erst stehen bleiben.</li>
+      <li><b>AoE spam</b> (Eklipse-Kette), damit nichts “wegdriftet”.</li>
+      <li><b>Defensiv-Reihenfolge (simpel):</b>
+        <span class="mono">Schutzwall → (wenn’s hart ist) Sentinel/Heilige Wacht → Schiltron/Heiliges Schiltron (immer wieder) → Reflexion</span>
+      </li>
+      <li><b>Team-Tool:</b> <b>Heiliger Quell</b> (ab 56) vor großen Schadensspitzen oder wenn der Trust-Heiler “hinterherhinkt”.</li>
+      <li><b>Notfall:</b> Wenn du wirklich stirbst: <b>Heiliger Boden</b> (ab 50).</li>
+    </ul>
+    <p class="note"><b>Warum “früh drücken” wichtig ist:</b> Defensivs reduzieren Schaden pro Hit. Je früher, desto mehr Hits werden reduziert.</p>
+  </details>
+
+  <div class="hr"></div>
+
+  <details open>
+    <summary>Boss-Fight (einfacher Plan)</summary>
+    <ul>
+      <li>Boss = <b>Single Target</b> (ST-Kombo) + deine Burst-Buttons, wenn sie bereit sind.</li>
+      <li><b>Tankbuster</b> (dicker Schlag auf dich): drück <b>Schiltron</b> oder <b>Sentinel/Heilige Wacht</b>.</li>
+      <li><b>Party-AoE</b> (Schlag auf alle): <b>Reflexion</b> + ggf. <b>Heiliger Quell</b>.</li>
+      <li><b>Unterbrechen/Betäuben:</b> Wenn ein Boss/Elite einen “gefährlichen Cast” hat: <b>Zwischenruf</b> (Unterbrechen) oder früh im Spiel auch <b>Schildschlag/Tiefschlag</b> (Betäuben), falls möglich.</li>
+    </ul>
+  </details>
+
+  <div class="callout" style="margin-top:12px;">
+    <b>Trust-Spezial:</b> Trust-Heiler reagieren oft langsamer als echte Spieler.
+    Deshalb gilt: Lieber <b>ein Defensiv mehr</b> drücken als eines zu wenig.
+  </div>
+</section>
+
+      <!-- Gear -->
+      <section class="section anchor" id="gear">
+  <h2>Gear während des Levelns – Wann lohnt Farmen wirklich?</h2>
+  <p class="sub">
+    Als kompletter Anfänger verlierst du extrem viel Zeit, wenn du “perfektes Gear” farmst.
+    Beim Leveln zählt vor allem: <b>Itemlevel aktuell halten</b>.
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Die 80/20-Regel (reicht völlig)</h3>
+      <ul>
+        <li><b>Quest-Belohnungen</b> immer mitnehmen (MSQ + Jobquests).</li>
+        <li><b>Dungeon-Gear</b> nur “nebenbei” – du musst keine Dungeons 20× wiederholen.</li>
+        <li>Wenn du merkst, du wirst plötzlich “papierig”: Dann ist meist <b>Rüstung zu alt</b>, nicht “Rotation falsch”.</li>
+      </ul>
+      <p class="note">
+        Als Tank macht Rüstung viel aus: Wenn Brust/Beine 15–20 Level hinterherhinken, spürst du das sofort.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Wann du wirklich farmen solltest</h3>
+      <ul>
+        <li><b>Vor Dungeons, die dir schwer fallen</b> (z.B. erster Dungeon nach einer großen Story-Stufe).</li>
+        <li><b>Wenn du sehr viel Trust spielst</b> und große Pulls willst: etwas besseres Gear macht es deutlich stabiler.</li>
+        <li><b>Am Ende einer Expansion</b> (z.B. 50/60/70/80/90/100): Da lohnt ein kurzes “aufholen”.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:12px;">
+    <h3>Was du als Paladin NICHT brauchst</h3>
+    <ul>
+      <li>Keine komplizierten Materia-Pläne fürs Leveln.</li>
+      <li>Kein “Best-in-Slot” bevor du überhaupt weißt, welche Inhalte du später spielen willst.</li>
+      <li>Keine Angst vor “falschen Werten”: Als Tank ist <b>Itemlevel</b> beim Leveln wichtiger als Min-Max.</li>
+    </ul>
+  </div>
+</section>
+
+      <!-- Macros -->
+      <section class="section anchor" id="macros">
+  <h2>Makros &amp; “1-Button spielen?” – realistisch erklärt</h2>
+  <p class="sub">
+    Makros wirken für Anfänger verlockend (“ich drücke nur eine Taste!”).
+    In FFXIV sind Rotations-Makros aber fast immer schlechter, weil Makros die Skill-Queue umgehen.
+  </p>
+
+  <div class="card">
+    <h3>Was du NICHT tun solltest</h3>
+    <ul>
+      <li><b>Keine Rotations-Makros</b> (z.B. “ST-Kombo auf eine Taste”). Das fühlt sich vielleicht bequem an, macht dich aber langsamer und unzuverlässiger.</li>
+      <li><b>Keine Makros für Heiliger Boden</b> mit 10 Zeilen Chatspam – du brauchst es nur, wenn du es wirklich drückst.</li>
+    </ul>
+  </div>
+
+  <div class="card" style="margin-top:12px;">
+    <h3>Makros, die wirklich sinnvoll sein können</h3>
+    <ul>
+      <li><b>Markierung / Fokus-Ansage</b> (optional): Ein kurzer Satz wie “Ich pull 2 Gruppen” kann in Random-Gruppen helfen.</li>
+      <li><b>Mouseover-Utility</b> (fortgeschritten): z.B. <b>Intervention</b> auf den Mauszeiger. Das ist kein Muss – aber später nett.</li>
+      <li><b>“Haltung an” Erinnerung</b>: Wenn du es oft vergisst, kannst du dir eine kleine Checkliste bauen. (Makro ist nicht nötig, aber möglich.)</li>
+    </ul>
+    <p class="note">
+      Wenn du ganz neu bist: Spiel erstmal ohne Makros. Sobald du dich wohl fühlst, kannst du Utility-Makros gezielt hinzufügen.
+    </p>
+  </div>
+
+  <div class="callout" style="margin-top:12px;">
+    <b>Das Ziel:</b> Du erkennst im Kampf sofort: “Ich brauche AoE / ST / Defensiv”.
+    Eine saubere Hotbar + gute Gewohnheiten sind stärker als Makros.
+  </div>
+</section>
+
+<section class="section anchor" id="faq">
+  <h2>FAQ (Einsteiger)</h2>
+  <div class="card">
+    <details>
+      <summary>Warum fühlt sich Paladin manchmal „kompliziert“ an?</summary>
+      <div class="muted" style="margin-top:8px;">
+        Weil später Zauber dazukommen. Für dich bleibt es simpel: ST bleibt ST, AoE bleibt AoE, und der Burst ist ein eigener Button.
+      </div>
+    </details>
+    <details>
+      <summary>Wann nutze ich Heiliger Boden?</summary>
+      <div class="muted" style="margin-top:8px;">
+        Als Notfall, wenn du sonst stirbst oder ein großer Pull kippt. Lieber retten als „für später aufheben“.
+      </div>
+    </details>
+  </div>
+</section>
+
+      <div class="footer">
+        Stand: Dawntrail 7.x • Sprache: DE • Fokus: Solo/Trust • Struktur: “pro Abschnitt komplett” •
+        Wenn du willst, erweitere ich als Nächstes dieselbe Tiefe für <b>Paladin</b>, <b>Revolverklinge</b> und <b>Beschwörer</b> als eigene Seiten.
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Simple on-page search (highlight + collapse helpers)
+    (function(){
+      const input = document.getElementById('search');
+      const clear = document.getElementById('clear');
+      const jumpLinks = document.querySelectorAll('.jump');
+
+      function normalize(s){ return (s||'').toLowerCase(); }
+
+      function clearHighlights(){
+        document.querySelectorAll('mark.__hit').forEach(m=>{
+          const t = document.createTextNode(m.textContent);
+          m.replaceWith(t);
+        });
+      }
+
+      function highlight(root, q){
+        if(!q) return 0;
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode(node){
+            if(!node.nodeValue) return NodeFilter.FILTER_REJECT;
+            const p = node.parentElement;
+            if(!p) return NodeFilter.FILTER_REJECT;
+            if(['SCRIPT','STYLE','NOSCRIPT'].includes(p.tagName)) return NodeFilter.FILTER_REJECT;
+            if(p.closest('mark.__hit')) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
+        let hits = 0;
+        const qn = normalize(q);
+        const nodes = [];
+        while(walker.nextNode()) nodes.push(walker.currentNode);
+
+        nodes.forEach(node=>{
+          const text = node.nodeValue;
+          const low = normalize(text);
+          const idx = low.indexOf(qn);
+          if(idx === -1) return;
+          const before = text.slice(0, idx);
+          const match  = text.slice(idx, idx+q.length);
+          const after  = text.slice(idx+q.length);
+
+          const frag = document.createDocumentFragment();
+          if(before) frag.appendChild(document.createTextNode(before));
+          const mark = document.createElement('mark');
+          mark.className='__hit';
+          mark.textContent = match;
+          mark.style.background = 'rgba(119,167,255,.22)';
+          mark.style.border = '1px solid rgba(119,167,255,.35)';
+          mark.style.borderRadius = '8px';
+          mark.style.padding = '0 4px';
+          frag.appendChild(mark);
+          if(after) frag.appendChild(document.createTextNode(after));
+          node.parentNode.replaceChild(frag, node);
+          hits++;
+        });
+
+        return hits;
+      }
+
+      function openRelevantDetails(q){
+        if(!q) return;
+        const qn = normalize(q);
+        document.querySelectorAll('details').forEach(d=>{
+          const t = normalize(d.innerText);
+          if(t.includes(qn)) d.open = true;
+        });
+      }
+
+      function onSearch(){
+        clearHighlights();
+        const q = input.value.trim();
+        if(!q) return;
+        openRelevantDetails(q);
+        highlight(document.body, q);
+      }
+
+      input.addEventListener('input', () => { onSearch(); });
+
+      clear.addEventListener('click', ()=>{
+        input.value='';
+        clearHighlights();
+      });
+
+      // smooth scroll
+      jumpLinks.forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          // allow default anchor navigation, but smooth it
+          e.preventDefault();
+          const id = a.getAttribute('href');
+          const el = document.querySelector(id);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>FFX-Guides (DE) – Jobs</title>
+  <meta name="description" content="Extrem detaillierter Einsteiger-Guide für Marodeur → Krieger (FFXIV) von Level 1 bis 100: Skills (DE), Rotation, Hotbars, Gear, Dungeons, Trust-Pulls, Solo-Tipps." />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#101826;
+      --panel2:#0e1520;
+      --text:#eaf0ff;
+      --muted:#a9b4d0;
+      --line:rgba(255,255,255,.10);
+      --accent:#77a7ff;
+      --ok:#66e3a3;
+      --warn:#ffd36a;
+      --bad:#ff7a7a;
+      --chip:#16243a;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background: radial-gradient(1200px 900px at 20% -10%, rgba(119,167,255,.20), transparent 55%),
+                  radial-gradient(900px 700px at 90% 10%, rgba(102,227,163,.12), transparent 60%),
+                  var(--bg);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-position: center top;
+
+      color:var(--text);
+      line-height:1.45;
+    }
+
+    /* Layout */
+    .app{
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      min-height:100vh;
+    }
+    @media (max-width: 1024px){
+      .app{grid-template-columns: 1fr}
+    }
+
+    /* Sidebar */
+    .sidebar{
+      position:sticky;
+      top:0;
+      height:100vh;
+      overflow:auto;
+      padding:18px 16px 22px;
+      border-right:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(16,24,38,.92), rgba(14,21,32,.92));
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width:1024px){
+      .sidebar{
+        position:relative;
+        height:auto;
+        border-right:none;
+        border-bottom:1px solid var(--line);
+      }
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: rgba(10,14,20,.55);
+    }
+    .logo{
+      width:40px;height:40px;
+      border-radius:14px;
+      background: radial-gradient(circle at 35% 25%, rgba(119,167,255,.9), rgba(119,167,255,.15) 55%, transparent 70%),
+                  radial-gradient(circle at 70% 65%, rgba(102,227,163,.8), rgba(102,227,163,.10) 55%, transparent 70%),
+                  rgba(255,255,255,.06);
+      border:1px solid var(--line);
+    }
+    .brand h1{
+      font-size:16px;
+      margin:0;
+      letter-spacing:.2px;
+    }
+    .brand p{
+      margin:2px 0 0;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .meta{
+      margin-top:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      font-size:12px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(119,167,255,.15);
+    }
+    .dot.ok{background:var(--ok); box-shadow:0 0 0 4px rgba(102,227,163,.15)}
+    .dot.warn{background:var(--warn); box-shadow:0 0 0 4px rgba(255,211,106,.15)}
+    .dot.bad{background:var(--bad); box-shadow:0 0 0 4px rgba(255,122,122,.15)}
+
+    .nav{
+      margin-top:14px;
+      padding:12px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .nav h2{
+      margin:0 0 8px;
+      font-size:13px;
+      letter-spacing:.2px;
+      color:var(--muted);
+      font-weight:600;
+    }
+    .nav a{
+      display:block;
+      text-decoration:none;
+      color:var(--text);
+      padding:10px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+      margin-bottom:6px;
+      background: transparent;
+    }
+    .nav a:hover{
+      border-color: var(--line);
+      background: rgba(255,255,255,.05);
+    }
+    .nav a small{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:2px;
+    }
+
+    /* Main */
+    .main{
+      padding:18px 18px 40px;
+    }
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      padding:10px 12px;
+      margin:-18px -18px 18px;
+      border-bottom:1px solid var(--line);
+      background: rgba(11,15,20,.72);
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width:1024px){
+      .topbar{
+        position:relative;
+        top:auto;
+        margin:0 0 18px;
+        border:1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(11,15,20,.55);
+      }
+    }
+    .topbar-inner{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .langbox{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-size:13px;
+    }
+    .btn:hover{background: rgba(255,255,255,.08)}
+    .btn.primary{
+      border-color: rgba(119,167,255,.35);
+      background: rgba(119,167,255,.12);
+    }
+    .search{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      min-width:260px;
+      flex:1 1 320px;
+    }
+    .search input{
+      width:100%;
+      padding:10px 12px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      outline:none;
+      font-size:13px;
+    }
+    .search input::placeholder{color: rgba(169,180,208,.65)}
+
+    .hero{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(119,167,255,.10), rgba(255,255,255,.03));
+      padding:16px 16px 14px;
+      box-shadow: var(--shadow);
+    }
+    .hero h2{
+      margin:0 0 6px;
+      font-size:20px;
+      letter-spacing:.2px;
+    }
+    .hero p{margin:0; color:var(--muted)}
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width:1100px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      padding:14px;
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+    .card p{margin:8px 0; color:var(--muted)}
+    .kvs{
+      display:grid;
+      grid-template-columns: 160px 1fr;
+      gap:8px 10px;
+      margin-top:10px;
+    }
+    @media (max-width:520px){ .kvs{grid-template-columns: 1fr} }
+    .kvs div{
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(0,0,0,.18);
+    }
+    .kvs b{display:block; font-size:12px; color:var(--muted); font-weight:600}
+    .kvs span{display:block; margin-top:2px; font-size:13px; color:var(--text)}
+
+    .section{
+      margin-top:16px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      padding:14px;
+    }
+    .section h2{
+      margin:0 0 8px;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+    .section .sub{
+      color:var(--muted);
+      font-size:13px;
+      margin:0 0 12px;
+    }
+
+    /* Tables */
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+    }
+    th,td{
+      padding:10px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      font-size:13px;
+    }
+    th{
+      text-align:left;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+      letter-spacing:.2px;
+      background: rgba(255,255,255,.04);
+    }
+    tr:last-child td{border-bottom:none}
+
+    
+    /* Skills table UX improvements (scoped via .tablewrap) */
+    .tablewrap{
+      overflow:auto;
+      max-height:520px;
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,0.18);
+    }
+    .tablewrap table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      min-width: 720px; /* keeps columns readable on narrow screens; wrapper scrolls */
+      border:none;       /* wrapper already has border */
+      background: transparent;
+    }
+    .tablewrap thead th{
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: rgba(255,255,255,0.06); /* glass header */
+      backdrop-filter: blur(6px);
+    }
+    .tablewrap tbody tr{
+      background: rgba(0,0,0,0.10);
+    }
+    .tablewrap tbody tr:nth-child(even){
+      background: rgba(255,255,255,0.03);
+    }
+    .tablewrap tbody tr:hover{
+      background: rgba(119,167,255,0.08);
+    }
+    .tablewrap td, .tablewrap th{
+      padding:12px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      font-size:13px;
+      background: transparent;
+    }
+    .tablewrap tbody tr:last-child td{border-bottom:none}
+    @media (max-width:520px){
+      .tablewrap{max-height: 420px;}
+      .tablewrap table{min-width: 640px;}
+    }
+/* Skill-Liste: Level-Spalte visuell verankern */
+    .tablewrap td:first-child,
+    .tablewrap th:first-child{
+      font-family: var(--mono);
+      font-weight: 700;
+      width: 84px;
+      min-width: 84px;
+      text-align: center;
+      background: rgba(0,0,0,0.22);
+    }
+    .tablewrap th:first-child{
+      background: rgba(0,0,0,0.38);
+    }
+
+    /* Skill-Liste: klarere Kategorie-Tags (semantische Klassen) */
+    .tablewrap .tag{
+      font-weight:700;
+      letter-spacing:.2px;
+      text-transform:uppercase;
+      min-width:78px;
+      justify-content:center;
+    }
+    .tablewrap .tag.st{border-color:rgba(119,167,255,0.30); background: rgba(119,167,255,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.aoe{border-color:rgba(102,227,163,0.28); background: rgba(102,227,163,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.def{border-color:rgba(255,211,106,0.28); background: rgba(255,211,106,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.burst{border-color:rgba(255,211,106,0.28); background: rgba(255,211,106,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.heal{border-color:rgba(102,227,163,0.28); background: rgba(102,227,163,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.stance{border-color:rgba(102,227,163,0.28); background: rgba(102,227,163,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.util,
+    .tablewrap .tag.range,
+    .tablewrap .tag.gauge,
+    .tablewrap .tag.party,
+    .tablewrap .tag.ogcd,
+    .tablewrap .tag.mobility,
+    .tablewrap .tag.emerg{
+      border-color:rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+      color: rgba(234,240,255,0.86);
+    }
+
+      .tablewrap table{min-width: 640px;}
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .tag.ok{color:rgba(102,227,163,.95); border-color:rgba(102,227,163,.25); background: rgba(102,227,163,.08)}
+    .tag.warn{color:rgba(255,211,106,.95); border-color:rgba(255,211,106,.25); background: rgba(255,211,106,.08)}
+    .tag.bad{color:rgba(255,122,122,.95); border-color:rgba(255,122,122,.25); background: rgba(255,122,122,.08)}
+    .mono{font-family:var(--mono)}
+    .hr{height:1px; background: var(--line); margin:12px 0}
+
+    /* Hotbar mapping blocks */
+    .hotbars{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      align-items:start;
+    }
+    @media (max-width:1100px){ .hotbars{grid-template-columns: 1fr} }
+
+    .hotbar{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:12px;
+      background: rgba(0,0,0,.20);
+    }
+    .hotbar h4{margin:0 0 10px; font-size:14px}
+    .keys{
+      display:grid;
+      grid-template-columns: repeat(6, minmax(44px, 1fr));
+      gap:8px;
+    }
+.key{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding:8px 8px;
+      background: rgba(255,255,255,.04);
+      min-height:58px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      justify-content:space-between;
+    }
+    .key .k{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+    }
+    .kbd{
+      font-family: var(--mono);
+      font-size:12px;
+      color: var(--text);
+      padding:2px 6px;
+      border-radius: 8px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      white-space:nowrap;
+    }
+    .prio{
+      font-size:11px;
+      color: var(--muted);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 999px;
+      padding:2px 6px;
+      white-space:nowrap;
+    }
+    .skill{
+      font-size:12px;
+      color: var(--muted);
+      min-height:30px;
+    }
+    .skill b{color:var(--text); font-weight:700}
+    .note{
+      margin-top:10px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* Collapsible */
+    details{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:10px 12px;
+      background: rgba(255,255,255,.03);
+    }
+    details summary{
+      cursor:pointer;
+      font-weight:700;
+      color:var(--text);
+    }
+    details p, details li{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* Anchors */
+    .anchor{scroll-margin-top: 86px;}
+    @media (max-width:1024px){ .anchor{scroll-margin-top: 12px;} }
+
+    /* Footer */
+    .footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:12px;
+      padding:10px 2px;
+    }
+    .callout{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      padding:12px;
+    }
+    .callout strong{color:var(--text)}
+    .callout .row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:8px;
+    }
+.tablewrap tbody tr:nth-child(even){background: rgba(0,0,0,0.26) !important;}
+.tablewrap tbody tr:nth-child(even){
+      box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.30) !important;
+    }
+    .tablewrap tbody tr td{
+      background: transparent !important;
+      color: inherit;
+    }
+
+
+    /* Neue Skills Listen (Rotation-Abschnitte) */
+    .skills-new{
+      margin: 8px 0 10px;
+      padding-left: 18px;
+    }
+    .skills-new li{
+      margin: 6px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .skills-new b{color: var(--text);}
+
+
+    /* Lernpfad-Extras: Hotbar-Update & Fokus */
+    .learn-extra{
+      margin:10px 0 0;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,0.04);
+    }
+    .learn-extra h5{
+      margin:0 0 6px;
+      font-size:13px;
+      letter-spacing:.2px;
+      color:var(--text);
+    }
+    .learn-extra p{
+      margin:4px 0;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+
+    /* Rotation: Hotbar-Zuordnung pro Abschnitt */
+    .hotbar-map{
+      margin: 10px 0 0;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,0.14);
+    }
+    .hotbar-map h4{margin:0 0 8px;}
+    .hotbar-map .cols{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .hotbar-map ul{margin:0; padding-left:18px;}
+    .hotbar-map li{margin:4px 0; color:var(--muted); font-size:13px;}
+    .hotbar-map b{color:var(--text);}
+    .hotbar-changes{
+      margin-top:10px;
+      padding-top:8px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:13px;
+    }
+    @media (max-width:640px){
+      .hotbar-map .cols{grid-template-columns:1fr;}
+    }
+
+
+    /* Hotbar Visual (2×6) + kurze Labels */
+    .hb-visual-wrap{margin:12px 0 10px;}
+    .hb-visual-title{font-weight:800;margin:0 0 8px;}
+    .hb-visual{
+      display:grid;
+      grid-template-columns:repeat(6,minmax(0,1fr));
+      gap:8px;
+    }
+    .hb-slot{
+      border:1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      padding:10px 8px;
+      min-height:46px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+      overflow:hidden;
+    }
+    .hb-key{
+      font-family: var(--mono);
+      font-weight:900;
+      font-size:12px;
+      color: var(--text);
+      line-height:1.1;
+    }
+    .hb-label{
+      margin-top:4px;
+      font-size:11px;
+      color: var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width:100%;
+    }
+    .hb-legend{
+      margin:10px 0 0;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,0.12);
+      color: var(--muted);
+      font-size:13px;
+    }
+    .kbdtag{
+      display:inline-block;
+      padding:2px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      font-size:11px;
+      font-weight:800;
+      color: var(--text);
+      margin-right:8px;
+      vertical-align:middle;
+      white-space:nowrap;
+    }
+
+
+    /* Sidebar: Job-Navigation (identisch auf allen Job-Seiten) */
+    .jobnav{
+      margin-top: 12px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,0.10);
+    }
+    .jobnav h3{
+      margin: 0 0 8px;
+      font-size: 13px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .jobnav a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: var(--text);
+      text-decoration:none;
+      background: rgba(255,255,255,0.03);
+      margin-bottom: 6px;
+    }
+    .jobnav a:last-child{margin-bottom:0}
+    .jobnav a:hover{
+      border-color: rgba(119,167,255,0.35);
+      background: rgba(119,167,255,0.08);
+    }
+    .jobnav .jobname{font-weight:800}
+    .badge{
+      display:inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .badge.ok{
+      border-color: rgba(90,200,120,0.35);
+      background: rgba(90,200,120,0.10);
+      color: rgba(180,240,200,0.95);
+    }
+    .badge.soon{
+      border-color: rgba(255,200,80,0.35);
+      background: rgba(255,200,80,0.10);
+      color: rgba(255,235,200,0.95);
+    }
+
+
+    .badge.wip{
+      border-color: rgba(119,167,255,0.40);
+      background: rgba(119,167,255,0.12);
+      color: rgba(210,230,255,0.95);
+    }
+</style>
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>FFX-Guides</h1>
+          <p>Guides • Deutsch (DE) • Job-Auswahl</p>
+        </div>
+      </div>
+
+      <div class="meta">
+        <span class="pill"><span class="dot ok"></span>Stand: <b>Dawntrail 7.x</b></span>
+        <span class="pill"><span class="dot"></span>Sprache: <b>DE</b></span>
+        <span class="pill"><span class="dot warn"></span>Fokus: <b>Solo / Trust</b></span>
+      </div>
+
+<div class="jobnav" aria-label="Job-Navigation">
+        <h3>Jobs (DE)</h3>
+        <a href="jobs/warrior.html"><span class="jobname">Krieger</span><span class="badge ok">Fertig</span></a>
+        <a href="jobs/paladin.html"><span class="jobname">Paladin</span><span class="badge ok">Fertig</span></a>
+        <a href="jobs/summoner.html"><span class="jobname">Beschwörer<span class="badge ok">Fertig</span></a>
+        <a href="jobs/gunbreaker.html"><span class="jobname">Revolverklinge<span class="badge ok">Fertig</span></a>
+      </div>
+
+      <div class="nav" aria-label="Inhaltsverzeichnis">
+        <h2>Navigation</h2>
+        <a href="#jobs" class="jump">Jobs (DE)<small>Übersicht & Status</small></a>
+        <a href="#info" class="jump">Guide benutzen<small>Für absolute Anfänger</small></a>
+</div>
+
+      <div class="footer">Tipp: Öffne zuerst den Krieger-Guide, um das Layout zu sehen. Die anderen Jobs folgen Schritt für Schritt.</div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main"><div class="callout" style="margin:12px 0 16px;">
+    <strong>Willkommen bei FFX-Guides (DE)</strong><br>
+    Diese Website ist für absolute Einsteiger – auch wenn du FFXIV noch nie gespielt hast oder gerade erst am PC anfängst.
+    Starte am besten mit dem <b>Krieger</b>-Guide: dort ist alles vollständig erklärt (1–100, Hotbars, Rotation, Dungeon-Pulls, Gear, FAQ).
+  </div>
+
+  <section class="section anchor" id="start-here">
+    <h2>Empfohlener Start</h2>
+
+    <div class="card">
+      <h3 style="margin:0 0 6px;">📌 Erst lesen, dann spielen (5 Minuten)</h3>
+      <ol style="margin:0; padding-left:18px;">
+        <li><b>Job wählen</b> (unten in der Liste).</li>
+        <li>Im Job-Guide zuerst <b>Start & Grundprinzipien</b> lesen (was ist ein Tank, was ist Aggro, was ist ein Pull?).</li>
+        <li>Danach <b>Hotbars & Tastenbelegung</b>: dort steht immer „Taste = Skill“.</li>
+        <li>Dann erst ins Spiel – und beim Leveln immer in den passenden <b>Level-Abschnitt</b> springen.</li>
+      </ol>
+      <div class="note" style="margin-top:10px;">
+        <b>Tipp für PC-Neulinge:</b> Wenn dir „STRG + Taste“ am Anfang schwer fällt, nimm dir 10 Minuten nur für Übung an einer Trainingspuppe.
+        Der Guide erklärt das Schritt für Schritt.
+      </div>
+    </div>
+  </section>
+
+  <section class="section anchor" id="jobs">
+    <h2>Jobs (Deutsch)</h2>
+
+    <div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;">
+      <a class="card" href="jobs/warrior.html" style="text-decoration:none;">
+        <h3 style="margin:0 0 6px;">Krieger</h3>
+        <p class="muted" style="margin:0 0 10px;">Sehr ausführlicher Einsteiger-Guide (1–100), Hotbars, Rotation, Pulls, Gear & FAQ.</p>
+        <span class="badge ok">Fertig</span>
+      </a>
+
+      <a class="card" href="jobs/paladin.html" style="text-decoration:none;">
+        <h3 style="margin:0 0 6px;">Paladin</h3>
+        <p class="muted" style="margin:0 0 10px;">Sehr ausführlicher Einsteiger-Guide (1–100), Hotbars, Rotation, Pulls, Gear & FAQ.</p>
+        <span class="badge ok">Fertig</span>
+      </a>
+
+      <a class="card" href="jobs/gunbreaker.html" style="text-decoration:none;">
+        <h3 style="margin:0 0 6px;">Revolverklinge</h3>
+        <p class="muted" style="margin:0 0 10px;">Sehr ausführlicher Einsteiger-Guide (1–100), Hotbars, Rotation, Pulls, Gear & FAQ.</p>
+        <span class="badge ok">Fertig</span>
+      </a>
+
+      <a class="card" href="jobs/summoner.html" style="text-decoration:none;">
+        <h3 style="margin:0 0 6px;">Beschwörer</h3>
+        <p class="muted" style="margin:0 0 10px;">Sehr ausführlicher Einsteiger-Guide (1–100), Hotbars, Rotation, Pulls, Gear & FAQ.</p>
+        <span class="badge ok">Fertig</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section anchor" id="was-ist-fertig">
+    <h2>Was bedeutet „Fertig“?</h2>
+    <div class="card">
+      <p class="muted" style="margin:0 0 10px;">
+        <span class="badge ok">Fertig</span> heißt: Du bekommst einen sehr detaillierten 1–100 Guide inklusive Hotbar-Zuordnung pro Level-Abschnitt,
+        Rotation-Erklärungen, AoE vs. Single Target, Dungeon-Pulls (auch Trust/Solo), Gear-Tipps und FAQ.
+      </p>
+      <p class="muted" style="margin:0;">
+        <span class="badge wip">In Arbeit</span> heißt: Die Struktur ist schon identisch, aber Inhalte fehlen noch (sie werden nach und nach ergänzt).
+      </p>
+    </div>
+  </section>
+
+  <section class="section anchor" id="status">
+    <h2>Status</h2>
+    <p class="muted">Stand laut Sidebar: Dawntrail 7.x. Inhalte werden Schritt für Schritt erweitert.</p>
+  </section></main>
+  </div>
+
+  <script>
+    // Simple on-page search (highlight + collapse helpers)
+    (function(){
+      const input = document.getElementById('search');
+      const clear = document.getElementById('clear');
+      const jumpLinks = document.querySelectorAll('.jump');
+
+      function normalize(s){ return (s||'').toLowerCase(); }
+
+      function clearHighlights(){
+        document.querySelectorAll('mark.__hit').forEach(m=>{
+          const t = document.createTextNode(m.textContent);
+          m.replaceWith(t);
+        });
+      }
+
+      function highlight(root, q){
+        if(!q) return 0;
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode(node){
+            if(!node.nodeValue) return NodeFilter.FILTER_REJECT;
+            const p = node.parentElement;
+            if(!p) return NodeFilter.FILTER_REJECT;
+            if(['SCRIPT','STYLE','NOSCRIPT'].includes(p.tagName)) return NodeFilter.FILTER_REJECT;
+            if(p.closest('mark.__hit')) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
+        let hits = 0;
+        const qn = normalize(q);
+        const nodes = [];
+        while(walker.nextNode()) nodes.push(walker.currentNode);
+
+        nodes.forEach(node=>{
+          const text = node.nodeValue;
+          const low = normalize(text);
+          const idx = low.indexOf(qn);
+          if(idx === -1) return;
+          const before = text.slice(0, idx);
+          const match  = text.slice(idx, idx+q.length);
+          const after  = text.slice(idx+q.length);
+
+          const frag = document.createDocumentFragment();
+          if(before) frag.appendChild(document.createTextNode(before));
+          const mark = document.createElement('mark');
+          mark.className='__hit';
+          mark.textContent = match;
+          mark.style.background = 'rgba(119,167,255,.22)';
+          mark.style.border = '1px solid rgba(119,167,255,.35)';
+          mark.style.borderRadius = '8px';
+          mark.style.padding = '0 4px';
+          frag.appendChild(mark);
+          if(after) frag.appendChild(document.createTextNode(after));
+          node.parentNode.replaceChild(frag, node);
+          hits++;
+        });
+
+        return hits;
+      }
+
+      function openRelevantDetails(q){
+        if(!q) return;
+        const qn = normalize(q);
+        document.querySelectorAll('details').forEach(d=>{
+          const t = normalize(d.innerText);
+          if(t.includes(qn)) d.open = true;
+        });
+      }
+
+      function onSearch(){
+        clearHighlights();
+        const q = input.value.trim();
+        if(!q) return;
+        openRelevantDetails(q);
+        highlight(document.body, q);
+      }
+
+      input.addEventListener('input', () => { onSearch(); });
+
+      clear.addEventListener('click', ()=>{
+        input.value='';
+        clearHighlights();
+      });
+
+      // smooth scroll
+      jumpLinks.forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          // allow default anchor navigation, but smooth it
+          e.preventDefault();
+          const id = a.getAttribute('href');
+          const el = document.querySelector(id);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

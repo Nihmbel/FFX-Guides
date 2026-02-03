@@ -1,0 +1,1730 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>FFXIV Revolverklinge Guide (DE) – Stufe 60–100 | FFX Guides</title>
+  <meta name="description" content="Extrem detaillierter Einsteiger-Guide für die Revolverklinge (Gunbreaker) in FFXIV – Stufe 60–100: Hotbars, Rotation, AoE vs ST, Dungeon-Pulls, Gear, Makros." />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#101826;
+      --panel2:#0e1520;
+      --text:#eaf0ff;
+      --muted:#a9b4d0;
+      --line:rgba(255,255,255,.10);
+      --accent:#77a7ff;
+      --ok:#66e3a3;
+      --warn:#ffd36a;
+      --bad:#ff7a7a;
+      --chip:#16243a;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background: radial-gradient(1200px 900px at 20% -10%, rgba(119,167,255,.20), transparent 55%),
+                  radial-gradient(900px 700px at 90% 10%, rgba(102,227,163,.12), transparent 60%),
+                  var(--bg);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-position: center top;
+
+      color:var(--text);
+      line-height:1.45;
+    }
+
+    /* Layout */
+    .app{
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      min-height:100vh;
+    }
+    @media (max-width: 1024px){
+      .app{grid-template-columns: 1fr}
+    }
+
+    /* Sidebar */
+    .sidebar{
+      position:sticky;
+      top:0;
+      height:100vh;
+      overflow:auto;
+      padding:18px 16px 22px;
+      border-right:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(16,24,38,.92), rgba(14,21,32,.92));
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width:1024px){
+      .sidebar{
+        position:relative;
+        height:auto;
+        border-right:none;
+        border-bottom:1px solid var(--line);
+      }
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: rgba(10,14,20,.55);
+    }
+    .logo{
+      width:40px;height:40px;
+      border-radius:14px;
+      background: radial-gradient(circle at 35% 25%, rgba(119,167,255,.9), rgba(119,167,255,.15) 55%, transparent 70%),
+                  radial-gradient(circle at 70% 65%, rgba(102,227,163,.8), rgba(102,227,163,.10) 55%, transparent 70%),
+                  rgba(255,255,255,.06);
+      border:1px solid var(--line);
+    }
+    .brand h1{
+      font-size:16px;
+      margin:0;
+      letter-spacing:.2px;
+    }
+    .brand p{
+      margin:2px 0 0;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .meta{
+      margin-top:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      font-size:12px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(119,167,255,.15);
+    }
+    .dot.ok{background:var(--ok); box-shadow:0 0 0 4px rgba(102,227,163,.15)}
+    .dot.warn{background:var(--warn); box-shadow:0 0 0 4px rgba(255,211,106,.15)}
+    .dot.bad{background:var(--bad); box-shadow:0 0 0 4px rgba(255,122,122,.15)}
+
+    .nav{
+      margin-top:14px;
+      padding:12px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .nav h2{
+      margin:0 0 8px;
+      font-size:13px;
+      letter-spacing:.2px;
+      color:var(--muted);
+      font-weight:600;
+    }
+    .nav a{
+      display:block;
+      text-decoration:none;
+      color:var(--text);
+      padding:10px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+      margin-bottom:6px;
+      background: transparent;
+    }
+    .nav a:hover{
+      border-color: var(--line);
+      background: rgba(255,255,255,.05);
+    }
+    .nav a small{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:2px;
+    }
+
+    /* Main */
+    .main{
+      padding:18px 18px 40px;
+    }
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      padding:10px 12px;
+      margin:-18px -18px 18px;
+      border-bottom:1px solid var(--line);
+      background: rgba(11,15,20,.72);
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width:1024px){
+      .topbar{
+        position:relative;
+        top:auto;
+        margin:0 0 18px;
+        border:1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(11,15,20,.55);
+      }
+    }
+    .topbar-inner{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .langbox{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-size:13px;
+    }
+    .btn:hover{background: rgba(255,255,255,.08)}
+    .btn.primary{
+      border-color: rgba(119,167,255,.35);
+      background: rgba(119,167,255,.12);
+    }
+    .search{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      min-width:260px;
+      flex:1 1 320px;
+    }
+    .search input{
+      width:100%;
+      padding:10px 12px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      outline:none;
+      font-size:13px;
+    }
+    .search input::placeholder{color: rgba(169,180,208,.65)}
+
+    .hero{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(119,167,255,.10), rgba(255,255,255,.03));
+      padding:16px 16px 14px;
+      box-shadow: var(--shadow);
+    }
+    .hero h2{
+      margin:0 0 6px;
+      font-size:20px;
+      letter-spacing:.2px;
+    }
+    .hero p{margin:0; color:var(--muted)}
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width:1100px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      padding:14px;
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+    .card p{margin:8px 0; color:var(--muted)}
+    .kvs{
+      display:grid;
+      grid-template-columns: 160px 1fr;
+      gap:8px 10px;
+      margin-top:10px;
+    }
+    @media (max-width:520px){ .kvs{grid-template-columns: 1fr} }
+    .kvs div{
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(0,0,0,.18);
+    }
+    .kvs b{display:block; font-size:12px; color:var(--muted); font-weight:600}
+    .kvs span{display:block; margin-top:2px; font-size:13px; color:var(--text)}
+
+    .section{
+      margin-top:16px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      padding:14px;
+    }
+    .section h2{
+      margin:0 0 8px;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+    .section .sub{
+      color:var(--muted);
+      font-size:13px;
+      margin:0 0 12px;
+    }
+
+    /* Tables */
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+    }
+    th,td{
+      padding:10px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      font-size:13px;
+    }
+    th{
+      text-align:left;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+      letter-spacing:.2px;
+      background: rgba(255,255,255,.04);
+    }
+    tr:last-child td{border-bottom:none}
+
+    
+    /* Skills table UX improvements (scoped via .tablewrap) */
+    .tablewrap{
+      overflow:auto;
+      max-height:520px;
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,0.18);
+    }
+    .tablewrap table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      min-width: 720px; /* keeps columns readable on narrow screens; wrapper scrolls */
+      border:none;       /* wrapper already has border */
+      background: transparent;
+    }
+    .tablewrap thead th{
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: rgba(255,255,255,0.06); /* glass header */
+      backdrop-filter: blur(6px);
+    }
+    .tablewrap tbody tr{
+      background: rgba(0,0,0,0.10);
+    }
+    .tablewrap tbody tr:nth-child(even){
+      background: rgba(255,255,255,0.03);
+    }
+    .tablewrap tbody tr:hover{
+      background: rgba(119,167,255,0.08);
+    }
+    .tablewrap td, .tablewrap th{
+      padding:12px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      font-size:13px;
+      background: transparent;
+    }
+    .tablewrap tbody tr:last-child td{border-bottom:none}
+    @media (max-width:520px){
+      .tablewrap{max-height: 420px;}
+      .tablewrap table{min-width: 640px;}
+    }
+/* Skill-Liste: Level-Spalte visuell verankern */
+    .tablewrap td:first-child,
+    .tablewrap th:first-child{
+      font-family: var(--mono);
+      font-weight: 700;
+      width: 84px;
+      min-width: 84px;
+      text-align: center;
+      background: rgba(0,0,0,0.22);
+    }
+    .tablewrap th:first-child{
+      background: rgba(0,0,0,0.38);
+    }
+
+    /* Skill-Liste: klarere Kategorie-Tags (semantische Klassen) */
+    .tablewrap .tag{
+      font-weight:700;
+      letter-spacing:.2px;
+      text-transform:uppercase;
+      min-width:78px;
+      justify-content:center;
+    }
+    .tablewrap .tag.st{border-color:rgba(119,167,255,0.30); background: rgba(119,167,255,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.aoe{border-color:rgba(102,227,163,0.28); background: rgba(102,227,163,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.def{border-color:rgba(255,211,106,0.28); background: rgba(255,211,106,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.burst{border-color:rgba(255,211,106,0.28); background: rgba(255,211,106,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.heal{border-color:rgba(102,227,163,0.28); background: rgba(102,227,163,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.stance{border-color:rgba(102,227,163,0.28); background: rgba(102,227,163,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.util,
+    .tablewrap .tag.range,
+    .tablewrap .tag.gauge,
+    .tablewrap .tag.party,
+    .tablewrap .tag.ogcd,
+    .tablewrap .tag.mobility,
+    .tablewrap .tag.emerg{
+      border-color:rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+      color: rgba(234,240,255,0.86);
+    }
+
+      .tablewrap table{min-width: 640px;}
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .tag.ok{color:rgba(102,227,163,.95); border-color:rgba(102,227,163,.25); background: rgba(102,227,163,.08)}
+    .tag.warn{color:rgba(255,211,106,.95); border-color:rgba(255,211,106,.25); background: rgba(255,211,106,.08)}
+    .tag.bad{color:rgba(255,122,122,.95); border-color:rgba(255,122,122,.25); background: rgba(255,122,122,.08)}
+    .mono{font-family:var(--mono)}
+    .hr{height:1px; background: var(--line); margin:12px 0}
+
+    /* Hotbar mapping blocks */
+    .hotbars{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      align-items:start;
+    }
+    @media (max-width:1100px){ .hotbars{grid-template-columns: 1fr} }
+
+    .hotbar{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:12px;
+      background: rgba(0,0,0,.20);
+    }
+    .hotbar h4{margin:0 0 10px; font-size:14px}
+    .keys{
+      display:grid;
+      grid-template-columns: repeat(6, minmax(44px, 1fr));
+      gap:8px;
+    }
+.key{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding:8px 8px;
+      background: rgba(255,255,255,.04);
+      min-height:58px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      justify-content:space-between;
+    }
+    .key .k{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+    }
+    .kbd{
+      font-family: var(--mono);
+      font-size:12px;
+      color: var(--text);
+      padding:2px 6px;
+      border-radius: 8px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      white-space:nowrap;
+    }
+    .prio{
+      font-size:11px;
+      color: var(--muted);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 999px;
+      padding:2px 6px;
+      white-space:nowrap;
+    }
+    .skill{
+      font-size:12px;
+      color: var(--muted);
+      min-height:30px;
+    }
+    .skill b{color:var(--text); font-weight:700}
+    .note{
+      margin-top:10px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* Collapsible */
+    details{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:10px 12px;
+      background: rgba(255,255,255,.03);
+    }
+    details summary{
+      cursor:pointer;
+      font-weight:700;
+      color:var(--text);
+    }
+    details p, details li{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* Anchors */
+    .anchor{scroll-margin-top: 86px;}
+    @media (max-width:1024px){ .anchor{scroll-margin-top: 12px;} }
+
+    /* Footer */
+    .footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:12px;
+      padding:10px 2px;
+    }
+    .callout{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      padding:12px;
+    }
+    .callout strong{color:var(--text)}
+    .callout .row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:8px;
+    }
+.tablewrap tbody tr:nth-child(even){background: rgba(0,0,0,0.26) !important;}
+.tablewrap tbody tr:nth-child(even){
+      box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.30) !important;
+    }
+    .tablewrap tbody tr td{
+      background: transparent !important;
+      color: inherit;
+    }
+
+
+    /* Neue Skills Listen (Rotation-Abschnitte) */
+    .skills-new{
+      margin: 8px 0 10px;
+      padding-left: 18px;
+    }
+    .skills-new li{
+      margin: 6px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .skills-new b{color: var(--text);}
+
+
+    /* Lernpfad-Extras: Hotbar-Update & Fokus */
+    .learn-extra{
+      margin:10px 0 0;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,0.04);
+    }
+    .learn-extra h5{
+      margin:0 0 6px;
+      font-size:13px;
+      letter-spacing:.2px;
+      color:var(--text);
+    }
+    .learn-extra p{
+      margin:4px 0;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+
+    /* Rotation: Hotbar-Zuordnung pro Abschnitt */
+    .hotbar-map{
+      margin: 10px 0 0;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,0.14);
+    }
+    .hotbar-map h4{margin:0 0 8px;}
+    .hotbar-map .cols{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .hotbar-map ul{margin:0; padding-left:18px;}
+    .hotbar-map li{margin:4px 0; color:var(--muted); font-size:13px;}
+    .hotbar-map b{color:var(--text);}
+    .hotbar-changes{
+      margin-top:10px;
+      padding-top:8px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:13px;
+    }
+    @media (max-width:640px){
+      .hotbar-map .cols{grid-template-columns:1fr;}
+    }
+
+
+    /* Hotbar Visual (2×6) + kurze Labels */
+    .hb-visual-wrap{margin:12px 0 10px;}
+    .hb-visual-title{font-weight:800;margin:0 0 8px;}
+    .hb-visual{
+      display:grid;
+      grid-template-columns:repeat(6,minmax(0,1fr));
+      gap:8px;
+    }
+    .hb-slot{
+      border:1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      padding:10px 8px;
+      min-height:46px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+      overflow:hidden;
+    }
+    .hb-key{
+      font-family: var(--mono);
+      font-weight:900;
+      font-size:12px;
+      color: var(--text);
+      line-height:1.1;
+    }
+    .hb-label{
+      margin-top:4px;
+      font-size:11px;
+      color: var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width:100%;
+    }
+    .hb-legend{
+      margin:10px 0 0;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,0.12);
+      color: var(--muted);
+      font-size:13px;
+    }
+    .kbdtag{
+      display:inline-block;
+      padding:2px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      font-size:11px;
+      font-weight:800;
+      color: var(--text);
+      margin-right:8px;
+      vertical-align:middle;
+      white-space:nowrap;
+    }
+
+
+    /* Sidebar: Job-Navigation (identisch auf allen Job-Seiten) */
+    .jobnav{
+      margin-top: 12px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,0.10);
+    }
+    .jobnav h3{
+      margin: 0 0 8px;
+      font-size: 13px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .jobnav a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: var(--text);
+      text-decoration:none;
+      background: rgba(255,255,255,0.03);
+      margin-bottom: 6px;
+    }
+    .jobnav a:last-child{margin-bottom:0}
+    .jobnav a:hover{
+      border-color: rgba(119,167,255,0.35);
+      background: rgba(119,167,255,0.08);
+    }
+    .jobnav .jobname{font-weight:800}
+    .badge{
+      display:inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .badge.ok{
+      border-color: rgba(90,200,120,0.35);
+      background: rgba(90,200,120,0.10);
+      color: rgba(180,240,200,0.95);
+    }
+    .badge.soon{
+      border-color: rgba(255,200,80,0.35);
+      background: rgba(255,200,80,0.10);
+      color: rgba(255,235,200,0.95);
+    }
+
+
+    .badge.wip{
+      border-color: rgba(119,167,255,0.40);
+      background: rgba(119,167,255,0.12);
+      color: rgba(210,230,255,0.95);
+    }
+</style>
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>FFX-Guides</h1>
+          <p>Job-Guide • DE • Revolverklinge 60–100</p>
+        </div>
+      </div>
+
+      <div class="meta">
+        <span class="pill"><span class="dot ok"></span>Stand: <b>Dawntrail 7.x</b></span>
+        <span class="pill"><span class="dot"></span>Job: <b>Revolverklinge</b></span>
+        <span class="pill"><span class="dot warn"></span>Fokus: <b>Solo / Trust</b></span>
+      </div>
+
+<div class="jobnav" aria-label="Job-Navigation">
+        <h3>Jobs (DE)</h3>
+        <a href="warrior.html"><span class="jobname">Krieger</span><span class="badge ok">Fertig</span></a>
+        <a href="paladin.html"><span class="jobname">Paladin</span><span class="badge ok">Fertig</span></a>
+        <a href="summoner.html"><span class="jobname">Beschwörer</span><span class="badge ok">Fertig</span></a>
+        <a href="gunbreaker.html" class="active" aria-current="page"><span class="jobname">Revolverklinge</span><span class="badge ok">Fertig</span></a>
+      </div>
+
+      <div class="nav" aria-label="Inhaltsverzeichnis">
+        <h2>Navigation</h2>
+        <a href="#start" class="jump">Start & Grundprinzipien<small>Revolverklinge (Anfänger)</small></a>
+        <a href="#hotbars" class="jump">Hotbars & Tastenbelegung<small>1–6 + STRG 1–6 (simpel)</small></a>
+<a href="#rotations" class="jump">Rotation & Prioritäten 1–100<small>Abschnitt für Abschnitt</small></a>
+        <a href="#aoe" class="jump">AoE vs. Single Target<small>Wann umschalten & warum</small></a>
+        <a href="#pulls" class="jump">Dungeon-Pulls (Trust/Solo)<small>Defensiv-Rotation & Rhythmus</small></a>
+        <a href="#gear" class="jump">Gear während des Levelns<small>Wann lohnt Farmen?</small></a>
+        <a href="#macros" class="jump">Makros & “1-Button?”<small>Was geht, was nicht</small></a>
+      </div>
+
+      <div class="footer">
+        Tipp: Nutze oben die Suche (z.B. „Tomahawk“, „Urbefreiung“, „AoE“), um schnell Stellen zu finden.
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      
+<div class="callout" style="margin:12px 0 16px;">
+  <strong>BUILD: gunbreaker-master-hotbars-rotations-v1</strong><br>
+  Hinweis: Eine separate Skill-Freischaltliste existiert in dieser Version <b>nicht</b>. Neue Skills stehen direkt in den Level-Abschnitten.
+</div>
+<div class="topbar">
+        <div class="topbar-inner">
+          <div class="langbox">
+            <button class="btn primary" type="button" aria-label="Sprache Deutsch aktiv">DE</button>
+<span class="pill"><span class="dot"></span>Guide-Seite pro Job</span>
+          </div>
+          <div class="search">
+            <input id="search" type="search" placeholder="Suchen… (Skillname, Level, AoE, Trust, Gear …)" aria-label="Guide durchsuchen" />
+            <button class="btn" id="clear" type="button">Leeren</button>
+          </div>
+        </div>
+      </div>
+
+            <section class="hero anchor" id="start">
+        <h2>Revolverklinge (St. 60–100) • Solo/Trust • sehr klar &amp; anfängerfreundlich</h2>
+        <p>
+          Wichtiger Hinweis: Die <b>Revolverklinge startet bei Stufe 60</b>. Du überspringst also die “Level-1-Lernphase”.
+          Dieser Guide holt dich genau dort ab: <b>Hotbar</b>, <b>Rotation</b> und <b>Dungeon-Pulls</b> so erklärt,
+          dass du auch als kompletter PC-/FFXIV-Neuling sicher tanken kannst.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Was du als Tank wirklich “richtig” machen musst</h3>
+            <div class="kvs">
+              <div><b>1) Haltung</b><span><b>Eid der Leibgardisten</b> an (wenn du tankst).</span></div>
+              <div><b>2) Trash = AoE</b><span>Mehrere Gegner = <b>Dämonenschnitter → Dämonenschlachter</b> durchziehen.</span></div>
+              <div><b>3) Defensivs früh</b><span>Nicht “erst wenn’s brennt” – lieber <b>vor</b> dem großen Schaden.</span></div>
+              <div><b>4) Boss = ST</b><span>ST-Kombo + deine <b>Ohne Gnade</b>-Burstfenster.</span></div>
+            </div>
+            <p class="note">
+              Die Revolverklinge fühlt sich “schneller” an als andere Tanks: Du spielst mit <b>Erda-Patronen</b> (Cartridges)
+              und drückst in Burstfenstern mehrere Extra-Aktionen (ab St. 70 über <b>Triggerfolge</b>).
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Mini-Ziel für die ersten 30 Minuten</h3>
+            <ol class="steps">
+              <li><b>Eid der Leibgardisten</b> aktivieren.</li>
+              <li>Auf 3+ Gegner: <b>Dämonenschnitter → Dämonenschlachter</b> spammen.</li>
+              <li>Auf Boss: <b>Zerfetzer → Brutaler Einschlag → Stahlwalze</b> und alle ~60s <b>Ohne Gnade</b> drücken.</li>
+              <li>Wenn’s weh tut: <b>Camouflage</b> / <b>Nebula</b> / <b>Aurora</b> (und später <b>Meteoritenfall</b> als “Notfallknopf”).</li>
+            </ol>
+            <p class="note">
+              Du musst nicht “perfekt” spielen. Wenn Haltung an ist, du AoE bei Trash nutzt und Defensivs nicht vergisst,
+              bist du in Dungeons bereits überdurchschnittlich zuverlässig.
+            </p>
+          </div>
+        </div>
+      
+
+<hr class="soft-sep" style="margin-top:16px;">
+
+        <h3>Wenn du wirklich das erste Mal am PC spielst</h3>
+        <p class="sub">
+          Tank spielen wirkt am Anfang „viel“, ist aber sehr lernbar – wenn du es in kleinen Schritten machst.
+          Ziel der ersten Stunden ist nicht „perfekt spielen“, sondern: <b>ruhig bleiben</b>, <b>alle Gegner bei dir halten</b> und <b>Defensivs früh drücken</b>.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Mini-Plan: Die ersten 30 Minuten</h3>
+            <ol>
+              <li><b>5 Minuten:</b> Hotbars setzen (nur die wichtigsten Skills) und einmal die Tasten „trocken“ drücken.</li>
+              <li><b>10 Minuten:</b> Trainingspuppe: ST-Kombo drücken, dann <b>Ohne Gnade</b>, dann wieder ST-Kombo. Nur Rhythmus lernen.</li>
+              <li><b>10 Minuten:</b> Trainingspuppe: Patronen ausgeben (z.B. <b>Schlagfänge</b>) und danach <b>Triggerfolge</b> (wenn leuchtet).</li>
+              <li><b>5 Minuten:</b> Defensivs bewusst drücken: <b>Camouflage</b> / <b>Nebula</b> / <b>Aurora</b> – damit es „in Fleisch und Blut“ geht.</li>
+            </ol>
+          </div>
+
+          <div class="card">
+            <h3>2 UI-Einstellungen, die es leichter machen</h3>
+            <ul>
+              <li><b>Gegnerliste gut sichtbar:</b> Damit du sofort erkennst, ob ein Gegner auf jemand anderen geht.</li>
+              <li><b>Hotbar-Skalierung:</b> Mach deine Haupt-Hotbar ruhig größer, bis du dich sicher fühlst. Lesbarkeit &gt; Optik.</li>
+            </ul>
+            <p class="sub" style="margin-top:8px;">
+              Optional (später): Eine Maustaste für <b>Triggerfolge</b> kann extrem helfen, weil du sie dann „nebenbei“ drückst.
+            </p>
+          </div>
+        </div>
+
+        <div class="note">
+          <b>Wichtig:</b> Es ist völlig normal, dass du am Anfang langsamer bist.
+          In FFXIV ist „sauber &amp; sicher“ fast immer besser als „schnell &amp; hektisch“ – vor allem als Tank.
+        </div>
+</section>
+
+      <!-- Hotbars -->
+      
+<section class="section anchor" id="hotbars">
+  <h2>Hotbars &amp; Tastenbelegung (simpel &amp; einsteigerfreundlich)</h2>
+  <p class="sub">
+    Dieser Guide geht davon aus, dass du mit <b>Maus + Tastatur</b> spielst.
+    Du bekommst eine klare Belegung für <b>1–6</b> (Hauptleiste) und <b>STRG+1–6</b> (zweite Leiste) – ohne Doppelbelegung.
+  </p>
+
+  <div class="callout">
+    <b>Wichtig:</b> Die Revolverklinge startet bei <b>Stufe 60</b>. Wenn du das erste Mal tankst, lohnt sich vorher
+    die <b>Anfängerhalle</b> (Hall of the Novice) – dort lernst du “Haltung an, AoE halten, Defensivs früh”.
+  </div>
+
+  <h3>Prinzip (damit du nie den Überblick verlierst)</h3>
+  <ul>
+    <li><b>Hotbar 1</b> = deine “immer drücken”-Skills (ST-Kombo + AoE-Kombo + Range-Pull).</li>
+    <li><b>Hotbar 2 (STRG)</b> = Burst/Patronen und wichtige Zusatz-Aktionen.</li>
+    <li><b>Klickleiste</b> = Defensivs &amp; Situationsbuttons (du klickst sie oder bindest sie später um).</li>
+    <li><b>Keine Rotations-Makros</b> – du lernst hier eine Rotation, die genauso simpel ist wie ein Makro, aber besser funktioniert.</li>
+  </ul>
+
+  <h3>Grundbelegung (ab Stufe 60)</h3>
+
+  <div class="hb-visual-wrap">
+    <p class="hb-visual-title">Hotbar 1 (ohne STRG) – 2×6 Darstellung</p>
+    <div class="hb-visual">
+      <div class="hb-slot"><div class="hb-key">1</div><div class="hb-label">Zerfetzer<br><span class="muted">ST</span></div></div>
+      <div class="hb-slot"><div class="hb-key">2</div><div class="hb-label">Brutaler Einschlag<br><span class="muted">ST</span></div></div>
+      <div class="hb-slot"><div class="hb-key">3</div><div class="hb-label">Stahlwalze<br><span class="muted">ST</span></div></div>
+      <div class="hb-slot"><div class="hb-key">4</div><div class="hb-label">Dämonenschnitter<br><span class="muted">AoE</span></div></div>
+      <div class="hb-slot"><div class="hb-key">5</div><div class="hb-label">Dämonenschlachter<br><span class="muted">AoE</span></div></div>
+      <div class="hb-slot"><div class="hb-key">6</div><div class="hb-label">Donnerkugel<br><span class="muted">Range</span></div></div>
+    </div>
+  </div>
+
+  <div class="hb-visual-wrap">
+    <p class="hb-visual-title">Hotbar 2 (STRG + 1–6) – 2×6 Darstellung</p>
+    <div class="hb-visual">
+      <div class="hb-slot"><div class="hb-key">STRG+1</div><div class="hb-label">Ohne Gnade<br><span class="muted">Burst</span></div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+2</div><div class="hb-label">Explosiver Stoß<br><span class="muted">ST</span></div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+3</div><div class="hb-label">Schlagfänge<br><span class="muted">Burst</span></div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+4</div><div class="hb-label">Triggerfolge<br><span class="muted">Burst</span></div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+5</div><div class="hb-label">Schockpatrone → Schicksalszirkel<br><span class="muted">AoE</span></div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+6</div><div class="hb-label">Schallbrecher<br><span class="muted">ST</span></div></div>
+    </div>
+  </div>
+
+  <div class="hb-visual-wrap">
+    <p class="hb-visual-title">Klickleiste (nicht gebunden) – “Überleben &amp; Tank-Tools”</p>
+    <div class="hb-visual">
+      <div class="hb-slot"><div class="hb-key">Klick</div><div class="hb-label">Eid der Leibgardisten<br><span class="muted">Haltung</span></div></div>
+      <div class="hb-slot"><div class="hb-key">Klick</div><div class="hb-label">Camouflage<br><span class="muted">Def</span></div></div>
+      <div class="hb-slot"><div class="hb-key">Klick</div><div class="hb-label">Nebula → Große Nebula<br><span class="muted">Def</span></div></div>
+      <div class="hb-slot"><div class="hb-key">Klick</div><div class="hb-label">Aurora<br><span class="muted">Heal</span></div></div>
+      <div class="hb-slot"><div class="hb-key">Klick</div><div class="hb-label">Meteoritenfall<br><span class="muted">Invuln</span></div></div>
+      <div class="hb-slot"><div class="hb-key">Klick</div><div class="hb-label">Steinernes Herz → Herz des Korunds<br><span class="muted">Mitigation</span></div></div>
+    </div>
+    <p class="note">Du kannst diese Klickleiste später jederzeit auf andere Tasten legen. Für den Start reicht “irgendwo sichtbar”.</p>
+  </div>
+
+  <div class="hr"></div>
+
+  <h3>Level-Updates: Was ändert sich an deiner Hotbar?</h3>
+  <p class="note">Du bekommst die wichtigsten Änderungen als “Skill X kommt dazu / ersetzt Skill Y”. Alles, was automatisch aufwertet, bleibt auf derselben Taste.</p>
+
+  <details open>
+    <summary>Stufe 60: Startset (Revolverklinge beginnt hier)</summary>
+    <p><b>Du hast sofort:</b> ST-Kombo (Zerfetzer → Brutaler Einschlag → Stahlwalze), AoE-Kombo (Dämonenschnitter → Dämonenschlachter),
+      Burst-Buff <b>Ohne Gnade</b> und die Patronen-Fertigkeit <b>Explosiver Stoß</b>.</p>
+    <ul>
+      <li><b>STRG+3</b> = <b>Schlagfänge</b> (ab 60 verfügbar) – dein “starker Burst-Start”.</li>
+      <li><b>STRG+6</b> = <b>Schallbrecher</b> (St. 54) – starker DoT im Burstfenster (nur wenn <i>Schallschnell</i> aktiv ist).</li>
+      <li>Defensivs liegen erstmal auf der <b>Klickleiste</b> (Camouflage / Nebula / Aurora / Meteoritenfall).</li>
+    </ul>
+  </details>
+
+  <div class="hr"></div>
+
+  <details>
+    <summary>Stufe 62–69: DoT-AoE &amp; Team-Mitigations</summary>
+    <p><b>Neu:</b> <b>Schockpatrone</b> (62), <b>Wackeres Herz</b> (64), <b>Steinernes Herz</b> (68).</p>
+    <ul>
+      <li><b>STRG+5</b> = <b>Schockpatrone</b> (bis St. 71). Das ist ein AoE-DoT – perfekt in großen Pulls.</li>
+      <li><b>Steinernes Herz</b> kommt auf die Klickleiste (später wird es zu <b>Herz des Korunds</b> aufgewertet).</li>
+      <li><b>Wackeres Herz</b> ebenfalls Klickleiste: “Gruppen-Mini-Defensiv” bei viel AoE-Schaden.</li>
+    </ul>
+  </details>
+
+  <div class="hr"></div>
+
+  <details>
+    <summary>Stufe 70–71: Triggerfolge (Continuation) – “ein Knopf, viele Extra-Hits”</summary>
+    <p><b>Neu:</b> <b>Triggerfolge</b> (70) und die Folge-Aktionen (<b>Kehlreißer</b>, <b>Bauchschlitzer</b>, <b>Augenstecher</b> usw.).</p>
+    <ul>
+      <li><b>STRG+4</b> = <b>Triggerfolge</b> (ab jetzt immer sichtbar!).</li>
+      <li>Wichtig: Die Folge-Aktionen werden <b>nicht extra gebunden</b> – sie erscheinen über <b>Triggerfolge</b>, sobald du die passende Bedingung hast.</li>
+      <li>Faustregel: Nach <b>Schlagfänge</b>, <b>Wilde Klauen</b> und <b>Tückische Kralle</b> drückst du jeweils einmal <b>Triggerfolge</b>.</li>
+    </ul>
+  </details>
+
+  <div class="hr"></div>
+
+  <details>
+    <summary>Stufe 72–75: AoE-Patrone</summary>
+    <p><b>Neu:</b> <b>Schicksalszirkel</b> (72) – AoE-Patronen-Ausgabe.</p>
+    <ul>
+      <li><b>STRG+5</b> wechselt jetzt von <b>Schockpatrone</b> zu <b>Schicksalszirkel</b>.</li>
+      <li><b>Schockpatrone</b> bleibt wichtig – pack sie auf die Klickleiste (oder ersetze damit situativ einen selten genutzten Klick-Button).</li>
+    </ul>
+  </details>
+
+  <div class="hr"></div>
+
+  <details>
+    <summary>Stufe 76–85: Blutpatronen + Upgrades für “sich gut anfühlen”</summary>
+    <p><b>Neu:</b> <b>Blutpatronen</b> (76), <b>Erda-Detonation</b> (80), <b>Herz des Korunds</b> (82).</p>
+    <ul>
+      <li><b>Blutpatronen</b> auf die Klickleiste: Das ist dein “Patronen auffüllen”-Knopf für Burstfenster.</li>
+      <li><b>Erda-Detonation</b> ersetzt/aufwertet deine alte Spreng-Action – die Taste bleibt auf der Klickleiste (wenn du Sprengzone dort hattest).</li>
+      <li><b>Herz des Korunds</b> ersetzt <b>Steinernes Herz</b> (gleicher Platz auf der Klickleiste).</li>
+    </ul>
+  </details>
+
+  <div class="hr"></div>
+
+  <details>
+    <summary>Stufe 86–89: Überschall (Continuation nach Explosiver Stoß)</summary>
+    <p><b>Neu:</b> <b>Überschall</b> (86) – erscheint über <b>Triggerfolge</b>, nachdem du <b>Explosiver Stoß</b> benutzt hast.</p>
+    <ul>
+      <li>Kein neuer Platz nötig: Du drückst einfach wie gewohnt <b>STRG+4</b> (Triggerfolge), sobald Überschall bereit ist.</li>
+    </ul>
+  </details>
+
+  <div class="hr"></div>
+
+  <details>
+    <summary>Stufe 90–93: Doppelpack &amp; Große Nebula</summary>
+    <p><b>Neu:</b> <b>Doppelpack</b> (90) und <b>Große Nebula</b> (92).</p>
+    <ul>
+      <li><b>Doppelpack</b> auf die Klickleiste: starker AoE-Burst (kostet 2 Patronen).</li>
+      <li><b>Große Nebula</b> ersetzt <b>Nebula</b> (gleicher Platz auf der Klickleiste).</li>
+    </ul>
+  </details>
+
+  <div class="hr"></div>
+
+  <details>
+    <summary>Stufe 94–100: Schicksalszeichen &amp; Lautere Wut (Löwenherz)</summary>
+    <p><b>Neu:</b> <b>Schicksalszeichen</b> (96) erscheint über <b>Triggerfolge</b> nach <b>Schicksalszirkel</b>. Auf St. 100 kommt <b>Lautere Wut</b>.</p>
+    <ul>
+      <li>Kein zusätzlicher Platz nötig: Beides läuft über <b>Triggerfolge</b> bzw. ist eine Aufwertung deiner Burst-Logik.</li>
+      <li><b>Lautere Wut</b> benutzt du in deinen großen Burstfenstern (typisch nach <b>Blutpatronen</b>).</li>
+    </ul>
+  </details>
+
+
+<hr class="soft-sep">
+
+  <h3>Warum 2×6 Slots (statt 1×12)?</h3>
+  <ul>
+    <li>Du hast mehr Platz für Beschriftungen (z.B. <b>ST</b> / <b>AoE</b> / <b>Def</b>), ohne dass Text über den Rand rutscht.</li>
+    <li>Dein Auge findet Skills schneller: Obere Reihe = „Hauptkram“, untere Reihe = „situativ/ergänzend“.</li>
+    <li>Auf Tablet/kleineren Monitoren bleibt es lesbar, weil die Reihen sauber umbrechen können.</li>
+  </ul>
+
+  <div class="note">
+    Wenn du später mehr Komfort willst: Es ist völlig okay, einzelne Skills auf Maustasten zu legen.
+    Wichtig ist nur, dass <b>Hotbar 1</b> und <b>Hotbar 2 (STRG)</b> für dich logisch bleiben und du nicht doppelt belegst.
+  </div>
+</section>
+
+<section class="section anchor" id="skills">
+  <h2>Skill-Freischaltliste (DE, Revolverklinge 60–100)</h2>
+  <p class="sub">
+    Die Revolverklinge startet beim Freischalten bereits mit einem großen Grundpaket an Skills (weil der Job selbst erst ab <b>Stufe 60</b> verfügbar ist).
+    Diese Liste zeigt dir deshalb vor allem <b>die wichtigen neuen Meilensteine ab 60</b> – also: „Was ändert sich jetzt wirklich?“
+    <br><br>
+    Tipp: Wenn du einen neuen Skill bekommst, <b>ändere nicht 20 Tasten</b>. Tausche nur dann etwas aus, wenn ein Skill ein <b>direktes Upgrade</b> ist
+    oder du wirklich keinen Platz mehr hast.
+  </p>
+
+  <table aria-label="Skill Freischaltliste">
+    <thead>
+      <tr>
+        <th style="width:90px;">Stufe</th>
+        <th>Skill / Eigenschaft (DE)</th>
+        <th style="width:160px;">Typ</th>
+        <th>Was bedeutet das für dich?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>60</b></td>
+        <td><b>Startpaket (bei Freischaltung)</b></td>
+        <td>Grundkit</td>
+        <td>
+          Du bekommst direkt sehr viele zentrale Tools: ST-Kombo (<b>Zerfetzer → Brutaler Einschlag → Stahlwalze</b>), AoE-Kombo (<b>Dämonenschnitter → Dämonenschlachter</b>),
+          Tank-Haltung (<b>Eid der Leibgardisten</b>), Heilen/Defensiv-Grundlagen (<b>Aurora</b>, <b>Nebula</b>, <b>Camouflage</b>), sowie deine „Patronen“-Mechanik (<b>Erda-Patronen</b>).
+          <br><br>
+          Keine Sorge: Du musst das nicht alles sofort perfekt können – darum sind die Hotbars weiter oben extra „simpel“ aufgebaut.
+        </td>
+      </tr>
+
+      <tr><td><b>62</b></td><td><b>Schockpatrone</b></td><td>AoE / DoT</td><td>Ein Flächen-DoT. Sehr stark in Dungeons, weil es auf mehrere Gegner gleichzeitig tickt. Setz ihn besonders gern in deinem <b>Ohne-Gnade</b>-Fenster.</td></tr>
+      <tr><td><b>64</b></td><td><b>Wackeres Herz</b></td><td>Def (Party)</td><td>Gruppen-Defensiv für Trash-Pulls und „alle bekommen Schaden“-Momente. Im Trust/Solo extrem wertvoll.</td></tr>
+      <tr><td><b>68</b></td><td><b>Steinernes Herz</b></td><td>Def (Target)</td><td>Dein „kleiner Schild“ für dich oder andere. Wenn du tankst: fast immer auf <b>dich</b>. Später wird daraus <b>Herz des Korunds</b>.</td></tr>
+
+      <tr>
+        <td><b>70</b></td>
+        <td><b>Triggerfolge</b> <span class="badge warn">Jobauftrag</span></td>
+        <td>Rotation / Trigger</td>
+        <td>
+          Ab hier wird die Revolverklinge „typisch GNB“: Nach bestimmten Skills drückst du <b>einmal</b> Triggerfolge, um den passenden Trigger auszuführen
+          (z.B. nach <b>Schlagfänge</b> → <b>Kehlreißer</b>, nach <b>Wilde Klauen</b> → <b>Bauchschlitzer</b>, nach <b>Tückische Kralle</b> → <b>Augenstecher</b>).
+          <br><br>
+          Merksatz: <b>„Nach dem starken Skill: Triggerfolge einmal nachdrücken.“</b>
+        </td>
+      </tr>
+
+      <tr><td><b>76</b></td><td><b>Blutpatronen</b></td><td>Buff / Patronen</td><td>Gibt dir sofort mehrere Patronen und macht deinen Burst stabiler. Ab jetzt fühlst du dich in Bosskämpfen deutlich „runder“.</td></tr>
+
+      <tr><td><b>80</b></td><td><b>Meister der Sprengzone</b> → <b>Erda-Detonation</b></td><td>Trait / ST</td><td>Dein großer ST-Schlag wird aufgewertet. Für Anfänger: einfach so behandeln wie zuvor – wenn verfügbar, drücken.</td></tr>
+      <tr><td><b>82</b></td><td><b>Meister des Steinernen Herzens</b> → <b>Herz des Korunds</b></td><td>Trait / Def</td><td>Dein „kleiner Schild“ wird viel stärker und bekommt Heil-/Nachheil-Effekt. Das ist eines deiner wichtigsten Tools für schwere Pulls.</td></tr>
+
+      <tr><td><b>84</b></td><td><b>Verbesserte Aurora</b></td><td>Trait</td><td>Mehr Flexibilität für <b>Aurora</b>. Für Anfänger heißt das: du kannst sie „ruhiger“ nutzen, ohne Angst zu haben, sie zu verschwenden.</td></tr>
+      <tr><td><b>84</b></td><td><b>Verbesserte Revolverklinge</b></td><td>Trait</td><td>Deine Grundskills werden stärker. Keine Änderung an deiner Rotation – einfach „gratis mehr Schaden“.</td></tr>
+
+      <tr><td><b>86</b></td><td><b>Überschall</b></td><td>Trigger</td><td>Ein zusätzlicher Trigger, der über <b>Triggerfolge</b> kommt. Für dich bleibt die Regel gleich: Wenn Triggerfolge leuchtet → drücken.</td></tr>
+      <tr><td><b>86</b></td><td><b>Verbesserte Triggerfolge</b></td><td>Trait</td><td>Erhöht, wie oft du Triggerfolge sinnvoll nutzen kannst. Praktisch: deine „Trigger-Kette“ fühlt sich flüssiger an.</td></tr>
+
+      <tr><td><b>88</b></td><td><b>Verbesserte Erda-Patronen</b></td><td>Trait</td><td>Du kannst mehr Patronen halten (und Blutpatronen wird noch wertvoller). Anfängerregel: Patronen <b>nicht horten</b> – lieber ausgeben, bevor du übercapst.</td></tr>
+
+      <tr><td><b>90</b></td><td><b>Doppelpack</b></td><td>AoE / Patronen</td><td>Sehr starker AoE-Ausgeber. Für Dungeons: wird Teil deiner „großen Pull“-Schadensphase.</td></tr>
+
+      <tr><td><b>92</b></td><td><b>Meister der Nebula</b> → <b>Große Nebula</b></td><td>Trait / Def</td><td>Dein großes Defensiv wird besser. Für Anfänger: einfach als „mein stärkstes Defensiv“ merken.</td></tr>
+
+      <tr><td><b>94</b></td><td><b>Verbesserte Revolverklinge II</b></td><td>Trait</td><td>Nochmals stärkerer Grundschaden. Wieder keine „Denkarbeit“, nur bessere Zahlen.</td></tr>
+
+      <tr><td><b>96</b></td><td><b>Verbesserte Triggerfolge II</b></td><td>Trait</td><td>Triggerfolge bekommt weitere sinnvolle Auslöser. Deine Kernregel bleibt: <b>Triggerfolge drücken, wenn es leuchtet</b>.</td></tr>
+
+      <tr><td><b>100</b></td><td><b>Verbesserte Blutpatronen</b></td><td>Trait</td><td>Dein Burst wird konsistenter. Für Anfänger: nutz Blutpatronen zuverlässig auf Abklingzeit.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note" style="margin-top:14px;">
+    <b>Warum diese Liste anders aussieht als bei Klassen, die bei Stufe 1 starten:</b>
+    Du bekommst viele „frühe“ Skills beim Freischalten bereits automatisch – deshalb sind hier die <b>Meilensteine</b> ab 60 im Fokus.
+  </div>
+
+
+<div class="callout" style="margin-top:12px;">
+    <b>So nutzt du die Liste im Alltag:</b>
+    <ul style="margin-top:8px;">
+      <li>Sieh dir bei jedem neuen Meilenstein nur die <b>eine</b> neue Taste an.</li>
+      <li>Frag dich: <b>Ist das Schaden?</b> Dann bekommt es meist einen Platz in Hotbar 1/2. <b>Ist es Defensiv?</b> Dann auf Hotbar 2 oder Klickleiste.</li>
+      <li>Wenn du unsicher bist: Lass alles wie es ist und nutz den neuen Skill erst „zusätzlich“. Umstellen kannst du später immer noch.</li>
+    </ul>
+  </div>
+
+  <div class="note" style="margin-top:12px;">
+    <b>Jobquests:</b> Einige wichtige Dinge (z.B. <b>Triggerfolge</b>) sind an Jobaufträge gekoppelt.
+    Wenn du also denkst „Ich bin Level X, aber mir fehlt Skill Y“, check zuerst deine <b>Jobquest-Kette</b>.
+  </div>
+</section>
+
+
+
+
+      <!-- Skills -->
+
+<!-- Rotations -->
+      <section class="section anchor" id="rotations">
+  <h2>Rotation &amp; Prioritäten 60–100 (vereinfacht, aber “richtig”)</h2>
+  <p class="sub">
+    Die Revolverklinge hat zwei Ebenen:
+    <b>GCD</b> (deine normalen Waffenfertigkeiten) und <b>Extra-Trigger</b> über <b>Triggerfolge</b>.
+    Für Anfänger ist das super: Du hast eine klare “Schienen”-Rotation und musst nur wissen,
+    <b>wann Ohne Gnade an ist</b> und <b>wann du Triggerfolge drücken darfst</b>.
+  </p>
+
+  <h3>Die 4 Regeln, die 90% deines Erfolgs ausmachen</h3>
+  <ol>
+    <li><b>Ohne Gnade</b> möglichst auf Abklingzeit drücken (alle ~60s), außer gleich kommt erzwungene Downtime.</li>
+    <li><b>Schlagfänge</b> möglichst <b>im Ohne-Gnade-Fenster</b> benutzen.</li>
+    <li>Wenn <b>Triggerfolge</b> “leuchtet”: drücken (aber nur, wenn du gerade den passenden Status hast).</li>
+    <li>Wenn du Patronen über hast: <b>Explosiver Stoß</b> (ST) bzw. <b>Schicksalszirkel</b> (AoE) nutzen – Patronen nicht “capen” lassen.</li>
+  </ol>
+
+  <div class="callout">
+    <b>Merksatz:</b> <span class="pill">Boss = ST-Kombo</span> + <span class="pill">Ohne Gnade</span> + <span class="pill">Schlagfänge</span> + <span class="pill">Triggerfolge wenn bereit</span>.
+  </div>
+
+  <h3>Single Target (Boss)</h3>
+  <ul>
+    <li><b>Filler</b>: Zerfetzer → Brutaler Einschlag → Stahlwalze (wiederholen).</li>
+    <li><b>Patronen ausgeben</b>: Explosiver Stoß, wenn du Patronen hast und kein besseres Burst-Element gleich fällig ist.</li>
+    <li><b>DoT im Burst</b>: Schallbrecher nur, wenn <i>Schallschnell</i> aktiv ist (das bekommst du durch Ohne Gnade).</li>
+  </ul>
+
+  <h3>AoE (3+ Gegner)</h3>
+  <ul>
+    <li><b>Grund-AoE</b>: Dämonenschnitter → Dämonenschlachter (wiederholen).</li>
+    <li><b>Ab St. 62</b>: Schockpatrone in großen Pulls einsetzen.</li>
+    <li><b>Ab St. 72</b>: Patronen lieber in Schicksalszirkel stecken (und später Doppelpack im Burstfenster).</li>
+  </ul>
+
+  <div class="hr"></div>
+
+  <h3>Level-Abschnitte: “Was drücke ich konkret?”</h3>
+
+  <details open>
+    <summary>Stufe 60–61: Startrotation (ohne Triggerfolge)</summary>
+    <p><b>Ziel:</b> Du bekommst ein sauberes Grundgefühl, ohne komplizierte Buttons.</p>
+    <ol>
+      <li><b>Ohne Gnade</b> sobald der Kampf startet (oder kurz vor dem Pull, wenn sicher).</li>
+      <li><b>Schlagfänge</b> (du hast 2 Aufladungen) – danach geht’s automatisch weiter mit <b>Wilde Klauen</b> und <b>Tückische Kralle</b>.</li>
+      <li>In Lücken: ST-Kombo (Zerfetzer → Brutaler Einschlag → Stahlwalze) und Patronen mit <b>Explosiver Stoß</b> ausgeben.</li>
+      <li><b>Schallbrecher</b> nur, wenn du gerade <b>Ohne Gnade</b> gedrückt hast (weil dann <i>Schallschnell</i> aktiv ist).</li>
+    </ol>
+    <p class="note">Du brauchst noch keine “perfekte Reihenfolge”. Wichtig ist nur: Ohne Gnade nicht vergessen und Schlagfänge im Fenster spielen.</p>
+  </details>
+
+  <div class="hr"></div>
+
+  <details>
+    <summary>Stufe 62–69: Schockpatrone + defensive Utility</summary>
+    <p><b>Neu:</b> Schockpatrone (AoE-DoT). In Bosskämpfen ist sie optional; in großen Pulls sehr gut.</p>
+    <ul>
+      <li>Im Bosskampf bleibt alles wie vorher.</li>
+      <li>In Pulls: Nach deiner AoE-Kombo einmal <b>Schockpatrone</b> setzen und dann weiter AoE-Kombo.</li>
+      <li><b>Steinernes Herz</b> (68) ist ein extrem guter “Mini-Cooldown” – nutz es früh (auf dich oder den Co-Tank).</li>
+    </ul>
+  </details>
+
+  <div class="hr"></div>
+
+  <details>
+    <summary>Stufe 70–71: Triggerfolge – jetzt kommt “der Gunbreaker-Flow”</summary>
+    <p><b>Neu:</b> Triggerfolge + Kehlreißer/Bauchschlitzer/Augenstecher.</p>
+    <p>
+      Ab jetzt ist die wichtigste Gewohnheit:
+      <b>Nach bestimmten Skills einmal Triggerfolge drücken</b>.
+      Du brauchst keine Extra-Taste für Kehlreißer &amp; Co. – sie erscheinen über Triggerfolge.
+    </p>
+    <ol>
+      <li>Ohne Gnade an.</li>
+      <li>Schlagfänge → <b>Triggerfolge</b> (Kehlreißer).</li>
+      <li>Wilde Klauen → <b>Triggerfolge</b> (Bauchschlitzer).</li>
+      <li>Tückische Kralle → <b>Triggerfolge</b> (Augenstecher).</li>
+    </ol>
+    <p class="note">Wenn du nur diese “Triggerfolge nach jedem Schlagfänge-Schritt”-Regel lernst, spielst du automatisch sehr solide.</p>
+  </details>
+
+  <div class="hr"></div>
+
+  <details>
+    <summary>Stufe 72–79: Schicksalszirkel &amp; Blutpatronen</summary>
+    <p><b>Neu:</b> Schicksalszirkel (72) für AoE + Blutpatronen (76) zum Auffüllen deiner Patronen.</p>
+    <ul>
+      <li>AoE-Pulls: Patronen primär in <b>Schicksalszirkel</b> investieren.</li>
+      <li>Blutpatronen: Vor großen Burstfenstern drücken, damit du genug Patronen hast.</li>
+      <li>Boss: Ohne Gnade + Schlagfänge(+ Triggerfolge) bleibt der Kern.</li>
+    </ul>
+  </details>
+
+  <div class="hr"></div>
+
+  <details>
+    <summary>Stufe 80–89: Erda-Detonation, Herz des Korunds, Überschall</summary>
+    <p><b>Neu:</b> Erda-Detonation (80), Herz des Korunds (82), Überschall (86 über Triggerfolge nach Explosiver Stoß).</p>
+    <ul>
+      <li>Erda-Detonation: Auf Abklingzeit nutzen (gerne im Ohne-Gnade-Fenster).</li>
+      <li>Herz des Korunds: Dein bestes “kleines Defensiv” (auf dich oder ein Teammitglied).</li>
+      <li>Überschall: Wenn du Explosiver Stoß spielst und Triggerfolge danach leuchtet → drücken.</li>
+    </ul>
+  </details>
+
+  <div class="hr"></div>
+
+  <details>
+    <summary>Stufe 90–100: Doppelpack, Große Nebula, Schicksalszeichen, Lautere Wut</summary>
+    <p><b>Neu:</b> Doppelpack (90), Große Nebula (92), Schicksalszeichen (96 über Triggerfolge), Lautere Wut (100).</p>
+    <ul>
+      <li>Doppelpack: AoE-Burst mit 2 Patronen – ideal im Ohne-Gnade-Fenster in großen Pulls oder Multi-Target-Bossen.</li>
+      <li>Schicksalszeichen: Erscheint über Triggerfolge nach Schicksalszirkel – einfach drücken, wenn es bereit ist.</li>
+      <li>Lautere Wut: Dein “großes Finish” im großen Burstfenster (typisch zusammen mit Blutpatronen).</li>
+    </ul>
+  </details>
+
+
+
+  <hr class="soft-sep">
+
+  <h3>Ganz kurz erklärt: GCD, Trigger &amp; „Weaving“</h3>
+  <ul>
+    <li><b>GCD</b> sind deine normalen Waffenfertigkeiten (die „2,5s“-Tasten). Die sind dein Grundrhythmus.</li>
+    <li><b>Triggerfolge</b> ist (meist) ein zusätzlicher Knopf <b>zwischen</b> zwei GCDs – du drückst ihn, wenn er leuchtet.</li>
+    <li><b>Weaving</b> bedeutet: Du drückst 0–2 „Extra“-Skills zwischen zwei GCDs. Als Anfänger: <b>maximal 1</b> extra Taste zwischen zwei GCDs – dann bleibst du sicher.</li>
+  </ul>
+
+  <div class="callout">
+    <b>Einsteiger-Regel (wichtig):</b> Wenn du merkst, dass du „hängst“ oder nicht mehr weißt was los ist:
+    <ul style="margin-top:8px;">
+      <li>Drück wieder deine ST-Kombo (<b>Zerfetzer → Brutaler Einschlag → Stahlwalze</b>) oder im Dungeon deine AoE-Kombo (<b>Dämonenschnitter → Dämonenschlachter</b>).</li>
+      <li>Wenn <b>Ohne Gnade</b> bereit ist: drücken.</li>
+      <li>Wenn <b>Triggerfolge</b> leuchtet: einmal drücken.</li>
+    </ul>
+  </div>
+
+  <h3>Rotation nach Level-Bereichen (damit du immer weißt, was sich ändert)</h3>
+
+  <h4>Stufe 60–69: „Grundrhythmus + Patronen nicht horten“</h4>
+  <ul>
+    <li><b>ST</b>: <b>Zerfetzer → Brutaler Einschlag → Stahlwalze</b> als Filler.</li>
+    <li><b>Patronen ausgeben</b>: Wenn du <b>Erda-Patronen</b> hast, nutze deine Patronen-Skills (z.B. <b>Schlagfänge</b>), bevor du übercaps.</li>
+    <li><b>Ohne Gnade</b>: Wenn bereit, drücken und in die Dauer deine „starken“ Tasten legen.</li>
+    <li><b>Schallbrecher</b>: Wenn verfügbar, nutze ihn gern <b>im Ohne-Gnade-Fenster</b>.</li>
+  </ul>
+
+  <h4>Stufe 70–75: „Triggerfolge kommt dazu“</h4>
+  <p>
+    Jetzt wird es leichter als es aussieht: Du musst keine neue Kombo lernen – du drückst nur <b>nach bestimmten Skills einmal Triggerfolge</b>.
+  </p>
+  <ul>
+    <li>Nach <b>Schlagfänge</b> → <b>Triggerfolge</b> (für <b>Kehlreißer</b>)</li>
+    <li>Nach <b>Wilde Klauen</b> → <b>Triggerfolge</b> (für <b>Bauchschlitzer</b>)</li>
+    <li>Nach <b>Tückische Kralle</b> → <b>Triggerfolge</b> (für <b>Augenstecher</b>)</li>
+  </ul>
+  <div class="note">
+    Übung (5 Minuten): Stell dich an eine Trainingspuppe und spiele nur diese Kette sauber.
+    Du trainierst nicht „Speed“, sondern das Erkennen: <b>„Jetzt leuchtet’s → drücken.“</b>
+  </div>
+
+  <h4>Stufe 76–79: „Blutpatronen = stabiler Burst“</h4>
+  <ul>
+    <li><b>Blutpatronen</b> gibt dir sofort viele Patronen. Nutze es am besten zusammen mit <b>Ohne Gnade</b> (wenn keine Downtime kommt).</li>
+    <li>Während der Buff läuft: <b>Patronen ausgeben</b> (Schlagfänge/Kombo) &gt; dann wieder Filler.</li>
+  </ul>
+
+  <h4>Stufe 80–85: „Upgrades, aber gleiche Regeln“</h4>
+  <ul>
+    <li><b>Erda-Detonation</b> = stärkerer großer ST-Schlag. Für dich bleibt es: <b>wenn bereit, drücken</b>.</li>
+    <li><b>Herz des Korunds</b> wird dein wichtigstes Defensiv für große Pulls (siehe Pull-Abschnitt).</li>
+    <li><b>Schockpatrone</b> bleibt sehr stark im Ohne-Gnade-Fenster (Boss und Trash).</li>
+  </ul>
+
+  <h4>Stufe 86–89: „Mehr Trigger, gleiche Bedienung“</h4>
+  <ul>
+    <li><b>Überschall</b> kommt als zusätzlicher Trigger über <b>Triggerfolge</b>.</li>
+    <li>Regel bleibt: <b>Triggerfolge leuchtet → drücken</b>.</li>
+  </ul>
+
+  <h4>Stufe 90–100: „AoE bekommt einen echten Patronen-Knall“</h4>
+  <ul>
+    <li><b>Doppelpack</b> wird Teil deiner AoE-Schadensspitze im Pull.</li>
+    <li><b>Große Nebula</b> macht große Pulls sicherer. Defensivs früh = du hast Zeit, wieder Schaden zu machen.</li>
+  </ul>
+
+  <h3>Beispiel: „Sehr einfache 60-Sekunden-Schleife“</h3>
+  <ol>
+    <li><b>Ohne Gnade</b> drücken.</li>
+    <li>Im Fenster: <b>Schlagfänge</b>-Kombo + <b>Triggerfolge</b>-Drücke, dazu <b>Schallbrecher</b> / <b>Schockpatrone</b>, wenn verfügbar.</li>
+    <li>Danach: zurück auf ST-Kombo und Patronen so ausgeben, dass du nicht übercaps.</li>
+    <li>Sobald <b>Ohne Gnade</b> wieder bereit ist: wiederholen.</li>
+  </ol>
+
+  <div class="glass-card" style="margin-top:12px;">
+    <h4 style="margin-top:0;">Typische Anfängerfehler (und die schnelle Lösung)</h4>
+    <ul>
+      <li><b>Ich vergesse Triggerfolge:</b> Lege Triggerfolge auf eine Taste, die du immer erreichst. Und: <b>leuchtet = drücken</b>.</li>
+      <li><b>Ich horte Patronen:</b> Wenn du am Limit bist, verschwendest du Aufbau. Lieber ausgeben, dann weiterbauen.</li>
+      <li><b>Defensivs zu spät:</b> Defensivs sind besser <b>vor</b> dem Schaden. Beim Pull-Start ist richtig.</li>
+      <li><b>Aggro verloren:</b> Haltung aus oder nicht alle Gegner mit AoE getroffen. Im Zweifel: einmal <b>Dämonenschnitter</b> nachsetzen.</li>
+    </ul>
+  </div>
+
+</section>
+
+      <!-- AoE -->
+      <section class="section anchor" id="aoe">
+  <h2>AoE vs. Single Target (wann du was drückst)</h2>
+  <p class="sub">Die größte Anfängerfalle: Im Dungeon-Bereich “ST auf Trash”. Als Tank willst du bei mehreren Gegnern fast immer AoE benutzen.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Wenn 1 Gegner (Boss)</h3>
+      <ul>
+        <li>ST-Kombo: <b>Zerfetzer → Brutaler Einschlag → Stahlwalze</b>.</li>
+        <li>Alle ~60s: <b>Ohne Gnade</b> + <b>Schlagfänge</b> (und ab St. 70 immer <b>Triggerfolge</b> nachlegen).</li>
+        <li>Patronen: <b>Explosiver Stoß</b> als Füller, wenn du Patronen übrig hast.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Wenn 3+ Gegner (Trash-Pulls)</h3>
+      <ul>
+        <li>AoE-Kombo: <b>Dämonenschnitter → Dämonenschlachter</b>.</li>
+        <li>Ab St. 62: <b>Schockpatrone</b> früh in großen Pulls.</li>
+        <li>Ab St. 72: Patronen in <b>Schicksalszirkel</b> (später zusätzlich <b>Doppelpack</b>).</li>
+        <li>Auch hier gilt: <b>Ohne Gnade</b> in Pulls ist stark – wenn du sicher stehst und Defensivs laufen.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="note">
+    Wenn du unsicher bist, ob AoE “lohnt”: Sobald du <b>mehrere Gegner gleichzeitig</b> triffst, ist AoE fast immer korrekt – und du hältst Aggro stabiler.
+  </p>
+
+
+<hr class="soft-sep">
+
+  <h3>Wann ist AoE wirklich besser als Single Target?</h3>
+  <p>
+    Als Tank willst du zwei Dinge gleichzeitig: <b>alle Gegner bei dir halten</b> und dabei <b>sauber Schaden machen</b>.
+    Die Faustregel ist simpel:
+  </p>
+  <ul>
+    <li><b>3+ Gegner</b> → fast immer <b>AoE-Rotation</b>.</li>
+    <li><b>2 Gegner</b> → meistens AoE, außer ein Gegner ist „wichtig“ und muss schnell sterben (Dungeon-Mechanik).</li>
+    <li><b>1 Gegner</b> → <b>Single Target</b> (ST).</li>
+  </ul>
+
+  <div class="callout">
+    <b>Wichtig für Anfänger:</b> Selbst wenn AoE rein rechnerisch bei 2 Zielen manchmal „knapp“ ist –
+    <b>AoE ist trotzdem oft besser</b>, weil du damit <b>Aggro stabil</b> hältst und nicht aus Versehen einen Gegner verlierst.
+  </div>
+
+  <h3>AoE „Grundpaket“ (Dungeons)</h3>
+  <ol>
+    <li>Pull starten, Haltung an (<b>Eid der Leibgardisten</b>).</li>
+    <li><b>Dämonenschnitter → Dämonenschlachter</b> als Grundrhythmus.</li>
+    <li>Wenn verfügbar: <b>Schockpatrone</b> (AoE-DoT) in den Pull legen.</li>
+    <li>Wenn du Patronen ausgeben willst: nutze deine AoE-Ausgeber (später z.B. <b>Doppelpack</b>).</li>
+  </ol>
+
+  <div class="note">
+    <b>Praktischer Trick:</b> Dreh die Kamera so, dass du die Gegnergruppe „im Blick“ hast.
+    Wenn ein Gegner rausläuft (Caster/Mob bleibt stehen), geh kurz hin, triff ihn einmal mit AoE – dann zurück.
+    Tanks spielen viel über <b>Position</b>, nicht über perfekte DPS.
+  </div>
+</section>
+
+      <!-- Pulls -->
+      <section class="section anchor" id="pulls">
+  <h2>Dungeon-Pulls (Solo/Trust) – super simpel</h2>
+  <p class="sub">
+    Als Tank bestimmst du das Tempo. Gerade als kompletter Neuling gilt:
+    <b>lieber kleiner &amp; sauber</b> als groß &amp; chaotisch.
+    Mit Trust/NPCs kannst du in Ruhe lernen – die Regeln sind aber identisch für echte Gruppen.
+  </p>
+
+  <h3>Der sicherste Standard-Pull (2 Gruppen, also “2 Packs”)</h3>
+  <ol>
+    <li><b>Eid der Leibgardisten</b> an.</li>
+    <li>Erstes Pack anziehen: <b>Donnerkugel</b> oder einfach reinlaufen.</li>
+    <li>Beim Laufen schon AoE treffen: <b>Dämonenschnitter</b> (damit alle dich hassen).</li>
+    <li>Zweites Pack einsammeln, dann stehen bleiben.</li>
+    <li>Jetzt Defensiv starten: <b>Camouflage</b> oder <b>Nebula</b> (später Große Nebula). Nicht warten, bis du bei 20% bist.</li>
+    <li>Schaden machen &amp; halten: <b>Dämonenschnitter → Dämonenschlachter</b> durchziehen. Ab 62 <b>Schockpatrone</b>, ab 72 <b>Schicksalszirkel</b>.</li>
+    <li>Wenn’s eng wird: <b>Aurora</b> (Selbstheilung) + ggf. <b>Meteoritenfall</b> als Notfall.</li>
+  </ol>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Typische Anfängerfehler (und die schnelle Lösung)</h3>
+      <div class="kvs">
+        <div><b>Haltung aus</b><span>Einmal checken: “Eid der Leibgardisten” aktiv?</span></div>
+        <div><b>Nur 1 Gegner getroffen</b><span>Beim Stehenbleiben 1× AoE (Dämonenschnitter) drücken, dann erst “Rotation”.</span></div>
+        <div><b>Defensiv zu spät</b><span>Defensivs direkt am Pull starten, dann nachlegen.</span></div>
+        <div><b>Zu viel auf einmal</b><span>Erst 1–2 Packs sicher können, dann steigern.</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>“Wie groß darf ich pullen?”</h3>
+      <ul>
+        <li><b>Neu</b>: 1–2 Packs.</li>
+        <li><b>Wenn du stabil bleibst</b>: 2–3 Packs.</li>
+        <li><b>Wall-to-Wall</b> (bis zur Wand): Erst, wenn du Defensivs aktiv nutzt und AoE sauber triffst.</li>
+      </ul>
+      <p class="note">Mit Trust ist Wall-to-Wall oft langsamer/unnötig. Lern lieber Sicherheit &amp; Kontrolle.</p>
+    </div>
+  </div>
+
+
+<hr class="soft-sep">
+
+  <h3>Der „Anfänger-Pull“ (Trust/Solo): 10 Sekunden Plan</h3>
+  <p>
+    Wenn du neu bist, brauchst du eine Routine, die immer funktioniert. Hier ist ein Plan, der dich fast überall durchbringt:
+  </p>
+  <ol>
+    <li><b>Vor dem Pull:</b> Haltung prüfen (<b>Eid der Leibgardisten</b>), Kamera so drehen, dass du Wege und Gegner siehst.</li>
+    <li><b>Pull 1:</b> Lauf rein, sammle 1–2 Gruppen, dann bleib kurz stehen und triff alles mit AoE.</li>
+    <li><b>Pull 2 (optional):</b> Wenn du dich sicher fühlst, hol noch eine Gruppe dazu – aber nur, wenn deine Heals/Defensivs bereit sind.</li>
+    <li><b>Stop-Punkt:</b> Stell dich so hin, dass die Gegner <b>vor</b> dir stehen (nicht im Rücken, damit Parry/Block/Defensivs sauber wirken).</li>
+    <li><b>AoE halten:</b> 2–3 AoE-GCDs am Stück, dann erst Extras/Trigger.</li>
+  </ol>
+
+  <h3>Defensiv-Rotation (einfach, aber effektiv)</h3>
+  <p>
+    Viele Anfänger drücken Defensivs erst, wenn sie fast tot sind. Besser: <b>früh drücken</b>, damit der Schaden gar nicht erst „spiked“.
+    Nutze diese Reihenfolge als Default:
+  </p>
+  <ol>
+    <li><b>Camouflage</b> oder <b>Nebula</b> direkt beim Anhalten im Pull.</li>
+    <li>Wenn die Gegner immer noch hart schlagen: <b>Steinernes Herz</b> / später <b>Herz des Korunds</b> auf dich.</li>
+    <li>Wenn du merkst „HP gehen dauerhaft runter“: <b>Aurora</b> früh setzen (Regeneration braucht Zeit!).</li>
+    <li>Für „große“ Pulls oder schwierige Dungeons: ab späteren Stufen <b>Große Nebula</b> als stärkstes Defensiv einplanen.</li>
+  </ol>
+
+  <div class="callout">
+    <b>Warum das funktioniert:</b> Defensivs reduzieren den Schaden, während der Heiler/Trust Zeit bekommt zu reagieren.
+    Wenn du sie zu spät drückst, ist der Schaden schon passiert – dann rettet dich oft nur noch Glück.
+  </div>
+
+  <h3>Wenn du Aggro verlierst (und warum es passiert)</h3>
+  <ul>
+    <li><b>Haltung aus:</b> Check immer zuerst das Symbol von <b>Eid der Leibgardisten</b>.</li>
+    <li><b>Du hast nicht alles getroffen:</b> Gerade Caster stehen gern abseits. Einmal hingehen, AoE drauf, zurück.</li>
+    <li><b>Du bist zu weit gerannt:</b> Wenn du läufst, während der Trust heilt/castet, kommen Heals später. Lieber „kleiner &amp; sauber“ als „groß &amp; chaotisch“.</li>
+  </ul>
+
+  <div class="note">
+    <b>Pro-Tipp für neue PC-Spieler:</b> Stell die Gegnerliste so ein, dass du sie gut siehst.
+    Dann kannst du sofort erkennen, ob ein Gegner auf jemand anderem steht (Aggro-Icon/Markierung).
+  </div>
+</section>
+
+      <!-- Gear -->
+      <section class="section anchor" id="gear">
+  <h2>Gear während der Levelphase (60–100)</h2>
+  <p class="sub">
+    Fürs Leveln musst du nicht min-maxen. Wichtig ist nur: <b>Dein Itemlevel sollte nicht komplett hinterherhinken</b>,
+    sonst fühlt sich Tanken plötzlich “unfair schwer” an.
+  </p>
+
+  <h3>Die einfache Regel</h3>
+  <div class="callout">
+    Wenn du in einem Dungeon merkst, dass du “unverhältnismäßig” viel Schaden bekommst:
+    <b>prüfe zuerst dein Gear</b> (Waffe + Brust/Beine) und erst danach deine Rotation.
+  </div>
+
+  <h3>Priorität beim Austauschen</h3>
+  <ol>
+    <li><b>Waffe</b> (macht viel Schaden und fühlt sich sofort besser an)</li>
+    <li><b>Brust + Beine</b> (viel Defensive)</li>
+    <li><b>Kopf/Hand/Füße</b></li>
+    <li><b>Accessoires</b> (erst später relevant)</li>
+  </ol>
+
+  <h3>Wo bekommst du einfaches, gutes Gear?</h3>
+  <ul>
+    <li><b>Dungeon-Drops</b>: völlig ausreichend, wenn du regelmäßig Dungeons läufst.</li>
+    <li><b>MSQ/Quests</b>: geben oft passende Upgrades, besonders auf Story-Meilensteinen.</li>
+    <li><b>Händler in Hauptstädten</b>: Notlösung, wenn du deutlich zu niedrig bist.</li>
+  </ul>
+
+  <p class="note">
+    Für Tanks gilt: “Zu wenig Gear” fühlt sich wie “zu wenig Defensivs” an. Mit passendem Itemlevel wird alles entspannter.
+  </p>
+
+
+<hr class="soft-sep">
+
+  <h3>Gear-Plan ab Stufe 60 (ohne Stress)</h3>
+  <p>
+    Fürs Leveln gilt: <b>Itemlevel</b> ist wichtiger als „perfekte Werte“. Als Tank willst du vor allem, dass du nicht „papierweich“ bist.
+    Ein einfacher Fahrplan:
+  </p>
+  <ul>
+    <li><b>Story-/Quest-Gear</b> ist fast immer ausreichend (wenn es ungefähr in deinem Levelbereich liegt).</li>
+    <li>Wenn du deutlich zu wenig Itemlevel hast: <b>Poetiken</b> ausgeben (alte Erweiterungssets) oder Dungeon-Gear mitnehmen.</li>
+    <li><b>Waffe</b> ist extrem wichtig: Wenn du merkst, dass du kaum Schaden machst oder Aggro wackelt, ist die Waffe oft der Grund.</li>
+  </ul>
+
+  <h3>Wann lohnt sich ein Dungeon „zu farmen“?</h3>
+  <ul>
+    <li><b>Wenn du im Dungeon regelmäßig umkippst</b> (trotz Defensivs) → oft ist dein Gear zu schwach.</li>
+    <li><b>Wenn Heiler/Trust dich kaum hochbekommen</b> → auch ein Zeichen für niedrige Werte.</li>
+    <li><b>Wenn du kurz vor einem großen Story-Sprung stehst</b> (neue Erweiterung/Level-Bereich) → einmal ordentlich auffüllen hilft.</li>
+  </ul>
+
+  <div class="callout">
+    <b>Einsteiger-Hinweis:</b> Du musst nicht jede 2 Level alles austauschen.
+    Aber du solltest vermeiden, dass ein einzelnes Teil <b>20–30 Itemlevel</b> hinterherhinkt (vor allem Waffe, Brust, Beine).
+  </div>
+
+  <h3>Welche Stats sind „okay“?</h3>
+  <p>
+    Als Tank (Revolverklinge) brauchst du dir beim Leveln keine Sorgen um Feintuning zu machen.
+    Wenn du später optimieren willst: Das passiert meist erst im Endgame. Für den Guide hier gilt:
+    <b>Hauptsache Itemlevel passend, Defensivs richtig nutzen.</b>
+  </p>
+</section>
+
+      <!-- Macros -->
+      <section class="section anchor" id="macros">
+  <h2>Makros (nur wenn sinnvoll)</h2>
+  <p class="sub">
+    In FFXIV sind Makros für Rotationen fast immer schlechter als normales Drücken,
+    weil Makros die Fähigkeitstiming/Queueing verschlechtern.
+    Für die Revolverklinge gilt das besonders, weil Burstfenster und <b>Triggerfolge</b> sehr timing-abhängig sind.
+  </p>
+
+  <h3>Was du NICHT machen solltest</h3>
+  <ul>
+    <li>Keine “1-Knopf-Rotation”-Makros.</li>
+    <li>Keine Makros, die mehrere Skills hintereinander drücken (das ist im Kampf unzuverlässig).</li>
+  </ul>
+
+  <h3>Was sinnvoll sein kann</h3>
+  <ul>
+    <li><b>Ansage-Makro</b> für <b>Meteoritenfall</b> (Invuln), damit Heiler/NPC wissen: “gleich keine Heilung nötig”.</li>
+    <li><b>Ziel-Makro</b> für <b>Herz des Korunds</b>, wenn du es oft auf den Co-Tank legen möchtest (in Raids später relevant).</li>
+  </ul>
+
+  <p class="note">
+    Fürs Leveln reicht: Skills normal drücken, Defensivs sichtbar haben, und die Hotbar-Logik aus diesem Guide beibehalten.
+  </p>
+
+
+<hr class="soft-sep">
+
+  <h3>Warum Rotations-Makros fast immer schlechter sind</h3>
+  <ul>
+    <li>Makros haben in FFXIV oft kleine Verzögerungen und können GCD/Weaves „verschlucken“.</li>
+    <li>Die Revolverklinge lebt davon, dass du <b>Triggerfolge</b> dann drückst, wenn es leuchtet – ein Makro trifft diesen Moment selten perfekt.</li>
+    <li>Wenn ein Makro einmal „aus dem Takt“ kommt (Boss bewegt sich, du musst ausweichen), ist die ganze Kette kaputt.</li>
+  </ul>
+
+  <h3>Sinnvolle Makros (nur wenn du sie wirklich brauchst)</h3>
+  <ul>
+    <li><b>Markieren</b> (z.B. „1“ auf den ersten Fokus-Gegner im Dungeon) – hilft Gruppen, aber ist optional.</li>
+    <li><b>Ansagen</b> (z.B. „Großer Pull“ / „Defensivs an“) – nur wenn du mit echten Spielern spielst.</li>
+    <li><b>Target-of-Target</b> oder Komfort-Makros sind okay, solange sie <b>keine Rotation</b> automatisieren.</li>
+  </ul>
+
+  <div class="note">
+    Wenn du irgendwann „mehr Komfort“ willst, ist fast immer die bessere Lösung:
+    <b>Hotbar-Layout verbessern</b> (z.B. Maustasten nutzen) statt die Rotation zu makroisieren.
+  </div>
+</section>
+
+      <div class="footer">
+        Stand: Dawntrail 7.x • Sprache: DE • Fokus: Solo/Trust • Struktur: “pro Abschnitt komplett” •
+        Wenn du willst, erweitere ich als Nächstes dieselbe Tiefe für weitere Jobs als eigene Seiten.
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Simple on-page search (highlight + collapse helpers)
+    (function(){
+      const input = document.getElementById('search');
+      const clear = document.getElementById('clear');
+      const jumpLinks = document.querySelectorAll('.jump');
+
+      function normalize(s){ return (s||'').toLowerCase(); }
+
+      function clearHighlights(){
+        document.querySelectorAll('mark.__hit').forEach(m=>{
+          const t = document.createTextNode(m.textContent);
+          m.replaceWith(t);
+        });
+      }
+
+      function highlight(root, q){
+        if(!q) return 0;
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode(node){
+            if(!node.nodeValue) return NodeFilter.FILTER_REJECT;
+            const p = node.parentElement;
+            if(!p) return NodeFilter.FILTER_REJECT;
+            if(['SCRIPT','STYLE','NOSCRIPT'].includes(p.tagName)) return NodeFilter.FILTER_REJECT;
+            if(p.closest('mark.__hit')) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
+        let hits = 0;
+        const qn = normalize(q);
+        const nodes = [];
+        while(walker.nextNode()) nodes.push(walker.currentNode);
+
+        nodes.forEach(node=>{
+          const text = node.nodeValue;
+          const low = normalize(text);
+          const idx = low.indexOf(qn);
+          if(idx === -1) return;
+          const before = text.slice(0, idx);
+          const match  = text.slice(idx, idx+q.length);
+          const after  = text.slice(idx+q.length);
+
+          const frag = document.createDocumentFragment();
+          if(before) frag.appendChild(document.createTextNode(before));
+          const mark = document.createElement('mark');
+          mark.className='__hit';
+          mark.textContent = match;
+          mark.style.background = 'rgba(119,167,255,.22)';
+          mark.style.border = '1px solid rgba(119,167,255,.35)';
+          mark.style.borderRadius = '8px';
+          mark.style.padding = '0 4px';
+          frag.appendChild(mark);
+          if(after) frag.appendChild(document.createTextNode(after));
+          node.parentNode.replaceChild(frag, node);
+          hits++;
+        });
+
+        return hits;
+      }
+
+      function openRelevantDetails(q){
+        if(!q) return;
+        const qn = normalize(q);
+        document.querySelectorAll('details').forEach(d=>{
+          const t = normalize(d.innerText);
+          if(t.includes(qn)) d.open = true;
+        });
+      }
+
+      function onSearch(){
+        clearHighlights();
+        const q = input.value.trim();
+        if(!q) return;
+        openRelevantDetails(q);
+        highlight(document.body, q);
+      }
+
+      input.addEventListener('input', () => { onSearch(); });
+
+      clear.addEventListener('click', ()=>{
+        input.value='';
+        clearHighlights();
+      });
+
+      // smooth scroll
+      jumpLinks.forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          // allow default anchor navigation, but smooth it
+          e.preventDefault();
+          const id = a.getAttribute('href');
+          const el = document.querySelector(id);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

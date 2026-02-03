@@ -1,0 +1,1789 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>FFX-Guides – Beschwörer (Hermetiker → Beschwörer) 1–100 (DE)</title>
+  <meta name="description" content="Extrem detaillierter Einsteiger-Guide für Hermetiker → Beschwörer (FFXIV) von Level 1 bis 100: Skills (DE), Rotation, Hotbars, AoE vs ST, Dungeons/Trust, Gear, Makros & FAQ." />
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#101826;
+      --panel2:#0e1520;
+      --text:#eaf0ff;
+      --muted:#a9b4d0;
+      --line:rgba(255,255,255,.10);
+      --accent:#77a7ff;
+      --ok:#66e3a3;
+      --warn:#ffd36a;
+      --bad:#ff7a7a;
+      --chip:#16243a;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background: radial-gradient(1200px 900px at 20% -10%, rgba(119,167,255,.20), transparent 55%),
+                  radial-gradient(900px 700px at 90% 10%, rgba(102,227,163,.12), transparent 60%),
+                  var(--bg);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-position: center top;
+
+      color:var(--text);
+      line-height:1.45;
+    }
+
+    /* Layout */
+    .app{
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      min-height:100vh;
+    }
+    @media (max-width: 1024px){
+      .app{grid-template-columns: 1fr}
+    }
+
+    /* Sidebar */
+    .sidebar{
+      position:sticky;
+      top:0;
+      height:100vh;
+      overflow:auto;
+      padding:18px 16px 22px;
+      border-right:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(16,24,38,.92), rgba(14,21,32,.92));
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width:1024px){
+      .sidebar{
+        position:relative;
+        height:auto;
+        border-right:none;
+        border-bottom:1px solid var(--line);
+      }
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: rgba(10,14,20,.55);
+    }
+    .logo{
+      width:40px;height:40px;
+      border-radius:14px;
+      background: radial-gradient(circle at 35% 25%, rgba(119,167,255,.9), rgba(119,167,255,.15) 55%, transparent 70%),
+                  radial-gradient(circle at 70% 65%, rgba(102,227,163,.8), rgba(102,227,163,.10) 55%, transparent 70%),
+                  rgba(255,255,255,.06);
+      border:1px solid var(--line);
+    }
+    .brand h1{
+      font-size:16px;
+      margin:0;
+      letter-spacing:.2px;
+    }
+    .brand p{
+      margin:2px 0 0;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .meta{
+      margin-top:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      font-size:12px;
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(119,167,255,.15);
+    }
+    .dot.ok{background:var(--ok); box-shadow:0 0 0 4px rgba(102,227,163,.15)}
+    .dot.warn{background:var(--warn); box-shadow:0 0 0 4px rgba(255,211,106,.15)}
+    .dot.bad{background:var(--bad); box-shadow:0 0 0 4px rgba(255,122,122,.15)}
+
+    .nav{
+      margin-top:14px;
+      padding:12px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .nav h2{
+      margin:0 0 8px;
+      font-size:13px;
+      letter-spacing:.2px;
+      color:var(--muted);
+      font-weight:600;
+    }
+    .nav a{
+      display:block;
+      text-decoration:none;
+      color:var(--text);
+      padding:10px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+      margin-bottom:6px;
+      background: transparent;
+    }
+    .nav a:hover{
+      border-color: var(--line);
+      background: rgba(255,255,255,.05);
+    }
+    .nav a small{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:2px;
+    }
+
+    /* Main */
+    .main{
+      padding:18px 18px 40px;
+    }
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      padding:10px 12px;
+      margin:-18px -18px 18px;
+      border-bottom:1px solid var(--line);
+      background: rgba(11,15,20,.72);
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width:1024px){
+      .topbar{
+        position:relative;
+        top:auto;
+        margin:0 0 18px;
+        border:1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(11,15,20,.55);
+      }
+    }
+    .topbar-inner{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .langbox{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-size:13px;
+    }
+    .btn:hover{background: rgba(255,255,255,.08)}
+    .btn.primary{
+      border-color: rgba(119,167,255,.35);
+      background: rgba(119,167,255,.12);
+    }
+    .search{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      min-width:260px;
+      flex:1 1 320px;
+    }
+    .search input{
+      width:100%;
+      padding:10px 12px;
+      border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      outline:none;
+      font-size:13px;
+    }
+    .search input::placeholder{color: rgba(169,180,208,.65)}
+
+    .hero{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(119,167,255,.10), rgba(255,255,255,.03));
+      padding:16px 16px 14px;
+      box-shadow: var(--shadow);
+    }
+    .hero h2{
+      margin:0 0 6px;
+      font-size:20px;
+      letter-spacing:.2px;
+    }
+    .hero p{margin:0; color:var(--muted)}
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width:1100px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      padding:14px;
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size:15px;
+      letter-spacing:.2px;
+    }
+    .card p{margin:8px 0; color:var(--muted)}
+    .kvs{
+      display:grid;
+      grid-template-columns: 160px 1fr;
+      gap:8px 10px;
+      margin-top:10px;
+    }
+    @media (max-width:520px){ .kvs{grid-template-columns: 1fr} }
+    .kvs div{
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(0,0,0,.18);
+    }
+    .kvs b{display:block; font-size:12px; color:var(--muted); font-weight:600}
+    .kvs span{display:block; margin-top:2px; font-size:13px; color:var(--text)}
+
+    .section{
+      margin-top:16px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      padding:14px;
+    }
+    .section h2{
+      margin:0 0 8px;
+      font-size:16px;
+      letter-spacing:.2px;
+    }
+    .section .sub{
+      color:var(--muted);
+      font-size:13px;
+      margin:0 0 12px;
+    }
+
+    /* Tables */
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+    }
+    th,td{
+      padding:10px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      font-size:13px;
+    }
+    th{
+      text-align:left;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+      letter-spacing:.2px;
+      background: rgba(255,255,255,.04);
+    }
+    tr:last-child td{border-bottom:none}
+
+    
+    /* Skills table UX improvements (scoped via .tablewrap) */
+    .tablewrap{
+      overflow:auto;
+      max-height:520px;
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,0.18);
+    }
+    .tablewrap table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      min-width: 720px; /* keeps columns readable on narrow screens; wrapper scrolls */
+      border:none;       /* wrapper already has border */
+      background: transparent;
+    }
+    .tablewrap thead th{
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: rgba(255,255,255,0.06); /* glass header */
+      backdrop-filter: blur(6px);
+    }
+    .tablewrap tbody tr{
+      background: rgba(0,0,0,0.10);
+    }
+    .tablewrap tbody tr:nth-child(even){
+      background: rgba(255,255,255,0.03);
+    }
+    .tablewrap tbody tr:hover{
+      background: rgba(119,167,255,0.08);
+    }
+    .tablewrap td, .tablewrap th{
+      padding:12px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      font-size:13px;
+      background: transparent;
+    }
+    .tablewrap tbody tr:last-child td{border-bottom:none}
+    @media (max-width:520px){
+      .tablewrap{max-height: 420px;}
+      .tablewrap table{min-width: 640px;}
+    }
+/* Skill-Liste: Level-Spalte visuell verankern */
+    .tablewrap td:first-child,
+    .tablewrap th:first-child{
+      font-family: var(--mono);
+      font-weight: 700;
+      width: 84px;
+      min-width: 84px;
+      text-align: center;
+      background: rgba(0,0,0,0.22);
+    }
+    .tablewrap th:first-child{
+      background: rgba(0,0,0,0.38);
+    }
+
+    /* Skill-Liste: klarere Kategorie-Tags (semantische Klassen) */
+    .tablewrap .tag{
+      font-weight:700;
+      letter-spacing:.2px;
+      text-transform:uppercase;
+      min-width:78px;
+      justify-content:center;
+    }
+    .tablewrap .tag.st{border-color:rgba(119,167,255,0.30); background: rgba(119,167,255,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.aoe{border-color:rgba(102,227,163,0.28); background: rgba(102,227,163,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.def{border-color:rgba(255,211,106,0.28); background: rgba(255,211,106,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.burst{border-color:rgba(255,211,106,0.28); background: rgba(255,211,106,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.heal{border-color:rgba(102,227,163,0.28); background: rgba(102,227,163,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.stance{border-color:rgba(102,227,163,0.28); background: rgba(102,227,163,0.10); color: rgba(234,240,255,0.92);}
+    .tablewrap .tag.util,
+    .tablewrap .tag.range,
+    .tablewrap .tag.gauge,
+    .tablewrap .tag.party,
+    .tablewrap .tag.ogcd,
+    .tablewrap .tag.mobility,
+    .tablewrap .tag.emerg{
+      border-color:rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+      color: rgba(234,240,255,0.86);
+    }
+
+      .tablewrap table{min-width: 640px;}
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .tag.ok{color:rgba(102,227,163,.95); border-color:rgba(102,227,163,.25); background: rgba(102,227,163,.08)}
+    .tag.warn{color:rgba(255,211,106,.95); border-color:rgba(255,211,106,.25); background: rgba(255,211,106,.08)}
+    .tag.bad{color:rgba(255,122,122,.95); border-color:rgba(255,122,122,.25); background: rgba(255,122,122,.08)}
+    .mono{font-family:var(--mono)}
+    .hr{height:1px; background: var(--line); margin:12px 0}
+
+    /* Hotbar mapping blocks */
+    .hotbars{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      align-items:start;
+    }
+    @media (max-width:1100px){ .hotbars{grid-template-columns: 1fr} }
+
+    .hotbar{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:12px;
+      background: rgba(0,0,0,.20);
+    }
+    .hotbar h4{margin:0 0 10px; font-size:14px}
+    .keys{
+      display:grid;
+      grid-template-columns: repeat(6, minmax(44px, 1fr));
+      gap:8px;
+    }
+.key{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding:8px 8px;
+      background: rgba(255,255,255,.04);
+      min-height:58px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      justify-content:space-between;
+    }
+    .key .k{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+    }
+    .kbd{
+      font-family: var(--mono);
+      font-size:12px;
+      color: var(--text);
+      padding:2px 6px;
+      border-radius: 8px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      white-space:nowrap;
+    }
+    .prio{
+      font-size:11px;
+      color: var(--muted);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 999px;
+      padding:2px 6px;
+      white-space:nowrap;
+    }
+    .skill{
+      font-size:12px;
+      color: var(--muted);
+      min-height:30px;
+    }
+    .skill b{color:var(--text); font-weight:700}
+    .note{
+      margin-top:10px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* Collapsible */
+    details{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:10px 12px;
+      background: rgba(255,255,255,.03);
+    }
+    details summary{
+      cursor:pointer;
+      font-weight:700;
+      color:var(--text);
+    }
+    details p, details li{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* Anchors */
+    .anchor{scroll-margin-top: 86px;}
+    @media (max-width:1024px){ .anchor{scroll-margin-top: 12px;} }
+
+    /* Footer */
+    .footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:12px;
+      padding:10px 2px;
+    }
+    .callout{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      padding:12px;
+    }
+    .callout strong{color:var(--text)}
+    .callout .row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:8px;
+    }
+.tablewrap tbody tr:nth-child(even){background: rgba(0,0,0,0.26) !important;}
+.tablewrap tbody tr:nth-child(even){
+      box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.30) !important;
+    }
+    .tablewrap tbody tr td{
+      background: transparent !important;
+      color: inherit;
+    }
+
+
+    /* Neue Skills Listen (Rotation-Abschnitte) */
+    .skills-new{
+      margin: 8px 0 10px;
+      padding-left: 18px;
+    }
+    .skills-new li{
+      margin: 6px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .skills-new b{color: var(--text);}
+
+
+    /* Lernpfad-Extras: Hotbar-Update & Fokus */
+    .learn-extra{
+      margin:10px 0 0;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,0.04);
+    }
+    .learn-extra h5{
+      margin:0 0 6px;
+      font-size:13px;
+      letter-spacing:.2px;
+      color:var(--text);
+    }
+    .learn-extra p{
+      margin:4px 0;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+
+    /* Rotation: Hotbar-Zuordnung pro Abschnitt */
+    .hotbar-map{
+      margin: 10px 0 0;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,0.14);
+    }
+    .hotbar-map h4{margin:0 0 8px;}
+    .hotbar-map .cols{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .hotbar-map ul{margin:0; padding-left:18px;}
+    .hotbar-map li{margin:4px 0; color:var(--muted); font-size:13px;}
+    .hotbar-map b{color:var(--text);}
+    .hotbar-changes{
+      margin-top:10px;
+      padding-top:8px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:13px;
+    }
+    @media (max-width:640px){
+      .hotbar-map .cols{grid-template-columns:1fr;}
+    }
+
+
+    /* Hotbar Visual (2×6) + kurze Labels */
+    .hb-visual-wrap{margin:12px 0 10px;}
+    .hb-visual-title{font-weight:800;margin:0 0 8px;}
+    .hb-visual{
+      display:grid;
+      grid-template-columns:repeat(6,minmax(0,1fr));
+      gap:8px;
+    }
+    .hb-slot{
+      border:1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      padding:10px 8px;
+      min-height:46px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+      overflow:hidden;
+    }
+    .hb-key{
+      font-family: var(--mono);
+      font-weight:900;
+      font-size:12px;
+      color: var(--text);
+      line-height:1.1;
+    }
+    .hb-label{
+      margin-top:4px;
+      font-size:11px;
+      color: var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width:100%;
+    }
+    .hb-legend{
+      margin:10px 0 0;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,0.12);
+      color: var(--muted);
+      font-size:13px;
+    }
+    .kbdtag{
+      display:inline-block;
+      padding:2px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      font-size:11px;
+      font-weight:800;
+      color: var(--text);
+      margin-right:8px;
+      vertical-align:middle;
+      white-space:nowrap;
+    }
+
+
+    /* Sidebar: Job-Navigation (identisch auf allen Job-Seiten) */
+    .jobnav{
+      margin-top: 12px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      background: rgba(0,0,0,0.10);
+    }
+    .jobnav h3{
+      margin: 0 0 8px;
+      font-size: 13px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .jobnav a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: var(--text);
+      text-decoration:none;
+      background: rgba(255,255,255,0.03);
+      margin-bottom: 6px;
+    }
+    .jobnav a:last-child{margin-bottom:0}
+    .jobnav a:hover{
+      border-color: rgba(119,167,255,0.35);
+      background: rgba(119,167,255,0.08);
+    }
+    .jobnav .jobname{font-weight:800}
+    .badge{
+      display:inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .badge.ok{
+      border-color: rgba(90,200,120,0.35);
+      background: rgba(90,200,120,0.10);
+      color: rgba(180,240,200,0.95);
+    }
+    .badge.soon{
+      border-color: rgba(255,200,80,0.35);
+      background: rgba(255,200,80,0.10);
+      color: rgba(255,235,200,0.95);
+    }
+
+
+    .badge.wip{
+      border-color: rgba(119,167,255,0.40);
+      background: rgba(119,167,255,0.12);
+      color: rgba(210,230,255,0.95);
+    }
+</style>
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>FFX-Guides</h1>
+          <p>Job-Guide • DE • Beschwörer 1–100</p>
+        </div>
+      </div>
+
+      <div class="meta">
+        <span class="pill"><span class="dot ok"></span>Stand: <b>Dawntrail 7.x</b></span>
+        <span class="pill"><span class="dot"></span>Job: <b>Beschwörer</b></span>
+        <span class="pill"><span class="dot warn"></span>Fokus: <b>Solo / Trust</b></span>
+      </div>
+
+<div class="jobnav" aria-label="Job-Navigation">
+        <h3>Jobs (DE)</h3>
+        <a href="warrior.html"><span class="jobname">Krieger</span><span class="badge ok">Fertig</span></a>
+        <a href="paladin.html"><span class="jobname">Paladin</span><span class="badge ok">Fertig</span></a>
+        <a href="summoner.html" aria-current="page"><span class="jobname">Beschwörer</span><span class="badge ok">Fertig</span></a>
+        <a href="gunbreaker.html"><span class="jobname">Revolverklinge</span><span class="badge ok">Fertig</span></a>
+      </div>
+
+      <div class="nav" aria-label="Inhaltsverzeichnis">
+        <h2>Navigation</h2>
+        <a href="#start" class="jump">Start & Grundprinzipien<small>Hermetiker → Beschwörer (Anfänger)</small></a>
+        <a href="#hotbars" class="jump">Hotbars & Tastenbelegung<small>1–6 + STRG 1–6 (simpel)</small></a>
+<a href="#rotations" class="jump">Rotation & Prioritäten 1–100<small>Abschnitt für Abschnitt</small></a>
+        <a href="#aoe" class="jump">AoE vs. Single Target<small>Wann umschalten & warum</small></a>
+        <a href="#pulls" class="jump">Dungeon-Pulls (Trust/Solo)<small>Defensiv-Rotation & Rhythmus</small></a>
+        <a href="#gear" class="jump">Gear während des Levelns<small>Wann lohnt Farmen?</small></a>
+        <a href="#macros" class="jump">Makros & “1-Button?”<small>Was geht, was nicht</small></a>
+        <a href="#faq" class="jump">FAQ<small>Häufige Fragen</small></a>
+</div>
+
+      <div class="footer">
+        Tipp: Nutze oben die Suche (z.B. „Ruin“, „Juwelenschein“, „Bahamut“, „AoE“), um schnell Stellen zu finden.
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      
+<div class="callout" style="margin:12px 0 16px;">
+  <strong>BUILD: local-summoner-master-v1</strong><br>
+  Hinweis: Eine separate Skill-Freischaltliste existiert in dieser Version <b>nicht</b>. Neue Skills stehen direkt in den Level-Abschnitten.
+</div>
+<div class="topbar">
+        <div class="topbar-inner">
+          <div class="langbox">
+            <button class="btn primary" type="button" aria-label="Sprache Deutsch aktiv">DE</button>
+<span class="pill"><span class="dot"></span>Guide-Seite pro Job</span>
+          </div>
+          <div class="search">
+            <input id="search" type="search" placeholder="Suchen… (Skillname, Level, AoE, Trust, Gear …)" aria-label="Guide durchsuchen" />
+            <button class="btn" id="clear" type="button">Leeren</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="hero anchor" id="start">
+<h2>Hermetiker → Beschwörer (1–100) • Solo/Trust • extrem einsteigerfreundlich</h2>
+        <p>
+          Ziel dieses Guides: Du kannst <b>von Level 1 bis 100</b> entspannt leveln — auch wenn du <b>noch nie</b> ein MMO
+          oder ein PC-Spiel gespielt hast. Wir bauen alles Schritt für Schritt auf: Hotbars, Prioritäten, AoE-Regeln,
+          Dungeon-Verhalten und „Was mache ich, wenn ich nervös werde?“.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Was du als Beschwörer wirklich “richtig” machen musst</h3>
+            <div class="kvs">
+              <div><b>1) Immer casten</b><span>Wenn du nichts drückst, machst du keinen Schaden. „Lieber simpel, aber dauerhaft“.</span></div>
+              <div><b>2) Boss = ST</b><span>Ein Ziel: <b>Ruin/Ruinra/Ruinga</b> + <b>Juwelenschein</b> + deine Beschwörungen.</span></div>
+              <div><b>3) Trash = AoE</b><span>2+ Ziele: <b>Elementarkorona</b> + <b>Edelglanz</b> + AoE-Tools wie <b>Schmerzensflare</b>.</span></div>
+              <div><b>4) Nicht sterben</b><span>Aus roten Flächen raus. Nutze <b>Schimmerschild</b> früh, nicht spät.</span></div>
+              <div><b>5) Notfall-Utility</b><span><b>Resuszitation</b> retten manchmal Runs (v.a. wenn Heiler fällt).</span></div>
+            </div>
+            <p class="note">
+              Der Beschwörer ist für Anfänger überraschend angenehm:
+              Du hast klare „Phasen“ (Beschwörung → Zauberphase) und viele deiner wichtigsten Skills sind <b>sofort nutzbar</b>,
+              während die komplexeren Upgrades später dazukommen.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Wie du diesen Guide benutzt (ohne Überforderung)</h3>
+            <ul class="check">
+              <li>Du bekommst die Rotation <b>in Level-Abschnitten</b> (wie beim Krieger/Paladin).</li>
+              <li>In jedem Abschnitt steht auch: <b>Welche Taste = welcher Skill</b> (Hotbar-Update).</li>
+              <li>Wenn du nur kurz Zeit hast: Lies nur <b>deinen aktuellen Level-Abschnitt</b>.</li>
+              <li>Wichtiges Mindset: Beim Leveln ist „stabil & sicher“ wichtiger als „perfekt“.</li>
+            </ul>
+            <p class="note">
+              Wenn du beim Casten oft aus Versehen läufst: Das ist normal. Ich erkläre dir gleich eine Technik
+              („<b>Slidecasting</b>“), mit der Caster sich bewegen können, ohne den Zauber abzubrechen.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <b>Super-kurz erklärt:</b> Du bist ein <b>magischer DPS</b>.
+          Deine Aufgabe ist: konstant Schaden machen, bei Trash schnell auf AoE umschalten, bei Bossen sauber Single Target spielen
+          und in Notfällen (z.B. Heiler tot) mit <b>Resuszitation</b> helfen.
+          Du musst <b>kein Tank-Management</b> lernen — dafür lernst du <b>Casten + Positionieren</b>.
+        </div>
+</section>
+
+      <!-- Hotbars -->
+      
+<section class="section anchor" id="hotbars">
+  <h2>Hotbars &amp; Tastenbelegung (simpel &amp; einsteigerfreundlich)</h2>
+
+  <p>
+    Dieser Guide geht davon aus, dass du mit <b>Maus + Tastatur</b> spielst.
+    Wir nutzen <b>2 Hotbars</b> – und jede Hotbar hat <b>12 Slots</b>, dargestellt als <b>2×6</b> (zwei Reihen mit je 6 Slots).
+  </p>
+
+  <h3>Grundidee (wichtig)</h3>
+  <ul>
+    <li><b>Hotbar 1 (1–12)</b> = deine Haupttasten (wir nutzen davon bewusst nur die wichtigsten)</li>
+    <li><b>Hotbar 2 (STRG + 1–12)</b> = starke / defensive / situative Tasten</li>
+    <li><b>Die Taste bleibt immer gleich.</b> Wenn ein Skill später ersetzt wird, bleibt er auf derselben Taste.</li>
+  </ul>
+  
+  <div class="note" style="margin-top:8px;">
+    Beschwörer hat „Phasen“ (Beschwörungen/Trancen). Keine Sorge: wir halten die Tasten stabil. Wenn sich Skills verwandeln, bleibt die Taste gleich.
+  </div>
+
+  <h3>Hotbar-Übersicht (2×6 je Hotbar)</h3>
+  <div class="hb-visual-wrap">
+    <p class="hb-visual-title">Hotbar 1 (ohne STRG) – 12 Slots als 2×6</p>
+    <div class="hb-visual">
+      <div class="hb-slot"><div class="hb-key">1</div><div class="hb-label">ST</div></div>
+      <div class="hb-slot"><div class="hb-key">2</div><div class="hb-label">ST</div></div>
+      <div class="hb-slot"><div class="hb-key">3</div><div class="hb-label">ST</div></div>
+      <div class="hb-slot"><div class="hb-key">4</div><div class="hb-label">AoE</div></div>
+      <div class="hb-slot"><div class="hb-key">5</div><div class="hb-label">AoE</div></div>
+      <div class="hb-slot"><div class="hb-key">6</div><div class="hb-label">ST</div></div>
+
+      <div class="hb-slot"><div class="hb-key">7</div><div class="hb-label">Def</div></div>
+      <div class="hb-slot"><div class="hb-key">8</div><div class="hb-label">Def</div></div>
+      <div class="hb-slot"><div class="hb-key">9</div><div class="hb-label">Def</div></div>
+      <div class="hb-slot"><div class="hb-key">10</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">11</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">12</div><div class="hb-label">(frei)</div></div>
+    </div>
+  </div>
+
+  <div class="hb-visual-wrap">
+    <p class="hb-visual-title">Hotbar 2 (STRG + 1–12) – 12 Slots als 2×6</p>
+    <div class="hb-visual">
+      <div class="hb-slot"><div class="hb-key">STRG+1</div><div class="hb-label">ST</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+2</div><div class="hb-label">AoE</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+3</div><div class="hb-label">ST</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+4</div><div class="hb-label">Def</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+5</div><div class="hb-label">Def</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+6</div><div class="hb-label">(frei)</div></div>
+
+      <div class="hb-slot"><div class="hb-key">STRG+7</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+8</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+9</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+10</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+11</div><div class="hb-label">(frei)</div></div>
+      <div class="hb-slot"><div class="hb-key">STRG+12</div><div class="hb-label">(frei)</div></div>
+    </div>
+  </div>
+
+  <div class="hb-legend">
+    <b>Legende:</b> <b>ST</b> = 1 Ziel/Boss · <b>AoE</b> = mehrere Gegner · <b>Def</b> = defensiv (weniger Schaden / Notfall)<br>
+    <b>Wichtig:</b> Wir belegen in diesem Guide nur die <b>wichtigsten</b> Tasten fest (meist 1–6 und STRG+1–5).
+    Die restlichen Slots (7–12 / STRG+6–12) bleiben <b>frei</b> oder sind für später/Optional.
+  </div>
+</section>
+
+
+      <!-- Skills -->
+
+<!-- Rotations -->
+      <section class="section anchor" id="rotations">
+  <h2>Rotationen 1–100 (super-einfach &amp; trotzdem „richtig“)</h2>
+
+  <p>
+    Beim <b>Beschwörer</b> ist das Wichtigste, dass du ein Prinzip verstehst:
+    Du spielst nicht „komplizierte Kombos“, sondern <b>Phasen</b>.
+    In jeder Phase nutzt du ein paar feste Tasten – und wenn sich Skills später „verwandeln“, bleiben sie auf derselben Taste.
+  </p>
+
+  <div class="note">
+    <b>Merksatz:</b> <span class="mono">Summon/Trance starten → „Element-Spender“ drücken → Filler drücken → nächster Summon</span><br/>
+    Wenn du das kannst, bist du schon sehr solide – selbst ohne perfektes Timing.
+  </div>
+
+  <h3>Wie du die Rotationen liest (wichtig)</h3>
+  <ul>
+    <li><b>ST</b> = Single Target (Boss / 1 Gegner)</li>
+    <li><b>AoE</b> = Mehrere Gegner (Trash / 3+ Gegner)</li>
+    <li><b>Def</b> = defensiv / Notfall / Utility</li>
+  </ul>
+
+  <h3>Das einzige „Technik-Thema“, das du kennen musst</h3>
+  <div class="note">
+    <b>Zauberzeit vs. Sofort:</b> Manche Summoner-Skills haben Zauberzeit (du stehst kurz still), andere sind sofort (du kannst laufen).<br/>
+    <b>Für absolute Neulinge:</b> Stell dich beim Zaubern kurz hin. Wenn du ausweichen musst: Lauf – und drück dann wieder weiter.
+    Es ist okay, wenn ein Zauber mal „abgebrochen“ wird. Lieber leben als perfekt casten.
+  </div>
+
+  <details>
+    <summary>Level 1–9: Grundlagen – Karfunkel, Ruin, erste „Element-Phase“</summary>
+
+    <p><b>Neue Skills in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Ruin</b> <span class="mono">(1)</span> – dein erster ST-Zauber (Filler).</li>
+      <li><b>Karfunkel-Beschwörung</b> <span class="mono">(2)</span> – ohne Karfunkel gehen viele Dinge nicht.</li>
+      <li><b>Schimmerschild</b> <span class="mono">(2)</span> – kleiner Schild (sehr hilfreich beim Solo-Questen).</li>
+      <li><b>Physick</b> <span class="mono">(4)</span> – Notfall-Heilung (selten, aber gut zu wissen).</li>
+      <li><b>Ätherinfusion</b> <span class="mono">(6)</span> – dein erster „Buff“ (macht Ruin stärker und schaltet Arkanum frei).</li>
+      <li><b>Rubin-Beschwörung</b> <span class="mono">(6)</span> – erste Element-Phase (Feueräther).</li>
+      <li><b>Juwelenschein</b> <span class="mono">(6)</span> – Element-ST-Spender (ändert sich je nach Äther).</li>
+    </ul>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong>
+      <ul style="margin-top:6px;">
+        <li><b>1</b> = <b>Ruin</b> (ST-Filler)</li>
+        <li><b>2</b> = <b>Juwelenschein</b> (ST-„Element-Spender“)</li>
+        <li><b>STRG+1</b> = <b>Ätherinfusion</b> (Buff / Phase vorbereiten)</li>
+        <li><b>STRG+4</b> = <b>Schimmerschild</b> (Def/Utility)</li>
+        <li><b>7</b> = <b>Rubin-Beschwörung</b> (dein erster Summon-Button)</li>
+      </ul>
+    </div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (Start-Fokus)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Ruin</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Juwelenschein</li>
+            <li><b>4:</b> <span class="kbdtag">AoE</span> (noch frei – kommt später)</li>
+            <li><b>7:</b> <span class="kbdtag">ST</span> Rubin-Beschwörung</li>
+            <li><b>12:</b> <span class="kbdtag">Def</span> Physick (Notfall / optional)</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Ätherinfusion</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schimmerschild</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Neu: <b>Summon-Taste</b> (Rubin-Beschwörung) + <b>ST-Spender</b> (Juwelenschein).</li>
+          <li>Regel: <b>Karfunkel immer aktiv haben</b> (sonst gehen viele Skills nicht).</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>Single Target (Boss / 1 Gegner):</b></p>
+    <ol>
+      <li><b>Karfunkel-Beschwörung</b> einmal, falls nicht aktiv.</li>
+      <li><b>STRG+1</b> (Ätherinfusion), wenn bereit.</li>
+      <li><b>7</b> (Rubin-Beschwörung) → dann drückst du <b>2</b> (Juwelenschein), solange du Feueräther hast.</li>
+      <li>Wenn du „leer“ bist: zurück zu <b>1</b> (Ruin).</li>
+    </ol>
+
+    <div class="note">
+      <b>Mini-Übung (1 Minute):</b> Such dir einen Gegner draußen in der Welt.<br/>
+      Ziel: <b>7 → 2 → 1</b> so oft wie möglich. Wenn du das ohne Nachdenken kannst, bist du bereit für alles, was später kommt.
+    </div>
+  </details>
+
+  <details>
+    <summary>Level 10–25: Ätherfluss lernen – „Schwäre“ als starker Knopf + neue Summons</summary>
+
+    <p><b>Neue Skills in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Schwäre</b> <span class="mono">(10)</span> – sehr starker ST-„Knopf“ (kostet Ätherfluss).</li>
+      <li><b>Energieentzug</b> <span class="mono">(10)</span> – gibt dir Ätherfluss (für Schwäre) und „Rand des Ruins“.</li>
+      <li><b>Resuszitation</b> <span class="mono">(12)</span> – Wiederbeleben (sehr wichtig in Dungeons, wenn jemand stirbt).</li>
+      <li><b>Topas-Beschwörung</b> <span class="mono">(15)</span> – zweite Element-Phase (Erdäther).</li>
+      <li><b>Smaragd-Beschwörung</b> <span class="mono">(22)</span> – dritte Element-Phase (Windäther).</li>
+      <li><b>Elementarkorona</b> <span class="mono">(26)</span> kommt gleich – AoE-Grundlage (merken!)</li>
+    </ul>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong>
+      <ul style="margin-top:6px;">
+        <li><b>3</b> = <b>Schwäre</b> (ST-Burst-Knopf)</li>
+        <li><b>STRG+2</b> = <b>Energieentzug</b> (Ätherfluss holen)</li>
+        <li><b>8</b> = <b>Topas-Beschwörung</b></li>
+        <li><b>9</b> = <b>Smaragd-Beschwörung</b></li>
+        <li><b>STRG+12</b> (oder ein anderer freier Slot) = <b>Resuszitation</b></li>
+      </ul>
+    </div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (ST-Fokus + Summons)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Ruin</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Juwelenschein</li>
+            <li><b>3:</b> <span class="kbdtag">ST</span> Schwäre</li>
+            <li><b>7:</b> <span class="kbdtag">ST</span> Rubin-Beschwörung</li>
+            <li><b>8:</b> <span class="kbdtag">ST</span> Topas-Beschwörung</li>
+            <li><b>9:</b> <span class="kbdtag">ST</span> Smaragd-Beschwörung</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Ätherinfusion</li>
+            <li><b>STRG+2:</b> <span class="kbdtag">ST</span> Energieentzug</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schimmerschild</li>
+            <li><b>STRG+12:</b> <span class="kbdtag">Def</span> Resuszitation (Raise)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Neu: <b>Ätherfluss</b> (STRG+2) → <b>Schwäre</b> (3), wenn es sinnvoll ist.</li>
+          <li>Neu: Zwei weitere Summons (Topas / Smaragd) – du hast jetzt 3 „Element-Phasen“.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>Single Target (Boss):</b></p>
+    <ul>
+      <li>Grundregel: <b>Summon drücken</b> (7/8/9) → dann <b>2</b> (Juwelenschein) in der Phase → wenn leer: <b>1</b>.</li>
+      <li>Wenn <b>STRG+2</b> bereit: drücken → dann <b>3</b> (Schwäre) für extra Schaden.</li>
+      <li><b>Ätherinfusion</b> (STRG+1) nutzen, wenn bereit (nicht „sparen“ beim Leveln).</li>
+    </ul>
+
+    <div class="note">
+      <b>Häufiger Fehler:</b> Ätherfluss drücken und dann „vergessen“, Schwäre zu nutzen. Wenn du Ätherfluss hast, drück <b>3</b> ruhig 1–2×, sobald du kannst.
+    </div>
+  </details>
+
+  <details>
+    <summary>Level 26–29: AoE wird echt – Elementarkorona &amp; Edelglanz (2 Tasten fürs Dungeonleben)</summary>
+
+    <p><b>Neue Skills in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Elementarkorona</b> <span class="mono">(26)</span> – dein AoE-Filler (statt Ruin, wenn viele Gegner da sind).</li>
+      <li><b>Edelglanz</b> <span class="mono">(26)</span> – AoE-„Element-Spender“ (ändert sich je nach Äther).</li>
+      <li><b>Rubin-Korona / Smaragd-Korona</b> <span class="mono">(26)</span> – Upgrades in Element-Phasen.</li>
+    </ul>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong>
+      <ul style="margin-top:6px;">
+        <li><b>4</b> = <b>Elementarkorona</b> (AoE-Filler)</li>
+        <li><b>5</b> = <b>Edelglanz</b> (AoE-Element-Spender)</li>
+      </ul>
+    </div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (AoE-Fokus)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Ruin</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Juwelenschein</li>
+            <li><b>3:</b> <span class="kbdtag">ST</span> Schwäre</li>
+            <li><b>4:</b> <span class="kbdtag">AoE</span> Elementarkorona</li>
+            <li><b>5:</b> <span class="kbdtag">AoE</span> Edelglanz</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+2:</b> <span class="kbdtag">ST</span> Energieentzug (Ätherfluss)</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schimmerschild</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Neu: Du hast jetzt ein klares AoE-Paar: <b>4</b> (Filler) + <b>5</b> (Spender).</li>
+          <li>Dungeon-Regel: Bei <b>3+ Gegnern</b> spielst du fast nur noch <b>4/5</b> statt <b>1/2</b>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>AoE (Trash / Pulls):</b></p>
+    <ul>
+      <li><b>Summon</b> (7/8/9) → dann in der Phase <b>5</b> (Edelglanz) und <b>4</b> (Elementarkorona).</li>
+      <li>Wenn <b>Ätherfluss</b> da ist (STRG+2): drücken (Ausgabe kommt als AoE später als Schmerzensflare).</li>
+    </ul>
+
+    <div class="note">
+      <b>Mini-Übung (Dungeon):</b> Wenn der Tank 3+ Gegner hat, zwing dich für 2 Pulls lang: <b>nur 4/5</b>. Das trainiert das ST/AoE-Umschalten.
+    </div>
+  </details>
+
+  <details>
+    <summary>Level 30–34: Job-Feeling – Ruinra &amp; Ifrit kommt „richtig“</summary>
+
+    <p><b>Neue Skills in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Ruinra</b> <span class="mono">(30)</span> – Upgrade von Ruin (Taste bleibt gleich).</li>
+      <li><b>Ifrit-Beschwörung</b> <span class="mono">(30)</span> – Ifrit-Egi (stärkeres „echtes“ Summon-Gefühl).</li>
+      <li><b>Topas-Ruinra / Smaragd-Ruinra</b> <span class="mono">(30)</span> – Upgrades in den Element-Phasen.</li>
+    </ul>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong>
+      <ul style="margin-top:6px;">
+        <li><b>1</b> bleibt deine ST-Filler-Taste (Ruin → Ruinra automatisch).</li>
+        <li><b>7</b> = <b>Ifrit-Beschwörung</b> (ersetze dort Rubin-Beschwörung – die Logik bleibt gleich).</li>
+      </ul>
+    </div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (ST „klarer“)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Ruinra (Upgrade)</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Juwelenschein</li>
+            <li><b>4:</b> <span class="kbdtag">AoE</span> Elementarkorona</li>
+            <li><b>5:</b> <span class="kbdtag">AoE</span> Edelglanz</li>
+            <li><b>7:</b> <span class="kbdtag">ST</span> Ifrit-Beschwörung</li>
+            <li><b>8:</b> <span class="kbdtag">ST</span> Topas-Beschwörung</li>
+            <li><b>9:</b> <span class="kbdtag">ST</span> Smaragd-Beschwörung</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Ätherinfusion</li>
+            <li><b>STRG+2:</b> <span class="kbdtag">ST</span> Energieentzug</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schimmerschild</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li><b>Ruin → Ruinra</b> ist ein Upgrade auf derselben Taste. Nichts umlegen.</li>
+          <li><b>Rubin-Beschwörung</b> wird zu <b>Ifrit-Beschwörung</b> (Taste <b>7</b> bleibt deine „Feuer-Phase“).</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>ST / AoE bleibt gleich:</b></p>
+    <ul>
+      <li><b>ST:</b> Summon (7/8/9) → 2 (Juwelenschein) → 1 (Filler)</li>
+      <li><b>AoE:</b> Summon (7/8/9) → 5 (Edelglanz) → 4 (Filler)</li>
+    </ul>
+
+    <div class="note">
+      <b>Wenn du überfordert bist:</b> Ignoriere erstmal alles außer <b>1/2/4/5</b> + deine Summon-Tasten (7–9).
+      Damit bist du im Dungeon schon okay.
+    </div>
+  </details>
+
+  <details>
+    <summary>Level 35–57: Titan, Garuda &amp; Ätherfluss-AoE – du wirst im Dungeon sehr stabil</summary>
+
+    <p><b>Neue Skills in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Titan-Beschwörung</b> <span class="mono">(35)</span> – Erdphase wird „echter“.</li>
+      <li><b>Schmerzensflare</b> <span class="mono">(40)</span> – AoE-Ausgabe für Ätherfluss.</li>
+      <li><b>Garuda-Beschwörung</b> <span class="mono">(45)</span> – Windphase wird „echter“.</li>
+      <li><b>Ruinga</b> <span class="mono">(54)</span> kommt gleich – Upgrade deines Fillers.</li>
+    </ul>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong>
+      <ul style="margin-top:6px;">
+        <li><b>STRG+6</b> = <b>Schmerzensflare</b> (AoE-Ätherfluss-Ausgabe)</li>
+        <li><b>9</b> bleibt dein „Wind-Summon“ (Smaragd → Garuda). Taste bleibt.</li>
+      </ul>
+    </div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (Dungeon-Fokus)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Ruinra</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Juwelenschein</li>
+            <li><b>3:</b> <span class="kbdtag">ST</span> Schwäre</li>
+            <li><b>4:</b> <span class="kbdtag">AoE</span> Elementarkorona</li>
+            <li><b>5:</b> <span class="kbdtag">AoE</span> Edelglanz</li>
+            <li><b>7–9:</b> <span class="kbdtag">ST/AoE</span> Ifrit / Titan / Garuda</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Ätherinfusion</li>
+            <li><b>STRG+2:</b> <span class="kbdtag">ST</span> Energieentzug</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schimmerschild</li>
+            <li><b>STRG+6:</b> <span class="kbdtag">AoE</span> Schmerzensflare</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Neu: <b>AoE-Ätherfluss-Ausgabe</b> (STRG+6). Im Dungeon fühlt sich das sofort gut an.</li>
+          <li>Summon-Tasten bleiben gleich – nur die Namen/Optik werden „echter“.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>ST (Boss):</b> Summon → Spender (2) → Filler (1) + <b>Energieentzug</b> (STRG+2) → <b>Schwäre</b> (3) wenn sinnvoll.</p>
+    <p><b>AoE (Trash):</b> Summon → Spender (5) → Filler (4) + <b>Energieentzug</b> (STRG+2) → <b>Schmerzensflare</b> (STRG+6).</p>
+
+    <div class="note">
+      <b>DPS-Grundregel im Dungeon:</b> Bleib beim Tank, steh nicht vor den Gegnern, und mach AoE.
+      Wenn du stirbst, machst du 0 DPS – also ist „überleben“ immer der größte Schadens-Boost.
+    </div>
+  </details>
+
+  <details>
+    <summary>Level 58–69: Bahamut-Trance – der „Endgame-Rhythmus“ startet (Ruin wird zu Lichtimpuls)</summary>
+
+    <p><b>Neue Skills/Upgrades in diesem Abschnitt:</b></p>
+    <ul class="skills-new">
+      <li><b>Bahamut-Trance</b> <span class="mono">(58)</span> – große Phase (Ruin wird zu <b>Lichtimpuls</b>, Elementarkorona zu <b>Lichtflare</b>).</li>
+      <li><b>Energiesiphon</b> <span class="mono">(52)</span> – AoE-Version von Energieentzug (gleicher Cooldown).</li>
+      <li><b>Ruinga</b> <span class="mono">(54)</span> – Upgrade deines Fillers (Taste 1 bleibt).</li>
+    </ul>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong>
+      <ul style="margin-top:6px;">
+        <li><b>10</b> = <b>Bahamut-Trance</b></li>
+        <li><b>STRG+3</b> = <b>Energiesiphon</b> (optional – AoE-Ätherfluss holen)</li>
+      </ul>
+    </div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (Rhythmus ab 58)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Ruinga (oder Lichtimpuls in Trance)</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Juwelenschein</li>
+            <li><b>4:</b> <span class="kbdtag">AoE</span> Elementarkorona (oder Lichtflare in Trance)</li>
+            <li><b>5:</b> <span class="kbdtag">AoE</span> Edelglanz</li>
+            <li><b>7–9:</b> <span class="kbdtag">ST/AoE</span> Ifrit / Titan / Garuda</li>
+            <li><b>10:</b> <span class="kbdtag">ST</span> Bahamut-Trance</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Ätherinfusion</li>
+            <li><b>STRG+2:</b> <span class="kbdtag">ST</span> Energieentzug</li>
+            <li><b>STRG+3:</b> <span class="kbdtag">AoE</span> Energiesiphon (optional)</li>
+            <li><b>STRG+6:</b> <span class="kbdtag">AoE</span> Schmerzensflare</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Neu: Große Phase (Taste 10). Währenddessen „verwandeln“ sich deine Skills automatisch.</li>
+          <li>Für Anfänger: In Trance einfach <b>weiter die gleiche Taste drücken</b>. Das ist gewollt.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>Einsteiger-ST-Rotation (Boss):</b></p>
+    <ol>
+      <li><b>10</b> (Bahamut-Trance), wenn bereit.</li>
+      <li>Während der Trance: drück weiter <b>1</b> (wird zu Lichtimpuls) – und bleib am Boss dran.</li>
+      <li>Danach: Summons (7–9) → 2/1.</li>
+      <li>Ätherfluss: <b>STRG+2</b> → <b>3</b> (Schwäre), wenn passt.</li>
+    </ol>
+
+    <div class="note">
+      <b>Mini-Übung (Boss-Puppe):</b> Stell dich hin und mach 3× hintereinander:
+      <span class="mono">10 → (1 spammen) → 7 → 2/1 → 8 → 2/1 → 9 → 2/1</span>
+    </div>
+  </details>
+
+  <details>
+    <summary>Level 70–100: Endgame-Loop – Demi-Bahamut, Phönix, Sol-Bahamut (aber gleiche Tasten)</summary>
+
+    <p><b>Neue Skills/Upgrades in diesem Abschnitt (Auswahl):</b></p>
+    <ul class="skills-new">
+      <li><b>Akh Morn</b> <span class="mono">(70)</span> – starker Treffer während Demi-Bahamut.</li>
+      <li><b>Bahamut-Entflammung</b> <span class="mono">(70)</span> – ruft Akh Morn über Demi-Bahamut.</li>
+      <li><b>Rubin-/Topas-/Smaragd-Ritus</b> <span class="mono">(72)</span> – starke Element-Zauber.</li>
+      <li><b>Trisaster</b> <span class="mono">(74)</span> – sehr nützlich (wird später in Trancen zu anderen Skills).</li>
+      <li><b>Phönix-Beschwörung</b> <span class="mono">(80)</span> + <b>Schwingen der Unsterblichkeit</b> <span class="mono">(80)</span> – Support/Heilung.</li>
+      <li><b>Hohe Beschwörung</b> <span class="mono">(90)</span> – Upgrades der großen Summons (Rubin-Ifrit / Topas-Titan / Smaragd-Garuda).</li>
+      <li><b>Sol-Bahamut-Beschwörung</b> <span class="mono">(100)</span> + <b>Lux Solaris</b> <span class="mono">(100)</span> – neue Cap-Phase + Heilutility.</li>
+    </ul>
+
+    <div class="hotbar-update"><strong>Hotbar-Update:</strong>
+      <ul style="margin-top:6px;">
+        <li><b>6</b> = <b>Trisaster</b></li>
+        <li><b>11</b> = <b>Phönix-Beschwörung</b></li>
+        <li><b>10</b> bleibt „Bahamut-Button“ (am Cap wird daraus auch <b>Sol-Bahamut-Beschwörung</b>, wenn verfügbar).</li>
+        <li><b>STRG+8</b> (optional) = <b>Lux Solaris</b></li>
+      </ul>
+    </div>
+
+    <div class="hotbar-map">
+      <h4>Hotbar-Zuordnung (Endgame – stabil &amp; einsteigerfreundlich)</h4>
+      <div class="cols">
+        <div>
+          <b>Hotbar 1 (ohne STRG)</b>
+          <ul>
+            <li><b>1:</b> <span class="kbdtag">ST</span> Ruinga (oder Verwandlungen in Trancen)</li>
+            <li><b>2:</b> <span class="kbdtag">ST</span> Juwelenschein</li>
+            <li><b>3:</b> <span class="kbdtag">ST</span> Schwäre</li>
+            <li><b>4:</b> <span class="kbdtag">AoE</span> Elementarkorona</li>
+            <li><b>5:</b> <span class="kbdtag">AoE</span> Edelglanz</li>
+            <li><b>6:</b> <span class="kbdtag">AoE</span> Trisaster</li>
+            <li><b>7–9:</b> <span class="kbdtag">ST/AoE</span> (Rubin-)Ifrit / (Topas-)Titan / (Smaragd-)Garuda</li>
+            <li><b>10:</b> <span class="kbdtag">ST</span> Bahamut / Sol-Bahamut</li>
+            <li><b>11:</b> <span class="kbdtag">ST</span> Phönix</li>
+          </ul>
+        </div>
+        <div>
+          <b>Hotbar 2 (mit STRG)</b>
+          <ul>
+            <li><b>STRG+1:</b> <span class="kbdtag">ST</span> Ätherinfusion</li>
+            <li><b>STRG+2:</b> <span class="kbdtag">ST</span> Energieentzug</li>
+            <li><b>STRG+3:</b> <span class="kbdtag">AoE</span> Energiesiphon (optional)</li>
+            <li><b>STRG+4:</b> <span class="kbdtag">Def</span> Schimmerschild</li>
+            <li><b>STRG+6:</b> <span class="kbdtag">AoE</span> Schmerzensflare</li>
+            <li><b>STRG+8:</b> <span class="kbdtag">Def</span> Lux Solaris (optional)</li>
+            <li><b>STRG+12:</b> <span class="kbdtag">Def</span> Resuszitation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hotbar-changes">
+        <b>Änderungen in diesem Abschnitt:</b>
+        <ul style="margin-top:6px;">
+          <li>Du bekommst mehr „Cooles Zeug“, aber dein Kern bleibt: <b>1/2</b> für ST, <b>4/5</b> für AoE, <b>7–11</b> für Phasen.</li>
+          <li>Wenn du nur das sauber kannst, bist du für Story/Dungeons bestens gerüstet.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p><b>Einsteiger-Endgame-Plan (funktioniert in 95% aller Situationen):</b></p>
+    <ol>
+      <li>Wenn bereit: <b>10</b> (Bahamut/sol) oder <b>11</b> (Phönix) → währenddessen einfach deine gewohnten Tasten drücken (1/4 + passende Phase-Verwandlungen).</li>
+      <li>Danach: Summons (7–9) durchspielen → wieder große Phase.</li>
+      <li>AoE in Dungeons: <b>4/5</b> als Basis + <b>6</b> (Trisaster) wenn du sicher bist, dass es alles trifft.</li>
+      <li>Wenn jemand stirbt: <b>Resuszitation</b> (STRG+12) – du bist einer der Jobs, der das kann.</li>
+    </ol>
+
+    <div class="note">
+      <b>Häufige Fehler (und wie du sie vermeidest):</b>
+      <ul style="margin-top:6px;">
+        <li><b>ST im Trash:</b> Wenn 3+ Gegner da sind, zwing dich auf <b>4/5</b>.</li>
+        <li><b>GCD-Leerlauf:</b> Drück lieber „irgendeinen“ sinnvollen Filler (1 oder 4), statt nachzudenken und nichts zu drücken.</li>
+        <li><b>Zu weit weg:</b> Bleib in Reichweite (25y). Wenn du zu weit stehst, geht Zeit verloren.</li>
+      </ul>
+    </div>
+  </details>
+
+  <div class="note" style="margin-top:12px;">
+    <b>Mini-FAQ zu Beschwörer:</b><br/>
+    <b>„Ich sehe andere Skills als im Guide?“</b> – Viele Skills sind <b>Verwandlungen</b> (derselbe Slot, anderer Name in der Phase). Das ist normal.<br/>
+    <b>„Was ist, wenn ich nur 70% davon kann?“</b> – Dann bist du für Level-Dungeons trotzdem völlig okay. Wichtig ist: ST/AoE richtig trennen und nicht sterben.<br/>
+    <b>„Warum so wenige Tasten?“</b> – Weil Anfänger davon profitieren, wenn sie <b>konstante Tasten</b> haben. Später kannst du mehr Komfort-Skills ergänzen.
+  </div>
+<h3>Trainingsplan (wirklich für komplette Anfänger)</h3>
+  <p>
+    Wenn du noch nie ein PC-Spiel gespielt hast, hilft ein einfacher Plan enorm.
+    Mach dir keinen Stress – der Beschwörer funktioniert schon gut, wenn du „sauber und ruhig“ spielst.
+  </p>
+
+  <div class="glass-card" style="margin-top:10px;">
+    <h4 style="margin-top:0;">1) Erste Woche (Level 1–30): „Tasten finden“</h4>
+    <ul>
+      <li>Übe nur: <b>ST</b> = <b>1/2</b>, <b>AoE</b> = <b>4/5</b>, Summons = <b>7–9</b>.</li>
+      <li>Wenn du dich verläufst: Drück <b>1</b> (ST) oder <b>4</b> (AoE). Das ist immer okay.</li>
+      <li>Gewöhn dir an, <b>beim Zaubern kurz still zu stehen</b> – und beim Ausweichen erst laufen, dann wieder casten.</li>
+    </ul>
+
+    <h4>2) Woche zwei (Level 30–60): „Phasen erkennen“</h4>
+    <ul>
+      <li>Du merkst dir: <b>10</b> startet eine große Phase (Bahamut-Trance).</li>
+      <li>Während einer Phase gilt: <b>Tasten verwandeln sich automatisch</b>. Du musst nicht alles kennen – drück weiter deine Basis-Tasten.</li>
+      <li>Wenn du im Dungeon nervös wirst: Bleib beim Tank und spiele <b>AoE (4/5)</b>. Mehr ist nicht nötig.</li>
+    </ul>
+
+    <h4>3) Ab Level 70+: „Loop“</h4>
+    <ul>
+      <li>Dein Ziel ist nur noch: <b>Große Phase</b> (10/11) → <b>Summons</b> (7–9) → wieder große Phase.</li>
+      <li>Wenn jemand stirbt: <b>Resuszitation</b> (STRG+12) – das ist oft „wertvoller“ als 3 Sekunden mehr DPS.</li>
+    </ul>
+  </div>
+
+  <h3>Checkliste: Bin ich „bereit“ für Dungeons?</h3>
+  <div class="note">
+    Du bist absolut bereit, wenn du diese Punkte kannst:
+    <ul style="margin-top:6px;">
+      <li>Ich weiß: <b>3+ Gegner = AoE</b> (4/5). 1 Gegner = ST (1/2).</li>
+      <li>Ich bleibe <b>hinter</b> dem Tank, nicht davor, und stehe nicht in Flächen.</li>
+      <li>Ich kann im Notfall <b>Schimmerschild</b> drücken (STRG+4).</li>
+      <li>Ich habe <b>Resuszitation</b> irgendwo – und traue mich, sie zu nutzen, wenn es sicher ist.</li>
+    </ul>
+  </div>
+
+  <h3>Wenn du mehr willst: „Sauberer“ Burst ohne Stress</h3>
+  <p>
+    Später wirst du merken, dass manche Spieler bestimmte Fähigkeiten „perfekt“ timen.
+    Für Einsteiger reicht aber ein sehr einfacher Ansatz:
+  </p>
+  <ul>
+    <li><b>Ätherinfusion</b> (STRG+1) drücken, wenn sie bereit ist (nicht horten).</li>
+    <li><b>Energieentzug</b> (STRG+2) drücken, wenn bereit – und dann <b>Schwäre</b> (3) nutzen.</li>
+    <li>In Dungeons: Wenn du Ätherfluss hast, nutz ihn auch (ST: 3 / AoE: STRG+6).</li>
+  </ul>
+
+  <div class="note">
+    <b>Wichtig:</b> Du musst nicht „perfekt“ spielen, um ein guter Beschwörer zu sein.
+    Wenn du <b>konstant</b> deine richtigen ST/AoE-Tasten drückst und nicht stirbst, bist du für Story und Dungeons top.
+  </div>
+</section>
+
+      <!-- AoE -->
+      <section class="section anchor" id="aoe">
+<h2>AoE vs. Single Target – Wann umschalten &amp; warum</h2>
+  <p class="sub">
+    Die wichtigste „DPS-Regel“ für Anfänger ist nicht ein perfektes Burst-Fenster.
+    Es ist: <b>die richtige Zielart drücken</b>.
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Single Target (Boss / 1 Gegner)</h3>
+      <ul class="check">
+        <li>Filler: <b>Ruin/Ruinra/Ruinga</b> (Taste 1)</li>
+        <li>Wenn du Äther hast: <b>Juwelenschein</b> (Taste 3)</li>
+        <li>Beschwörungen nutzen, wenn du das passende Arkanum hast (Tasten 5/6 + Garuda)</li>
+        <li>Ätherfluss: <b>Energieentzug → Schwäre</b> (STRG+2 → STRG+3, je nach Belegung)</li>
+      </ul>
+      <p class="note">
+        Wenn du dich bewegen musst: Nutze <b>Spontaneität</b> (STRG+5) für einen Instant-Zauber oder fürs schnelle Wiederbeleben.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>AoE (Trash / 2+ Gegner)</h3>
+      <ul class="check">
+        <li>Filler: <b>Elementarkorona</b> (Taste 2)</li>
+        <li>Mit Äther: <b>Edelglanz</b> (Taste 4)</li>
+        <li>Ätherfluss-AoE: <b>Energiesiphon → Schmerzensflare</b> (wenn du es hast) </li>
+        <li>Beschwörungen sind sehr gut in Trash – nutze sie ohne Angst.</li>
+      </ul>
+      <p class="note">
+        Faustregel: <b>2 Gegner = AoE lohnt schon</b>. Wenn ein Pack fast tot ist (nur 1 Gegner übrig), geh zurück auf ST.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>„Ich bin mir unsicher, ob es 2 oder 3 Gegner sind…“</b><br>
+    Nimm als Anfänger die einfache Regel: Wenn du <b>mehr als einen Gegner</b> siehst, spiele AoE.
+    Selbst wenn es nicht 100% perfekt ist: Es ist <b>sehr</b> nah dran — und du bleibst ruhig.
+  </div>
+</section>
+
+      <!-- Pulls -->
+      <section class="section anchor" id="pulls">
+<h2>Dungeon-Pulls (Trust/Solo) – Wie du als Beschwörer entspannt spielst</h2>
+  <p class="sub">
+    Als DPS musst du keine Pull-Route planen — das macht (meist) der Tank. Deine Aufgabe ist: sauber folgen,
+    richtig umschalten (AoE vs ST) und nicht sterben.
+  </p>
+
+  <details open>
+    <summary>Standard-Verhalten im Trash (2+ Gegner)</summary>
+    <ul>
+      <li>Stell dich <b>hinter</b> oder <b>seitlich</b> vom Pack, nicht ganz vorne beim Tank.</li>
+      <li>Starte mit <b>AoE</b>: Elementarkorona (2) + Edelglanz (4) sobald du Äther hast.</li>
+      <li>Wenn du AoE-Schaden frisst (z.B. du stehst falsch): <b>Schimmerschild</b> früh drücken.</li>
+      <li>Bewegung: Lieber <b>kurze Schritte</b> zwischen Zaubern statt hektisch rumlaufen (Zauber abbrechen).</li>
+    </ul>
+    <p class="note">
+      Viele Anfänger sterben nicht, weil sie „zu wenig DPS“ machen, sondern weil sie beim Casten panisch laufen
+      und dann keine Zauber mehr durchbekommen. Ruhe = Schaden.
+    </p>
+  </details>
+
+  <div class="hr"></div>
+
+  <details open>
+    <summary>Boss-Verhalten (Single Target) – der sichere Plan</summary>
+    <ul>
+      <li>Stell dich so, dass du den Boss gut siehst und <b>nicht</b> direkt in der Mitte stehst.</li>
+      <li>Wenn eine große AoE kommt: Lauf erst raus, dann casten weiter. Wenn es knapp ist: <b>Spontaneität</b> für Instantcast.</li>
+      <li>Wenn der Heiler stirbt und es sicher ist: <b>Spontaneität → Resuszitation</b>. Das ist oft run-rettend.</li>
+    </ul>
+    <p class="note">
+      Du musst nicht „der Held“ sein: Wenn du beim Wiederbeleben selbst stirbst, bringt es niemandem etwas.
+      Erst Sicherheit, dann Res.
+    </p>
+  </details>
+
+  <div class="hr"></div>
+
+  <details open>
+    <summary>Trust/Solo (besonders anfängerfreundlich)</summary>
+    <ul>
+      <li>Trust ist perfekt, um <b>Hotbar-Muskelgedächtnis</b> aufzubauen.</li>
+      <li>Wenn du Fehler machst, ist es nicht schlimm – du lernst in Ruhe.</li>
+      <li>Übe bewusst 2 Dinge: <b>AoE-Umschalten</b> und <b>Slidecasting</b> (kurz vor Zauberende laufen).</li>
+    </ul>
+  </details>
+</section>
+
+      <!-- Gear -->
+      <section class="section anchor" id="gear">
+<h2>Gear während des Levelns – Wann lohnt Farmen wirklich?</h2>
+  <p class="sub">
+    Beim Beschwörer gilt wie bei allen Jobs: <b>Itemlevel</b> ist beim Leveln wichtiger als „perfekte Werte“.
+    Dein Schaden skaliert stark über Waffe + Hauptwerte.
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Die 4 wichtigsten Gear-Regeln (Levelphase)</h3>
+      <ul class="check">
+        <li><b>Waffe aktuell halten</b> (spürst du sofort im Schaden).</li>
+        <li><b>MSQ-Gear mitnehmen</b> (Questbelohnungen sind meist „genug“).</li>
+        <li>Dungeons nur farmen, wenn du wirklich Spaß daran hast oder ein Teil extrem hinterherhinkt.</li>
+        <li>Keine komplizierten Materia-Pläne fürs Leveln.</li>
+      </ul>
+      <p class="note">
+        Wenn du merkst, dass du in Dungeons ständig stirbst, ist das meistens Positionierung/Mechanik — nicht Gear.
+        Gear hilft, aber es ersetzt kein „aus AoEs raus“.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Was trage ich als Beschwörer?</h3>
+      <ul>
+        <li><b>Kampfmagier-/Caster-Gear</b> (INT-basierte Ausrüstung)</li>
+        <li>Schmuck: immer das höchste Itemlevel, das du sinnvoll tragen kannst</li>
+        <li>Wenn du mehrere Sets hast (z.B. vom MSQ): nimm das mit mehr Itemlevel</li>
+      </ul>
+      <p class="note">
+        Du musst beim Leveln nicht min-maxen. Ziel ist: „läuft stabil“, nicht „best in slot“.
+      </p>
+    </div>
+  </div>
+</section>
+
+      <!-- Macros -->
+      <section class="section anchor" id="macros">
+<h2>Makros &amp; “1-Button?” – Was sinnvoll ist (und was nicht)</h2>
+  <p class="sub">
+    In FFXIV sind Rotations-Makros fast immer schlechter als echte Eingaben:
+    Makros können keine saubere Skill-Queue nutzen, verlieren Zeit und machen dich langsamer.
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Was du NICHT machen solltest</h3>
+      <ul class="bad">
+        <li>Keine „Rotation auf 1 Taste“-Makros.</li>
+        <li>Kein Makro, das 5 Skills nacheinander drücken will.</li>
+        <li>Keine Makros für häufige GCD-Zauber (Ruin/Juwelenschein/Edelglanz).</li>
+      </ul>
+      <p class="note">
+        Wenn du das tust, fühlt sich der Job „laggy“ an — du verlierst freie DPS und Kontrolle.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Was sinnvoll sein kann (optional)</h3>
+      <ul class="check">
+        <li><b>Resuszitation</b>-Makro mit Zielpriorität (z.B. „target-of-target“ oder Fokusziel), wenn du später sicherer bist.</li>
+        <li>Ein Makro für Chat-Info („Ich resse Heiler“), aber nur, wenn du dich damit wohlfühlst.</li>
+      </ul>
+      <p class="note">
+        Für absolute Anfänger ist es völlig ok, <b>ohne Makros</b> zu spielen. Erst Hotbar-Muskelgedächtnis, dann Komfort.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>Merksatz:</b> Makros sind in FFXIV meistens für <b>Komfort</b>, nicht für <b>Rotation</b>.
+    Wenn du unsicher bist: weglassen.
+  </div>
+
+  <h2>FAQ (kurz &amp; praxisnah)</h2>
+  <details open>
+    <summary>„Ich breche ständig Zauber ab – was mache ich falsch?“</summary>
+    <p>
+      Du bewegst dich zu früh. Übe: <b>stehen bleiben → Zauber drücken → am Ende kurz laufen</b> (Slidecasting).
+      Nimm dir im Kampf 10 Sekunden Zeit und übe das bewusst, statt hektisch zu reagieren.
+    </p>
+  </details>
+  <div class="hr"></div>
+  <details open>
+    <summary>„Wann soll ich Resuszitation nutzen?“</summary>
+    <p>
+      Nur, wenn es <b>sicher</b> ist. Ideal: <b>Spontaneität</b> aktivieren, dann Resuszitation.
+      Wenn du dabei stirbst, verliert die Gruppe mehr, als sie gewinnt.
+    </p>
+  </details>
+</section>
+
+<section class="section anchor" id="faq">
+  <h2>FAQ (Einsteiger)</h2>
+  <div class="card">
+    <details>
+      <summary>Warum macht mein AoE so wenig?</summary>
+      <div class="muted" style="margin-top:8px;">
+        Häufig, weil du zu spät auf AoE wechselst oder deine Phase/Burst-Taste vergisst. Regel: ab 2+ Gegnern AoE, Burst nicht liegen lassen.
+      </div>
+    </details>
+    <details>
+      <summary>Ich muss viel laufen – verliere ich dann immer Schaden?</summary>
+      <div class="muted" style="margin-top:8px;">
+        Du verlierst nur dann viel, wenn du gar nicht mehr wirkst. Trick: kleine Schritte, dann wieder casten. Übung kommt schnell.
+      </div>
+    </details>
+  </div>
+</section>
+
+      <div class="footer">
+        Stand: Dawntrail 7.x • Sprache: DE • Fokus: Solo/Trust • Struktur: “pro Abschnitt komplett” •
+        Wenn du willst, erweitere ich als Nächstes dieselbe Tiefe für <b>Paladin</b>, <b>Revolverklinge</b> und <b>Beschwörer</b> als eigene Seiten.
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Simple on-page search (highlight + collapse helpers)
+    (function(){
+      const input = document.getElementById('search');
+      const clear = document.getElementById('clear');
+      const jumpLinks = document.querySelectorAll('.jump');
+
+      function normalize(s){ return (s||'').toLowerCase(); }
+
+      function clearHighlights(){
+        document.querySelectorAll('mark.__hit').forEach(m=>{
+          const t = document.createTextNode(m.textContent);
+          m.replaceWith(t);
+        });
+      }
+
+      function highlight(root, q){
+        if(!q) return 0;
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode(node){
+            if(!node.nodeValue) return NodeFilter.FILTER_REJECT;
+            const p = node.parentElement;
+            if(!p) return NodeFilter.FILTER_REJECT;
+            if(['SCRIPT','STYLE','NOSCRIPT'].includes(p.tagName)) return NodeFilter.FILTER_REJECT;
+            if(p.closest('mark.__hit')) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
+        let hits = 0;
+        const qn = normalize(q);
+        const nodes = [];
+        while(walker.nextNode()) nodes.push(walker.currentNode);
+
+        nodes.forEach(node=>{
+          const text = node.nodeValue;
+          const low = normalize(text);
+          const idx = low.indexOf(qn);
+          if(idx === -1) return;
+          const before = text.slice(0, idx);
+          const match  = text.slice(idx, idx+q.length);
+          const after  = text.slice(idx+q.length);
+
+          const frag = document.createDocumentFragment();
+          if(before) frag.appendChild(document.createTextNode(before));
+          const mark = document.createElement('mark');
+          mark.className='__hit';
+          mark.textContent = match;
+          mark.style.background = 'rgba(119,167,255,.22)';
+          mark.style.border = '1px solid rgba(119,167,255,.35)';
+          mark.style.borderRadius = '8px';
+          mark.style.padding = '0 4px';
+          frag.appendChild(mark);
+          if(after) frag.appendChild(document.createTextNode(after));
+          node.parentNode.replaceChild(frag, node);
+          hits++;
+        });
+
+        return hits;
+      }
+
+      function openRelevantDetails(q){
+        if(!q) return;
+        const qn = normalize(q);
+        document.querySelectorAll('details').forEach(d=>{
+          const t = normalize(d.innerText);
+          if(t.includes(qn)) d.open = true;
+        });
+      }
+
+      function onSearch(){
+        clearHighlights();
+        const q = input.value.trim();
+        if(!q) return;
+        openRelevantDetails(q);
+        highlight(document.body, q);
+      }
+
+      input.addEventListener('input', () => { onSearch(); });
+
+      clear.addEventListener('click', ()=>{
+        input.value='';
+        clearHighlights();
+      });
+
+      // smooth scroll
+      jumpLinks.forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          // allow default anchor navigation, but smooth it
+          e.preventDefault();
+          const id = a.getAttribute('href');
+          const el = document.querySelector(id);
+          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
